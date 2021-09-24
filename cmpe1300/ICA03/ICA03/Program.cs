@@ -16,12 +16,12 @@ namespace ICA03
 
             Console.WriteLine("The area of a circle with radius of {r} is {c}.");
 
-            Console.Write("Press")
+            Console.Write("Press");
 
 
+            //testing commit changes
 
-
-            Console.WriteLine("Hello World!");
+            Console.Read();
         }
     }
 }

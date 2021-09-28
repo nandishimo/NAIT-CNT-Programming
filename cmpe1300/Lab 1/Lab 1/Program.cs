@@ -6,7 +6,19 @@ namespace Lab_1
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            //Declare variables
+
+            //Set title
+
+            //Ask for user input (# of bytes)
+
+            //Calculate number of GB, MB, kB, and Bytes used
+
+            //Calculate cost for each category
+
+            //Display qty and cost, organized into coloumns including color change and lines
+
+            //Display additional fees and taxes and calculate final total
         }
     }
 }

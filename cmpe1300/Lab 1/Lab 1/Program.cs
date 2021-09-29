@@ -4,9 +4,9 @@ namespace Lab_1
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
-            //Declare variables
+            //Declare variables including given values
             string title = "Nandish Patel - Lab 1 - Cell Phone Data Calculator";
 
             int bPerG = 1073741824;
@@ -21,7 +21,6 @@ namespace Lab_1
             double sTotal;
             double sTotal2;
 
-            long bInput;
             long gTotal;
             long mTotal;
             long kTotal;
@@ -39,7 +38,7 @@ namespace Lab_1
 
             //Ask for user input (# of bytes)
             Console.Write("\nEnter the number of Bytes used: ");
-            long.TryParse(Console.ReadLine(), out bInput); //parse user input as long
+            long.TryParse(Console.ReadLine(), out long bInput); //parse user input as long
             
             //Calculate number of GB, MB, kB, and Bytes used
             gTotal = bInput / bPerG;            //integer division for GB

@@ -46,9 +46,9 @@ namespace ICA02
             twelve = cans / 12;
             six = cans % 12 / 6;
             single = cans % 12 % 6;
-            Console.WriteLine($"\n12-packs to purchase: {twelve} @ {ctwelve}:C = {(ctwelve * twelve):C}");
-            Console.WriteLine($"6-packs to purchase: {six} @ {csix}:C = {(csix * six):C}");
-            Console.WriteLine($"Single cans to purchase: {single} @ {csingle}:C = {(csingle * single):C}");
+            Console.WriteLine($"\n12-packs to purchase: {twelve} @ {ctwelve:C} = {(ctwelve * twelve):C}");
+            Console.WriteLine($"6-packs to purchase: {six} @ {csix:C} = {(csix * six):C}");
+            Console.WriteLine($"Single cans to purchase: {single} @ {csingle:C} = {(csingle * single):C}");
 
             //display total cost
             Console.WriteLine($"\nYour total cost is {(ctwelve * twelve + csix * six + csingle * single):C}!");

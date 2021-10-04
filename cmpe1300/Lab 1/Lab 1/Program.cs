@@ -8,10 +8,11 @@ namespace Lab_1
         {
             //Declare variables including given values
             string title = "Nandish Patel - Lab 1 - Cell Phone Data Calculator";
-
+            //Number of Bytes per Unit
             int bPerG = 1073741824;
             int bPerM = 1048576;
             int bPerK = 1024;
+            //Cost per Unit
             double cPerG = 12.00;
             double cPerM = 0.25;
             double cPerK = 0.02;
@@ -20,12 +21,12 @@ namespace Lab_1
             double sAccess = 6.95;
             double sTotal;
             double sTotal2;
-
+            //#of bytes for calcs
             long gTotal;
             long mTotal;
             long kTotal;
             long bTotal;
-
+            //cost of each byte type
             double gCost;
             double mCost;
             double kCost;
@@ -62,6 +63,7 @@ namespace Lab_1
             Console.WriteLine($"{bTotal}" + $"\tGB" + $"\t{cPerB:C}" + $"\t\t{bCost:C}");     //display values for Bytes
             Console.WriteLine("\t\t\t\t-------------");
 
+            //Was going to use something like the following for displaying data but I wasnt sure if we covered it in class
             //Console.WriteLine(string.Format("{0,-15}{1,-10}{2,-15}{3,-15}", "Amount", "Unit", "Cost/Unit", "Total"));
             //Console.WriteLine(string.Format("{0,-15}{1,-10}{2,-15}{3,-15}", $"\n{gTotal}", "GB", $"{cPerG:C}", $"{gCost:C}"));
             //Console.WriteLine(string.Format("{0,-15}{1,-10}{2,-15}{3,-15}", "Amount", "Unit", "Cost/Unit", "Total"));
@@ -69,11 +71,11 @@ namespace Lab_1
 
             //Display additional fees and taxes and calculate final total
 
-            sTotal = gCost + mCost + kCost + bCost;
+            sTotal = gCost + mCost + kCost + bCost; //subtotal calculation
             Console.WriteLine($"SubTotal:\t\t\t{sTotal:C}");
             Console.WriteLine($"\n911 Access Fee:\t\t\t{nineOneOne:C}");
             Console.WriteLine($"\nSystem Access Fee:\t\t{sAccess:C}");
-            sTotal2 = sTotal + nineOneOne + sAccess;
+            sTotal2 = sTotal + nineOneOne + sAccess; //subtotal plus fees
             Console.WriteLine($"\nTotal before GST:\t\t{sTotal2*0.05:C}");
             Console.WriteLine("\t\t\t\t-------------");
             Console.WriteLine($"Total for Data:\t\t\t{sTotal2 * 1.05:C}");

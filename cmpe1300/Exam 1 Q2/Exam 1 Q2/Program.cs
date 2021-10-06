@@ -15,8 +15,24 @@ namespace Exam_1_Q2
                 * Question Code: 775
 
                 *************************************/
-            
+
             //Title and variables
+            const double s = 0.05;
+            const double q = 0.12;
+            const double v = 0.17;
+
+            int nBottles;
+            int packs;
+            int singles;
+
+            double cPacks;
+            double cSingles;
+            double cTotal;
+            double cDisc;
+
+            string title = "Exam 1, Question 2 - Nandish Patel";
+            Console.SetCursorPosition(Console.WindowWidth / 2 - title.Length / 2, 0);
+
 
             //Ask user for # of energy drinks to purchase. Detect invalid inputs
 
@@ -30,7 +46,7 @@ namespace Exam_1_Q2
 
             //If a valid coupon was entered, display savings.
 
-            //end program
+            //End program
 
 
         }

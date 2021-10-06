@@ -15,7 +15,11 @@ namespace Exam_1
                 * Exam Code: 85,352
 
                 *************************************/
-            //Declare variables
+            //Write title and Declare variables
+            string title = "Exam 1, Question 1 - Nandish Patel";
+            Console.SetCursorPosition(Console.WindowWidth / 2 - title.Length / 2, 0);
+            Console.WriteLine(title);
+
             double Rout;
             double Rin;
             double Vout;
@@ -24,7 +28,7 @@ namespace Exam_1
 
             //Ask user for outer and inner ball radii
             //Validate inputs and exit program if invalid
-            Console.Write("Input radius of outer ball (cm): ");
+            Console.Write("\nInput radius of outer ball (cm): ");
             double.TryParse(Console.ReadLine(), out Rout);
             if (Rout <= 0)
             {

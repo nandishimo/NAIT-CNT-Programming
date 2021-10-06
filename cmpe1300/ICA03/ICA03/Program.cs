@@ -47,7 +47,7 @@ namespace ICA03
             //End program
             Console.Write("\nPress any key to exit: ");
 
-            Console.Readkey();
+            Console.ReadKey();
         }
     }
 }

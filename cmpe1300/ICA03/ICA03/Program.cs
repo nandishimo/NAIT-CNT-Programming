@@ -31,12 +31,12 @@ namespace ICA03
             if (type == "area") //checks which calculation the user wants and executes it.
             {
                 calc = Math.PI * rad * rad; //formula for area of circle
-                Console.WriteLine($"\nThe area of a circle with a radius of {rad} is {calc:F3}");
+                Console.WriteLine($"\nThe area of a circle with a radius of {rad} is {calc:F1}");
             }
             else if (type == "volume")
             {
                 calc = Math.PI * rad * rad * rad * 4 / 3; //formula for volume of sphere
-                Console.WriteLine($"\nThe volume of a sphere with a radius of {rad} is {calc:F3}");
+                Console.WriteLine($"\nThe volume of a sphere with a radius of {rad} is {calc:F1}");
             }
             else //invalid entry handling
             {

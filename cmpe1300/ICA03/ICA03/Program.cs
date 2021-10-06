@@ -19,24 +19,24 @@ namespace ICA03
             double.TryParse(Console.ReadLine(), out rad); //parses input as double and assigns it to variable. input will be zero if not a valid 'double'
             if (rad<=0) //checks if rad is less than or equal to zero. if so, exits program.
             {
-                Console.Write("\n\nThe number you have entered is invalid. Expecting a real number greater than 0. Press any key to exit: ");
+                Console.Write("\nThe number you have entered is invalid. Expecting a real number greater than 0. Press any key to exit: ");
                 Console.ReadKey();
                 System.Environment.Exit(1);
             }
 
-            Console.Write("\n\nPlease enter the desire calculation [area] or [volume]: "); //user selection
+            Console.Write("\nPlease enter the desire calculation [area] or [volume]: "); //user selection
             type = Console.ReadLine();
             type = type.ToLower(); //convert to lower case
 
             if (type == "area") //checks which calculation the user wants and executes it.
             {
                 calc = Math.PI * rad * rad; //formula for area of circle
-                Console.WriteLine($"\nThe area of a circle with a radius of {rad} is {calc:F1}");
+                Console.WriteLine($"\nThe area of a circle with a radius of {rad} units is {calc:F1} square units.");
             }
             else if (type == "volume")
             {
                 calc = Math.PI * rad * rad * rad * 4 / 3; //formula for volume of sphere
-                Console.WriteLine($"\nThe volume of a sphere with a radius of {rad} is {calc:F1}");
+                Console.WriteLine($"\nThe volume of a sphere with a radius of {rad} units is {calc:F1} square units.");
             }
             else //invalid entry handling
             {

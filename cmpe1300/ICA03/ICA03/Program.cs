@@ -40,7 +40,7 @@ namespace ICA03
             }
             else //invalid entry handling
             {
-                Console.WriteLine("You have not entered a valid calculation type. Expecting either [area] or [volume]. The program will now exit.");
+                Console.WriteLine("\nYou have not entered a valid calculation type. Expecting either [area] or [volume]. The program will now exit.");
             }
 
 

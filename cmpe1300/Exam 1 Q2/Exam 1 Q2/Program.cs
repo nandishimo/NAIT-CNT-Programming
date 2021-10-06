@@ -36,8 +36,14 @@ namespace Exam_1_Q2
             Console.WriteLine(title);
 
             //Ask user for # of energy drinks to purchase. Detect invalid inputs
-            Console.Write("Enter the number of energy drinks to purchase: ");
+            Console.Write("\nEnter the number of energy drinks to purchase: ");
             int.TryParse(Console.ReadLine(), out nDrinks);
+            if(nDrinks <=0)
+            {
+                Console.WriteLine("\nEnter a real number greater than zero. Press any key to exit . . . ");
+                Console.Read();
+                System.Environment.Exit(1);
+            }
 
             //Ask user for discount coupon. Invalid or no code means no discount.
             Console.Write("\nEnter your coupon code. Enter 'n' if no coupon: ");

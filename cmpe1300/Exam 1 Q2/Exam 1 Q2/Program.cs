@@ -44,7 +44,7 @@ namespace Exam_1_Q2
             int.TryParse(Console.ReadLine(), out nDrinks);
             if(nDrinks <=0)//invalid input handling for number of drinks
             {
-                Console.WriteLine("\nEnter a real number greater than zero. Press any key to exit . . . ");
+                Console.WriteLine("\nEnter a integer number greater than zero. Press any key to exit . . . ");
                 Console.Read();
                 System.Environment.Exit(1);
             }

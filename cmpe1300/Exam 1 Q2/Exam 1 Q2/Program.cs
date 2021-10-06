@@ -1,4 +1,13 @@
-﻿using System;
+﻿/* *************************************
+
+    * NANDISH PATEL
+
+    * LAB EXAM 1 Q2
+
+    * Question Code: 775
+
+    *************************************/
+using System;
 
 namespace Exam_1_Q2
 {
@@ -6,15 +15,7 @@ namespace Exam_1_Q2
     {
         static void Main(string[] args)
         {
-            /* *************************************
 
-                * NANDISH PATEL
-
-                * LAB EXAM 1 Q2
-
-                * Question Code: 775
-
-                *************************************/
 
             //Title and variables
 

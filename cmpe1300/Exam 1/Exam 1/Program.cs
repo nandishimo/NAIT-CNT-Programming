@@ -1,4 +1,13 @@
-﻿using System;
+﻿/* *************************************
+
+    * NANDISH PATEL
+
+    * LAB EXAM 1 Q1
+
+    * Exam Code: 85,352
+
+    *************************************/
+using System;
 
 namespace Exam_1
 {
@@ -6,15 +15,7 @@ namespace Exam_1
     {
         static void Main(string[] args)
         {
-            /* *************************************
 
-                * NANDISH PATEL
-
-                * LAB EXAM 1 Q1
-
-                * Exam Code: 85,352
-
-                *************************************/
             //Write title and Declare variables
             string title = "Exam 1, Question 1 - Nandish Patel";
             Console.SetCursorPosition(Console.WindowWidth / 2 - title.Length / 2, 0);

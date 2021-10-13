@@ -21,6 +21,11 @@ namespace ICA4
             Console.Write("\nYour selection is: ");
             userChoice = Console.ReadLine().ToLower();
 
+            switch (userChoice)
+            {
+
+            }
+
             //use RNG to determine computer's choice
             computerChoice=RPS[randomNumber.Next(0,2)];
 

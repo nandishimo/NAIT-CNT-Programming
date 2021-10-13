@@ -18,7 +18,7 @@ namespace ICA4
             Console.WriteLine("Please select your play from the following options:\n\n Paper\n Rock\n Scissors");
             Console.Write("\nYour selection is: ");
             userChoice = Console.ReadLine().ToLower();
-            if (userChoice!="rock"|| userChoice != "paper"|| userChoice != "scissors")
+            if (userChoice!="rock"&& userChoice != "paper"&& userChoice != "scissors")
             {
                 Console.Write("\nYou have entered an invalid response. The program will now exit...");
                 Console.ReadKey();

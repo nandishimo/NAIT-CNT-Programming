@@ -9,8 +9,8 @@ namespace ICA4
             //Declare variables
             string userChoice; //user input choice
             string computerChoice; //random choice
-            Random randomNumber = new Random();
-            string[] RPS = { "rock", "paper", "scissors" };
+            Random randomNumber = new Random(); //intialize randomNumber as Random variable
+            string[] RPS = { "rock", "paper", "scissors" }; //array for random number to pick RPS
 
             //display title
 
@@ -29,16 +29,16 @@ namespace ICA4
 
             //use RNG to determine computer's choice
             computerChoice=RPS[randomNumber.Next(0,3)]; //0=rock, 1=paper, 2=scissors
-            switch (computerChoice)
+            switch (computerChoice)//displays user and computer choices
             {
                 case "rock":
-                    Console.WriteLine($"Computer played rock and you played {userChoice}.");
+                    Console.WriteLine($"\nComputer played rock and you played {userChoice}.\n");
                     break;
                 case "paper":
-                    Console.WriteLine($"Computer played paper and you played {userChoice}.");
+                    Console.WriteLine($"\nComputer played paper and you played {userChoice}.\n");
                     break;
                 case "scissors":
-                    Console.WriteLine($"Computer played scissors and you played {userChoice}.");
+                    Console.WriteLine($"\nComputer played scissors and you played {userChoice}.\n");
                     break;
             }
 
@@ -46,8 +46,8 @@ namespace ICA4
             //display outcome
             switch (computerChoice)
             {
-                case "rock":
-                    switch (userChoice)
+                case "rock"://cases where computer chose rock
+                    switch (userChoice)//checks and displays RPS outcome for rock vs user choice
                     {
                         case "rock":
                             Console.WriteLine("Its a tie!");
@@ -60,8 +60,8 @@ namespace ICA4
                             break;
                     }
                     break;
-                case "paper":
-                    switch (userChoice)
+                case "paper"://cases where computer chose paper
+                    switch (userChoice)//checks and displays RPS outcome for paper vs user choice
                     {
                         case "rock":
                             Console.WriteLine("Paper covers rock, you lose.");
@@ -74,8 +74,8 @@ namespace ICA4
                             break;
                     }
                     break;
-                case "scissors":
-                    switch (userChoice)
+                case "scissors"://cases where computer chose scissors
+                    switch (userChoice)//checks and displays RPS outcome for scissors vs user choice
                     {
                         case "rock":
                             Console.WriteLine("Rock crushes scissors, you win!");
@@ -90,8 +90,9 @@ namespace ICA4
                     break;
             }
 
-                    //end program
-                    Console.Read();
+            //end program
+            Console.Write("\nPress any key to exit... ");
+            Console.Read();//pause for user input
         }
     }
 }

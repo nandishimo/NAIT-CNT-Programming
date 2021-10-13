@@ -28,7 +28,7 @@ namespace ICA4
 
 
             //use RNG to determine computer's choice
-            computerChoice=RPS[randomNumber.Next(0,2)]; //0=rock, 1=paper, 2=scissors
+            computerChoice=RPS[randomNumber.Next(0,3)]; //0=rock, 1=paper, 2=scissors
             switch (computerChoice)
             {
                 case "rock":

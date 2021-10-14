@@ -13,9 +13,12 @@ namespace ICA4
             string[] RPS = { "rock", "paper", "scissors" }; //array for random number to pick RPS
 
             //display title
+            string title = "Nandish Patel - ICA04";
+            Console.CursorLeft = Console.WindowWidth / 2 - title.Length / 2;
+            Console.WriteLine(title);
 
             //diplay RPS choices and ask for user input
-            Console.WriteLine("Please select your play from the following options:\n\n Paper\n Rock\n Scissors");
+            Console.WriteLine("\nPlease select your play from the following options:\n\n Paper\n Rock\n Scissors");
             Console.Write("\nYour selection is: ");
             userChoice = Console.ReadLine().ToLower();
             if (userChoice!="rock"&& userChoice != "paper"&& userChoice != "scissors")
@@ -92,7 +95,7 @@ namespace ICA4
 
             //end program
             Console.Write("\nPress any key to exit... ");
-            Console.Read();//pause for user input
+            Console.ReadKey();//pause for user input
         }
     }
 }

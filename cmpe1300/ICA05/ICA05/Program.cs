@@ -52,14 +52,16 @@ namespace ICA05
             D = D > 100 ? 100 : D;
 
             //limit x so circle is in window, modify if required
-            X = (X + D / 2) > 300 ? 300 - D / 2 : X;
-            X = (X - D / 2) < 0 ? 0 + D / 2 : X;
+            X = (X + (D / 2)) > 300 ? (300 - (D / 2)) : X;
+            X = (X - (D / 2)) < 0 ? (0 + (D / 2)) : X;
 
             //limit y so circle is in window, modify if required
-            Y = (Y + D / 2) > 300 ? 300 - D / 2 : Y;
-            Y = (Y - D / 2) < 0 ? 0 + D / 2 : Y;
+            Y = (Y + (D / 2)) > 300 ? (300 - (D / 2)) : Y;
+            Y = (Y - (D / 2)) < 0 ? (0 + (D / 2)) : Y;
 
             //use final values to display red circle to the window
+            Console.WriteLine($"\nDiamter is {D}.");
+            Console.WriteLine($"\nCenter coordinate is ({X},{Y}).");
             window.AddEllipse(X, Y, D, D, Color.Red);
 
             //pause program then exit

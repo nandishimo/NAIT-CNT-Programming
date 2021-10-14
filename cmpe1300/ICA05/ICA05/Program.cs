@@ -62,7 +62,7 @@ namespace ICA05
             //use final values to display red circle to the window
             Console.WriteLine($"\nDiamter is {D}.");
             Console.WriteLine($"\nCenter coordinate is ({X},{Y}).");
-            window.AddEllipse(X, Y, D, D, Color.Red);
+            window.AddEllipse(X-D/2, Y-D/2, D, D, Color.Red);
 
             //pause program then exit
 

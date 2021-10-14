@@ -12,6 +12,58 @@ namespace ICA05
     {
         static void Main(string[] args)
         {
+            //prgram title
+            string title = "Nandish Patel - ICA05\n";
+            Console.CursorLeft = Console.WindowWidth / 2 - title.Length / 2;
+            Console.WriteLine(title);
+
+            //create 300x300 drawer window
+            CDrawer window = new CDrawer(300, 300);
+
+            //user input a circle diameter. check for valid integer value. exit if not
+            Console.Write("Enter a integer circle diameter: ");
+            if (!int.TryParse(Console.ReadLine(), out int D))
+            {
+                Console.WriteLine("\nYou must enter a valid integer value. The program will now exit... ");
+                Console.ReadKey();
+                System.Environment.Exit(1);
+            }
+
+            //user input x center value as integer. check if valid, exit if not.
+            Console.Write("Enter a integer value for x-center: ");
+            if (!int.TryParse(Console.ReadLine(), out int X))
+            {
+                Console.WriteLine("\nYou must enter a valid integer value. The program will now exit... ");
+                Console.ReadKey();
+                System.Environment.Exit(1);
+            }
+
+            //user input y center value as integer. check if valid, exit if not.
+            Console.Write("Enter a integer value for y-center: ");
+            if (!int.TryParse(Console.ReadLine(), out int Y))
+            {
+                Console.WriteLine("\nYou must enter a valid integer value. The program will now exit... ");
+                Console.ReadKey();
+                System.Environment.Exit(1);
+            }
+
+            //limit diameter from 10to 100, modify if required
+            D = D < 10 ? 10 : D;
+            D = D > 100 ? 100 : D;
+
+            Console.
+
+            //limit x so circle is in window, modify if required
+
+            //limit y so circle is in window, modify if required
+
+            //use final values to display red circle to the window
+
+            //pause program then exit
+
+
+
+
 
         }
     }

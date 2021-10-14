@@ -65,7 +65,6 @@ namespace ICA05
             window.AddEllipse(X-D/2, Y-D/2, D, D, Color.Red); //draw elipse with final values
 
             //pause program then exit
-
             Console.WriteLine("\nPress any key to exit...");
 
             Console.ReadKey();

@@ -12,6 +12,11 @@ namespace ICA05
     {
         static void Main(string[] args)
         {
+            //Declare variables
+            int D;//diameter
+            int X;//X-center
+            int Y;//Y-center
+            
             //prgram title
             string title = "Nandish Patel - ICA05\n";
             Console.CursorLeft = Console.WindowWidth / 2 - title.Length / 2;
@@ -22,29 +27,29 @@ namespace ICA05
 
             //user input a circle diameter. check for valid integer value. exit if not
             Console.Write("Enter a integer circle diameter: ");
-            if (!int.TryParse(Console.ReadLine(), out int D))//grabs user input and parses as integer, exit program if not integer
+            if (!int.TryParse(Console.ReadLine(), out D))//grabs user input and parses as integer, exit program if not integer
             {
                 Console.WriteLine("\nYou must enter a valid integer value. The program will now exit... ");
                 Console.ReadKey();
-                System.Environment.Exit(1);
+                return;
             }
 
             //user input x center value as integer. check if valid, exit if not.
             Console.Write("Enter a integer value for x-center: ");
-            if (!int.TryParse(Console.ReadLine(), out int X))//grabs user input and parses as integer, exit program if not integer
+            if (!int.TryParse(Console.ReadLine(), out X))//grabs user input and parses as integer, exit program if not integer
             {
                 Console.WriteLine("\nYou must enter a valid integer value. The program will now exit... ");
                 Console.ReadKey();
-                System.Environment.Exit(1);
+                return;
             }
 
             //user input y center value as integer. check if valid, exit if not.
             Console.Write("Enter a integer value for y-center: ");
-            if (!int.TryParse(Console.ReadLine(), out int Y))//grabs user input and parses as integer, exit program if not integer
+            if (!int.TryParse(Console.ReadLine(), out Y))//grabs user input and parses as integer, exit program if not integer
             {
                 Console.WriteLine("\nYou must enter a valid integer value. The program will now exit... ");
                 Console.ReadKey();
-                System.Environment.Exit(1);
+                return;
             }
 
             //limit diameter from 10to 100, modify if required

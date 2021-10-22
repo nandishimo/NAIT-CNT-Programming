@@ -15,18 +15,25 @@ namespace ICA06
             //declare variables
             int size;
             int number;
+            int i;
             char cont;
+            Random random = new Random();
+            int xLocation = random.Next(0,600);
+            int yLocation = random.Next(0,600);
+            string title = "Nandish Patel - ICA06";
+
+            //Create GDIDrawer window of size 800x600
+            CDrawer window = new CDrawer(800, 600);
 
             //main do-while loop
             do
             {
                 //Display title
-                string title = "Nandish Patel - ICA06";
-                Console.CursorLeft = Console.WindowWidth / 2 - title.Length / 2;
+                Console.Clear(); //each loop clear console
+                Console.CursorLeft = Console.WindowWidth / 2 - title.Length / 2; //center title
                 Console.WriteLine(title);
 
-                //Create GDIDrawer window of size 800x600
-                CDrawer window = new CDrawer(800, 600);
+                window.Clear();//clear drawer window
 
                 //query square size from user from 10 to 200. validate as int. use a while loop with error message if invalid
                 Console.Write("\nPlease enter an integer from 10 to 200 for the square size: ");
@@ -42,13 +49,17 @@ namespace ICA06
                     Console.Write("\nYou must enter a valid integer greater than 0: ");
                 }
                 //draw squares of specified size and number in random colors at random locations in the GDIDrawer window
-                //window.AddRectangle(size, size, RandColor.GetColor());
-
+                i = 0;
+                while (i < number)
+                {
+                    window.AddRectangle(random.Next(0, 800 - size), random.Next(0, 600 - size), size, size, RandColor.GetColor());
+                    i++;
+                }
                 //repeat program in a do-while loop if user enters 'y' or 'Y'. clear the console andd GDIDrawer window
-                Console.Write("Would you like to run the program again? 'Y' or 'N'");
-                char.TryParse(Console.ReadLine(), out cont);
+                Console.Write("\nWould you like to run the program again? 'Y' or 'N' ");
+                cont = Console.ReadKey().KeyChar;
+
             } while (cont == 'y' || cont == 'Y');
-            Console.Read();
 
         }
     }

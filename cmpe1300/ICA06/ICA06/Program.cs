@@ -13,14 +13,12 @@ namespace ICA06
         static void Main(string[] args)
         {
             //declare variables
-            int size;
-            int number;
-            int i;
-            char cont;
-            Random random = new Random();
-            int xLocation = random.Next(0,600);
-            int yLocation = random.Next(0,600);
-            string title = "Nandish Patel - ICA06";
+            int size; //size of squares to ddraw
+            int number; //number of squares to draw
+            int i; //counter
+            char cont; //variable to check for rerunning program
+            Random random = new Random(); //random number generator
+            string title = "Nandish Patel - ICA06"; //title var
 
             //Create GDIDrawer window of size 800x600
             CDrawer window = new CDrawer(800, 600);
@@ -36,14 +34,14 @@ namespace ICA06
                 window.Clear();//clear drawer window
 
                 //query square size from user from 10 to 200. validate as int. use a while loop with error message if invalid
-                Console.Write("\nPlease enter an integer from 10 to 200 for the square size: ");
-                while (!int.TryParse(Console.ReadLine(), out size) || size < 10 || size > 200)
+                Console.Write("\nPlease enter an integer from 10 to 200 for the square size: ");//stuck in loop as long as input is invalid
+                while (!int.TryParse(Console.ReadLine(), out size) || size < 10 || size > 200) 
                 {
                     Console.Write("\nYou must enter a valid integer between 10 and 200: ");
                 }
 
                 //query number of squares to draw as integer. check if valid and greater than zero. use a while loop with error message if invalid
-                Console.Write("\nPlease enter a positive integer for number of squares you would like drawn: ");
+                Console.Write("\nPlease enter a positive integer for number of squares you would like drawn: ");//stuck in loop as long as input is invalid
                 while (!int.TryParse(Console.ReadLine(), out number) || number < 1)
                 {
                     Console.Write("\nYou must enter a valid integer greater than 0: ");
@@ -57,7 +55,7 @@ namespace ICA06
                 }
                 //repeat program in a do-while loop if user enters 'y' or 'Y'. clear the console andd GDIDrawer window
                 Console.Write("\nWould you like to run the program again? 'Y' or 'N' ");
-                cont = Console.ReadKey().KeyChar;
+                cont = Console.ReadKey().KeyChar;//reads key without waiting for user to hit enter
 
             } while (cont == 'y' || cont == 'Y');
 

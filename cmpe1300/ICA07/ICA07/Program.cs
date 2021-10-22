@@ -14,6 +14,7 @@ namespace ICA07
             string title = "Nandish Patel - ICA07";
             int nGrades;
             Random randGrade = new Random();
+            int i;
 
             do
             {
@@ -30,10 +31,14 @@ namespace ICA07
 
 
                 //Using a do -while loop, generate the number of double grades in the range of 0.0 to 100.0 and display each grade using one decimal place as shown below.
+                i = 0;
+                double[] grades= new double[nGrades];
                 do
                 {
+                    grades[i] = 100 * randGrade.NextDouble();
+                    i++;
 
-                } while ();
+                } while (i < nGrades)
 
 
                 //Display the average of the grades with one decimal place of accuracy.
@@ -45,7 +50,7 @@ namespace ICA07
                 //Using a do -while loop, repeat the program if the user enters ‘y’ or ‘Y’. Clear the Console window.
 
 
-            }
+            } while ();
         }
     }
 }

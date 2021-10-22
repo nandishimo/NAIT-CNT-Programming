@@ -49,11 +49,11 @@ namespace ICA06
                     Console.Write("\nYou must enter a valid integer greater than 0: ");
                 }
                 //draw squares of specified size and number in random colors at random locations in the GDIDrawer window
-                i = 0;
+                i = 0;//set count to zero
                 while (i < number)
                 {
-                    window.AddRectangle(random.Next(0, 800 - size), random.Next(0, 600 - size), size, size, RandColor.GetColor());
-                    i++;
+                    window.AddRectangle(random.Next(0, 800 - size), random.Next(0, 600 - size), size, size, RandColor.GetColor()); //draws random coloured squares in random locations but not off screen
+                    i++;//increase counter
                 }
                 //repeat program in a do-while loop if user enters 'y' or 'Y'. clear the console andd GDIDrawer window
                 Console.Write("\nWould you like to run the program again? 'Y' or 'N' ");

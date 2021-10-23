@@ -12,9 +12,15 @@ namespace ICA07
         {
             //Declare Variables
             string title = "Nandish Patel - ICA07";
+            bool input;
             int nGrades;
             Random randGrade = new Random();
             int i;
+            int f;
+            string dGrades;
+            double grade;
+            double sumGrades;
+            char cont;
 
             do
             {
@@ -26,31 +32,46 @@ namespace ICA07
                 //Input number of grades to generate as an int. Check that the value is valid int from 5 to 10.
                 //If invalid,display an error message and use a do -while loop to perform the input operation again. Display different error messages if the value is invalid, too low or too high.
                 Console.Write("\nEnter number of grades to generate (from 5 to 10): ");
-                int.TryParse(Console.ReadLine(), out nGrades);
-
+                do
+                {
+                    input = int.TryParse(Console.ReadLine(), out nGrades);
+                    if (!input)
+                        Console.Write("Your entry is not a valid integer. Try again: ");
+                    else if (nGrades < 5)
+                        Console.Write("The value you entered is too small. Try again: ");
+                    else if (nGrades > 10)
+                        Console.Write("The value you entered is too large. Try again: ");
+                } while (!input||nGrades<5||nGrades>10); 
 
 
                 //Using a do -while loop, generate the number of double grades in the range of 0.0 to 100.0 and display each grade using one decimal place as shown below.
                 i = 0;
-                double[] grades= new double[nGrades];
+                f = 0;
+                dGrades = "";
+                sumGrades = 0;
                 do
                 {
-                    grades[i] = 100 * randGrade.NextDouble();
+                    grade = 100 * randGrade.NextDouble();
+                    if (grade < 50) 
+                        f++;
+                    dGrades = (dGrades + $"{grade:F1} ");
+                    sumGrades = sumGrades + grade;
                     i++;
 
-                } while (i < nGrades)
-
+                } while (i < nGrades);
+                Console.WriteLine($"\nHere are the generated grades...\n\n{dGrades}");
 
                 //Display the average of the grades with one decimal place of accuracy.
-
+                Console.WriteLine($"\nThe average grade was {sumGrades / nGrades:F1}%");
 
                 //Display the number of failing grades.
-
+                Console.WriteLine($"There were {f} failures.");
 
                 //Using a do -while loop, repeat the program if the user enters ‘y’ or ‘Y’. Clear the Console window.
+                Console.Write("\nRun the program again? ( Y / N )");
+                cont = Console.ReadKey().KeyChar;//reads key without waiting for user to hit enter
 
-
-            } while ();
+            } while (cont=='y'||cont=='Y');
         }
     }
 }

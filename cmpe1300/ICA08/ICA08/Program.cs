@@ -29,11 +29,29 @@ namespace ICA08
 
                 //input the shape size as integer. check for valid input from 5 to 25.
                 //if invalid use loop to display error messages and get new input
-                Console.Write("Please enter a size from 5 to 25: ");
-                
+                Console.Write("Please enter a shape size from 5 to 25: ");
+                do
+                {
+                    input = int.TryParse(Console.ReadLine(), out size);
+                    if (!input)
+                        Console.Write("You must enter a valid integer. Try again: ");
+                    else if (size < 5)
+                        Console.Write("The shape size is too small. Try again: ");
+                    else if (size > 25)
+                        Console.Write("The shape size is too large. Try again: ");
+                    
+                } while (!input || size < 5 || size > 25); ;
+
                 //input the type of shape as "line" "square" or "triangle". use loop to force user to enter a correct shape
-                Console.Write("Please enter a shape (line, square, or triangle): ");
-                shape = Console.ReadLine();
+                do
+                {
+                    Console.Write("\nPlease enter a shape (line, square, or triangle): ");
+                    shape = Console.ReadLine();
+                    if (shape != "line")
+                        if(shape != "square")
+                            if(shape != "triangle")
+                                Console.Write("You have entered an invalid shape.");
+                } while (shape!="line"&& shape != "square"&& shape != "triangle");
 
                 //draw the shape using for loops with the '*' character
                 if (shape=="line")

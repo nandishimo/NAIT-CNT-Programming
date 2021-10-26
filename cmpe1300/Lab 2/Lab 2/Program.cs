@@ -14,15 +14,36 @@ namespace Lab_2
         static void Main(string[] args)
         {
             //declare variable
-
+            int xBall = 2;
+            int yBall = 59;
+            int xVel = 1;
+            int yVel = 1;
+            Point mPos;
 
             //use gdidrawer with continuous update mode off and scale of 5. windows size of 160x120
             //ball as rectangle with size 2, paddle is line with thickness 10
             //three table edgesdrawn on background
-            CDrawer game = new CDrawer(800, 600/*, false*/);
+            CDrawer game = new CDrawer(800, 600, false);
             game.Scale = 5;
 
-            game.AddLine(0, 55, 0, 65, Color.Blue, 10);
+            while (xBall > 0)
+            {
+                game.GetLastMousePositionScaled(out mPos);
+                game.AddLine(0, mPos.Y-5, 0, mPos.Y + 5, Color.Blue, 10);
+                game.AddRectangle(xBall, yBall, 2, 2, Color.Red);
+                game.Render();
+                System.Threading.Thread.Sleep(10);
+                game.Clear();
+                if (xBall > 158)
+                    xVel = -xVel;
+                if (xBall < 2 && yBall < mPos.Y + 6 && yBall > mPos.Y - 8)
+                    xVel = -xVel;
+                if (yBall > 118 || yBall < 1)
+                    yVel = -yVel;
+
+                xBall += xVel;//update ball position
+                yBall += yVel;//update ball position
+            }
 
             //loop to animate ball and move the paddle with time delay of 20ms
             //create ball with position x,y and velocty xVel and yVel

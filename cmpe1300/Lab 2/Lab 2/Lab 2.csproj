@@ -56,9 +56,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="GDIDrawer.dll" />
+    <Content Include="GDIDrawer\GDIDrawer.dll" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="GDIDrawer\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

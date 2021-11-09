@@ -22,6 +22,7 @@ namespace Lab_2
             int score = 0;
             int bbX;
             int bbY;
+            Point clickPos;
 
             Point mPos;
 
@@ -46,14 +47,15 @@ namespace Lab_2
             while (xBall > 0)
             {
                 //y position of mouse will determine paddle position, read every animation loop to move the paddle
+                game.Clear();
                 game.GetLastMousePositionScaled(out mPos);
                 game.AddLine(0, mPos.Y-5, 0, mPos.Y + 5, Color.Blue, 10);
                 //create ball with position x,y and velocty xVel and yVel
                 game.AddRectangle(xBall, yBall, 2, 2, Color.Red);
-                game.Render();
-                System.Threading.Thread.Sleep(10); //time delay of 10ms
-                game.Clear();
                 game.AddText($"Score: {score}", 100, Color.DarkSlateGray);
+                game.Render();
+                //System.Threading.Thread.Sleep(10); //time delay of 10ms
+                
                 //ball bounces off the paddle and walls in opposite directionby 90deg
                 if (xBall > 158)
                     xVel = -xVel;
@@ -72,9 +74,15 @@ namespace Lab_2
                 yBall += yVel;//update ball position
             }
 
-            
 
-            //display two buttons "play again" and "quit". buttons to be clicked
+            //display two buttons "play again" and "quit" buttons to be clicked
+            game.AddRectangle(50, 100, 20, 10, Color.Green, 1,Color.Green);
+            game.AddText("Play Again", 10, 50, 100, 20, 10, Color.White);
+            game.AddRectangle(90, 100, 20, 10);
+            game.AddText("Quit", 10, 90, 100, 20, 10, Color.White);
+            game.Render();
+            game.GetLastMouseLeftClickScaled(out clickPos);
+            //if (clickPos.X<70 && clickPos.X>50  
 
 
             Console.Read();

@@ -74,7 +74,7 @@ namespace ICA09
                 i = 0;
                 foreach (char ch in pass)
                 {
-                    if (char.IsSymbol(ch))//
+                    if (char.IsSymbol(ch))//counter for symbols
                         i++;
                 }
                 if (i == 0)//password fails if no symbols
@@ -87,7 +87,7 @@ namespace ICA09
                 i = 0;
                 foreach (char ch in pass)
                 {
-                    if (char.IsWhiteSpace(ch))
+                    if (char.IsWhiteSpace(ch))//counter for spaces and tabs
                         i++;
                 }
                 if (i != 0)//password fails if it contains spaces or tabs

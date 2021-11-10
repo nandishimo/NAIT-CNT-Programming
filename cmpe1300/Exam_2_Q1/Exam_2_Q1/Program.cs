@@ -77,12 +77,10 @@ namespace Exam_2_Q1
                     }
                 } while (!valid);
 
-
             }
 
-
-
-            Console.Read();
+            Console.Write("\nPress any key to exit.");
+            Console.ReadKey();
             //exit program after specified runs and upon pressing a key
 
 

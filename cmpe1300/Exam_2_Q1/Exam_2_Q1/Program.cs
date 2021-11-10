@@ -30,6 +30,7 @@ namespace Exam_2_Q1
             string sentence;
             string display;
             bool valid = false;
+            const string star = "*";
 
             //display title
             Console.CursorLeft = Console.WindowWidth / 2 - title.Length / 2;
@@ -53,13 +54,19 @@ namespace Exam_2_Q1
                 {
                     Console.Write($"\nEnter sentence #{i+1}: ");
                     sentence = Console.ReadLine();
+                    //user can enter *(constant) to use the default sentence 'I like to eat 3 pies'
+                    if (sentence == star)
+                        sentence = "I like to eat 3 pies";
                     foreach(char ch in sentence)
                     {
                         if (char.IsDigit(ch))
                         {
+                            //sentence must include a number to be valid
                             valid = true;
                             display = "";
-                            j = ch;
+                            j = ch-48;
+                            //each number n found in the sentence must be displayed n number of times
+                            //foreach loop
                             for (k = 0; k < j; k++)
                             {
                                 display = (display + $"{ch}");
@@ -69,14 +76,6 @@ namespace Exam_2_Q1
 
                     }
                 } while (!valid);
-                
-
-                //sentence must include a number to be valid
-                //user can enter *(constant) to use the default sentence 'I like to eat 3 pies'
-                //each number n found in the sentence must be displayed n number of times
-                //foreach loop
-                //each digit character stored as int and displayed that many times
-
 
 
             }

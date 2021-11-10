@@ -11,11 +11,13 @@ namespace ICA09
         static void Main(string[] args)
         {
             //declare variables
-            string pass;
+            string pass;//password
             string title = "ICA09 - Nandish Patel";
-            int i = 0;
-            bool valid = false;
+            int i = 0;//counter
+            bool valid = false;//password valid?
             string rerun;
+            char first='x';
+            bool diff;
 
 
             do
@@ -27,7 +29,7 @@ namespace ICA09
 
                 do
                 {
-                    valid = true;
+                    valid = true;//sets password to be valid and each failure condition can change this so false
                     //user inputs a password
                     Console.Write("Please enter a password: ");
                     pass = Console.ReadLine();
@@ -38,7 +40,7 @@ namespace ICA09
                     {
                         i++;
                     }
-                    if (i < 7)
+                    if (i <= 7)//password fails if length is seven or less
                     {
                         Console.WriteLine("Password must be minimum 8 characters in length.");
                         valid = false;
@@ -51,10 +53,10 @@ namespace ICA09
                         if (char.IsUpper(ch))
                             i++;
                     }
-                    if (i == 0)
+                    if (i == 0)//password fails if no uppercase letters
                     {
                         Console.WriteLine("Password must contain at least one uppercase letter.");
-                        valid = false; ;
+                        valid = false;
                     }
 
                     //one lowercase character
@@ -64,15 +66,64 @@ namespace ICA09
                         if (char.IsLower(ch))
                             i++;
                     }
-                    if (i == 0)
+                    if (i == 0)//password fails if no lowercase letters
+                    {
                         Console.WriteLine("Password must contain at least one lowercase letter.");
+                        valid = false;
+                    }
+                        
                     //one symbol character
+                    i = 0;
+                    foreach (char ch in pass)
+                    {
+                        if (char.IsSymbol(ch))
+                            i++;
+                    }
+                    if (i == 0)//password fails if no symbols
+                    {
+                        Console.WriteLine("Password must contain at least one symbol.");
+                        valid = false;
+                    }
+
                     //no space or tab characters
+                    i = 0;
+                    foreach (char ch in pass)
+                    {
+                        if (char.IsWhiteSpace(ch))
+                            i++;
+                    }
+                    if (i != 0)//password fails if it contains spaces or tabs
+                    {
+                        Console.WriteLine("Password must not contain any spaces or tabs.");
+                        valid = false;
+                    }
+                        
                     //at least two different numbers
+                    //first check for numbers and store the first number in a variable
+                    //check each number against the stored one as you count
+                    i = 0;
+                    diff = false;
+                    foreach (char ch in pass)
+                    {
+                        if (char.IsDigit(ch))
+                        {
+                            if (i == 0)
+                                first = ch;//stores first character in different variable
+                            i++;//adds to counter 
+                            if (!first.Equals(ch))//checks each digit against the first
+                                diff = true;
+                        }
 
-                    //display message if password is acceptable
+                    }
+                    if (i < 2 || !diff)//less than 2 numbers or not different numbers triggers this fail condition
+                    {
+                        Console.WriteLine("Password must contain at least two different numbers.");
+                        valid = false;
+                    }
+                    
                 } while (!valid);
-
+                //display message if password is acceptable
+                Console.WriteLine($"The password {pass} is valid.");
                 //loop program as long as user desires
                 Console.Write("Run program again? (Y/N): ");
                 rerun = Console.ReadLine();

@@ -13,6 +13,7 @@ namespace Lab_2
     {
         static void Main(string[] args)
         {
+            //declare variables
             bool again = true;
             int xBall;
             int yBall;
@@ -42,14 +43,12 @@ namespace Lab_2
             do
             {
 
-
-                //declare variable
                 //balls starts on left side and moves right
                 xBall = 2;
                 yBall = 59;
                 xVel = 1;
                 yVel = 1;
-                score = 0;
+                score = 0;//score starts at zero
                 
                 //loop to animate ball and move the paddle with time delay of 20ms
                 //game ends when ball exits left side of game board
@@ -68,17 +67,17 @@ namespace Lab_2
                     
 
                     //ball bounces off the paddle and walls in opposite directionby 90deg
-                    if (xBall > 158)
+                    if (xBall > 158)//flip x velocity at right wall
                         xVel = -xVel;
 
                     if (xBall < 2 && yBall < mPos.Y + 6 && yBall > mPos.Y - 8)
                     {
-                        xVel = -xVel;
+                        xVel = -xVel;//flip x velocity at paddle
                         //paddle bounces increase score by 1
                         score++;
                     }
 
-                    if (yBall > 118 || yBall < 1)
+                    if (yBall > 118 || yBall < 1)//flip y velocity at top and bottom walls
                         yVel = -yVel;
 
                     xBall += xVel;//update ball position
@@ -93,20 +92,19 @@ namespace Lab_2
                 game.AddText("Quit", 10, 90, 100, 20, 10, Color.White);
                 game.Render();
                 selection = false;
-
-                while (!selection)
+                while (!selection)//loop to check if a button is clicked and which one
                 {
                     clickPos = new Point(0,0);
-                    if(game.GetLastMouseLeftClickScaled(out clickPos))
+                    if(game.GetLastMouseLeftClickScaled(out clickPos))//if mouse is clicked enter the nest
                     {
-                        if (clickPos.Y > 99 && clickPos.Y < 111)
+                        if (clickPos.Y > 99 && clickPos.Y < 111)//if click is matching vertical location of buttons continue into nest
                         {
-                            if (clickPos.X > 49 && clickPos.X < 71)
+                            if (clickPos.X > 49 && clickPos.X < 71)//if click is overlapping play again button
                             {
                                 selection = true;
                                 again = true;
                             }
-                            if (clickPos.X > 89 && clickPos.X < 101)
+                            if (clickPos.X > 89 && clickPos.X < 101)//if click is overlapping quit button
                             {
                                 selection = true;
                                 again = false;
@@ -115,9 +113,9 @@ namespace Lab_2
                     }
                 }
 
-            } while (again);
+            } while (again);//play again if play again button was clicked
 
-            game.Close();
+            game.Close();//close window when loop exits (quit is clicked)
         }
     }
 }

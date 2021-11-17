@@ -18,53 +18,95 @@ namespace ICA10
         {
             //declare variables
             string title = "Nandish Patel - ICA10";
+            int spacing;
+            double length;
+            double angle;
+            int X;
+            int Y;
             //title
             Console.CursorLeft = Console.WindowWidth / 2 - title.Length / 2;
             Console.WriteLine(title);
-            //
+            Console.Write("Enter spacing: ");
+            spacing = GetInt(Console.ReadLine(), 5, 100);
+            Console.Write("Enter length: ");
+            length = GetDouble(Console.ReadLine(), 5, 100);
+            Console.Write("Enter angle in degrees: ");
+            angle = Deg2Rad(GetDouble(Console.ReadLine(), 0, 360));
+            CDrawer window = new CDrawer();
+
+            for(X=0;X<window.ScaledWidth; X+=spacing)
+                for(Y=0;Y<window.ScaledHeight;Y+=spacing)
+                {
+                    DrawStar(window, X, Y, length, angle);
+                }
+
+
+            Console.Read();
         }
 
         //GetInt() method iwth 3 parameters (input, minimum value, maximum value
-        static private int GetInt(int input, int min, int max)
+        static private int GetInt(string input, int min, int max)
         {
             //prompt user for a value to return to calling code
             //force user to input a valid integer within range
             //use loop
-            bool valid = false;
+            int integer = 0;
             do
             {
-                Console.Write("Please enter an integer value between  a and b: ");
-                valid = int.TryParse(Console.ReadLine(), out input);
-                if(!valid)
+                int.TryParse(input, out integer);
+                if (integer<min || integer>max)
                 {
-                    Console.WriteLine("The input is invalid");
+                    Console.Write($"The input is invalid, please enter a value from {min} to {max}: ");
+                    input = Console.ReadLine();
                 }
-            } while(!valid);
+            } while (integer < min || integer > max);
+            return integer;
         }
 
 
         //GetDouble() method with 3 parameters (input, min value, max value)
-        static private double GetDouble()
+        static private double GetDouble(string input, double min, double max)
         {
-        //prompt user for a value to return to calling code
-        //force user to input a valid double within range
-        //use loop
+            //prompt user for a value to return to calling code
+            //force user to input a valid double within range
+            //use loop
+            double Dub = 0;
+            do
+            {
+                double.TryParse(input, out Dub);
+                if (Dub < min || Dub > max)
+                {
+                    Console.Write($"The input is invalid, please enter a value from {min} to {max}: ");
+                    input = Console.ReadLine();
+                }
+            } while (Dub < min || Dub > max);
+            return Dub;
         }
 
 
         //Deg2Rad() method
-        static private double Deg2Rad()
+        static private double Deg2Rad(double input)
         {
-        //passed a double value from main
-        //performs calculation and returns angle in radians to main
+            double Rad = input * Math.PI / 180;
+            //passed a double value from main
+            //performs calculation and returns angle in radians to main
+            return Rad;
         }
 
 
-        //DrawStars method
-        static private void DrawStars()
+        //DrawStar method
+        static private void DrawStar(CDrawer window,int X, int Y, double length, double angle)
         {
-        //pass from main: GDIDrawer window as CDrawer, center point x-axis and y-axis for star,
-        //double line length for lines in star, double increment value in degrees
+            //pass from main: GDIDrawer window as CDrawer, center point x-axis and y-axis for star,
+            //double line length for lines in star, double increment value in degrees
+            Point center = new Point(X, Y);
+            Random rand = new Random();
+            int i;
+            for (i = 0; i < 100; i++)
+            {
+                window.AddLine(center, length, angle, Color.FromArgb(rand.Next()));
+                angle += angle;
+            }
         }
 
     }

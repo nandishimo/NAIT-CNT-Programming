@@ -33,5 +33,36 @@ namespace ICA12
 
             Console.ReadKey();
         }
+        //GetValue(out int, string)
+        //
+        static private void GetValue(out int iTest, string input)
+        {
+            throw new NotImplementedException();
+        }
+
+        static private void GetValue(out int iTest, string input, int min)
+        {
+            throw new NotImplementedException();
+        }
+
+        static private void GetValue(out int iTest, string input, int min, int max)
+        {
+            throw new NotImplementedException();
+        }
+
+        static private void GetValue(out double dTest, string input)
+        {
+            throw new NotImplementedException();
+        }
+
+        static private void GetValue(out double dTest, string input, double min)
+        {
+            throw new NotImplementedException();
+        }
+
+        static private void GetValue(out double dTest, string input, double min, double max)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

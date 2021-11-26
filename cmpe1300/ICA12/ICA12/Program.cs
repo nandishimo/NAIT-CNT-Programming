@@ -34,8 +34,8 @@ namespace ICA12
             Console.ReadKey();
         }
         //GetValue(out int, string)
-        //displayer request string, grab user input
-        //error handling
+        //display request string, grab user input
+        //error handling (parse)
         static private void GetValue(out int iTest, string request)
         {
             bool valid = false;
@@ -49,30 +49,80 @@ namespace ICA12
             } while (!valid);
             
         }
-
-        static private void GetValue(out int iTest, string input, int min)
+        //GetValue(out int, string, min)
+        //display request string, grab user input
+        //error handling (parse, and min)
+        static private void GetValue(out int iTest, string request, int min)
         {
-            throw new NotImplementedException();
+            bool valid = false;
+            do
+            {
+                Console.Write(request);
+                string input = Console.ReadLine();
+                valid = int.TryParse(input, out iTest);
+                if (!valid || iTest < min)
+                    Console.WriteLine(input + " is not a valid input.");
+            } while (!valid || iTest < min);
         }
-
-        static private void GetValue(out int iTest, string input, int min, int max)
+        //GetValue(out int, string, min, max)
+        //display request string, grab user input
+        //error handling (parse, min, max)
+        static private void GetValue(out int iTest, string request, int min, int max)
         {
-            throw new NotImplementedException();
+            bool valid = false;
+            do
+            {
+                Console.Write(request);
+                string input = Console.ReadLine();
+                valid = int.TryParse(input, out iTest);
+                if (!valid || iTest < min || iTest > max)
+                    Console.WriteLine(input + " is not a valid input.");
+            } while (!valid || iTest < min || iTest > max);
         }
-
-        static private void GetValue(out double dTest, string input)
+        //GetValue(out double, string)
+        //display request string, grab user input
+        //error handling (parse)
+        static private void GetValue(out double dTest, string request)
         {
-            throw new NotImplementedException();
+            bool valid = false;
+            do
+            {
+                Console.Write(request);
+                string input = Console.ReadLine();
+                valid = double.TryParse(input, out dTest);
+                if (!valid)
+                    Console.WriteLine(input + " is not a valid input.");
+            } while (!valid);
         }
-
-        static private void GetValue(out double dTest, string input, double min)
+        //GetValue(out int, string, min)
+        //display request string, grab user input
+        //error handling (parse, and min)
+        static private void GetValue(out double dTest, string request, double min)
         {
-            throw new NotImplementedException();
+            bool valid = false;
+            do
+            {
+                Console.Write(request);
+                string input = Console.ReadLine();
+                valid = double.TryParse(input, out dTest);
+                if (!valid || dTest < min)
+                    Console.WriteLine(input + " is not a valid input.");
+            } while (!valid || dTest < min);
         }
-
-        static private void GetValue(out double dTest, string input, double min, double max)
+        //GetValue(out int, string, min, max)
+        //display request string, grab user input
+        //error handling (parse, min, max)
+        static private void GetValue(out double dTest, string request, double min, double max)
         {
-            throw new NotImplementedException();
+            bool valid = false;
+            do
+            {
+                Console.Write(request);
+                string input = Console.ReadLine();
+                valid = double.TryParse(input, out dTest);
+                if (!valid || dTest < min || dTest > max)
+                    Console.WriteLine(input + " is not a valid input.");
+            } while (!valid || dTest < min || dTest > max);
         }
     }
 }

@@ -34,10 +34,20 @@ namespace ICA12
             Console.ReadKey();
         }
         //GetValue(out int, string)
-        //
-        static private void GetValue(out int iTest, string input)
+        //displayer request string, grab user input
+        //error handling
+        static private void GetValue(out int iTest, string request)
         {
-            throw new NotImplementedException();
+            bool valid = false;
+            do
+            {
+                Console.Write(request);
+                string input = Console.ReadLine();
+                valid = int.TryParse(input, out iTest);
+                if (!valid)
+                    Console.WriteLine(input + " is not a valid input.");
+            } while (!valid);
+            
         }
 
         static private void GetValue(out int iTest, string input, int min)

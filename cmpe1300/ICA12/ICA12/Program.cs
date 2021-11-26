@@ -60,8 +60,10 @@ namespace ICA12
                 Console.Write(request);
                 string input = Console.ReadLine();
                 valid = int.TryParse(input, out iTest);
-                if (!valid || iTest < min)
+                if (!valid)
                     Console.WriteLine(input + " is not a valid input.");
+                if (iTest < min)
+                    Console.WriteLine(input + " is outside the accepted range.");
             } while (!valid || iTest < min);
         }
         //GetValue(out int, string, min, max)
@@ -75,8 +77,10 @@ namespace ICA12
                 Console.Write(request);
                 string input = Console.ReadLine();
                 valid = int.TryParse(input, out iTest);
-                if (!valid || iTest < min || iTest > max)
+                if (!valid)
                     Console.WriteLine(input + " is not a valid input.");
+                if (iTest < min || iTest > max)
+                    Console.WriteLine(input + " is outside the accepted range.");
             } while (!valid || iTest < min || iTest > max);
         }
         //GetValue(out double, string)
@@ -94,7 +98,7 @@ namespace ICA12
                     Console.WriteLine(input + " is not a valid input.");
             } while (!valid);
         }
-        //GetValue(out int, string, min)
+        //GetValue(out double, string, min)
         //display request string, grab user input
         //error handling (parse, and min)
         static private void GetValue(out double dTest, string request, double min)
@@ -105,11 +109,13 @@ namespace ICA12
                 Console.Write(request);
                 string input = Console.ReadLine();
                 valid = double.TryParse(input, out dTest);
-                if (!valid || dTest < min)
+                if (!valid)
                     Console.WriteLine(input + " is not a valid input.");
+                if (dTest < min)
+                    Console.WriteLine(input + " is outside the accepted range.");
             } while (!valid || dTest < min);
         }
-        //GetValue(out int, string, min, max)
+        //GetValue(out double, string, min, max)
         //display request string, grab user input
         //error handling (parse, min, max)
         static private void GetValue(out double dTest, string request, double min, double max)
@@ -120,8 +126,10 @@ namespace ICA12
                 Console.Write(request);
                 string input = Console.ReadLine();
                 valid = double.TryParse(input, out dTest);
-                if (!valid || dTest < min || dTest > max)
+                if (!valid)
                     Console.WriteLine(input + " is not a valid input.");
+                if (dTest < min || dTest > max)
+                    Console.WriteLine(input + " is outside the accepted range.");
             } while (!valid || dTest < min || dTest > max);
         }
     }

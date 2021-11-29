@@ -13,7 +13,10 @@ namespace Lab3
         static void Main(string[] args)
         {
             //declare variables
-            
+            string title = "Nandish Patel - Lab 3";
+
+
+
             //main loop
             do
             {

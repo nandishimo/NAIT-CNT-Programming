@@ -46,7 +46,8 @@ namespace Lab3
 
         private static void Quadratic()
         {
-            throw new NotImplementedException();
+            //quadtrativ equation
+            double f = a*x^2+b*x+c;
         }
 
         private static void GetCoefficients()

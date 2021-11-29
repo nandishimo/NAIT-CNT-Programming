@@ -12,21 +12,29 @@ namespace Lab3
     {
         static void Main(string[] args)
         {
-            //get coefficients to ask for user input. return coefficients a,b,c
-            GetCoefficients();
+            //declare variables
             
-            //getRange to ask user for input. return upper and lower range values
-            GetRange();
-            
-            //Pass coefficients, range vlues, and CDrawer window reference
-            DrawGraph();
+            //main loop
+            do
+            {
 
-            //receive prompt to be displayed. return a bool based on user response
-            YesNo();
+                //get coefficients to ask for user input. return coefficients a,b,c
+                GetCoefficients();
+
+                //getRange to ask user for input. return upper and lower range values
+                GetRange();
+
+                //Pass coefficients, range vlues, and CDrawer window reference
+                DrawGraph();
+
+                //receive prompt to be displayed. return a bool based on user response
+                YesNo();
+            } while (again);
         }
 
         private static void GetRange()
         {
+            //pass user input to getvalue. return upper and lower range values as doubles
             GetValue();
             GetValue();
             throw new NotImplementedException();
@@ -52,6 +60,7 @@ namespace Lab3
 
         private static void GetCoefficients()
         {
+            //pass prompt to get value for coefficient, get double values, return 3 coefficients to main
             GetValue();
             GetValue();
             GetValue();
@@ -60,6 +69,8 @@ namespace Lab3
 
         private static void GetValue()
         {
+            //display prompt
+            //return user input as double
             throw new NotImplementedException();
         }
     }

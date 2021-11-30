@@ -171,12 +171,12 @@ namespace LE3_Fall2021_Q2
          * return false if not one of these 3 options
          */
         {
-            Console.Write(prompt);
-            shape = Console.ReadLine();
+            Console.Write(prompt);//display prompt
+            shape = Console.ReadLine();//store user input as shape and pass out
             if (shape == "rectangle" || shape == "square" || shape == "circle")
-                return true;
+                return true;//return true if valid shape
             else
-                return false;
+                return false;//return false if invalid shape
         }
 
 
@@ -187,9 +187,9 @@ namespace LE3_Fall2021_Q2
          * pass value to out, return true if value is valid, return false if not
          */
         {
-            Console.Write(prompt);
-            bool valid = double.TryParse(Console.ReadLine(), out d);
-            return valid;
+            Console.Write(prompt); //display prompt
+            bool valid = double.TryParse(Console.ReadLine(), out d); //check if valid double
+            return valid;//return bool of parsed user input
         }
 
         //CalculateArea (two overloaded methods)
@@ -203,19 +203,19 @@ namespace LE3_Fall2021_Q2
          */
         static private double CalculateArea(string shape, double para)
         {
-            double area=0;
-            if (shape == "circle")
-                area = Math.PI * para * para;
-            else if (shape == "square")
-                area = para * para;
+            double area=0; //initialize variable for area
+            if (shape == "circle") //check if shape is circle
+                area = Math.PI * para * para;//use input parameter as radius for circle area
+            else if (shape == "square") //check if shape is square
+                area = para * para; //use input parameter as length of one side of square for area calc
             return area;
         }
 
         static private double CalculateArea(string shape, double para1, double para2)
         {
-            double area=0;
-            if (shape == "rectangle")
-                area = para1 * para2;
+            double area=0; //initialize variable for area
+            if (shape == "rectangle") //check if shape is rectangle
+                area = para1 * para2;//calc rectangle area using two parameters (length and width)
             return area;
         }
     }

@@ -81,14 +81,24 @@ namespace Lab3
         private static void DrawGraph(double a, double b, double c, double U, double L, ref CDrawer window)
         {
             //pass coefficients and current value of x. calculate f(x)
-
-            double x1 = L+200;
-            double f1 = 150-Quadratic(a,b,c,x1-200);
-            window.AddLine(0, 150, 400, 150);
-            window.AddLine(400, 0, 400, 600);
-            for (double x2 = L+200; x2 < U+200; x2 += 0.02)
+            int h = window.ScaledHeight;
+            int w = window.ScaledWidth;
+            int s = window.Scale;
+            double x1 = L+w/2;
+            double f1 = h/2-Quadratic(a,b,c,x1-w);
+            window.AddLine(0, h/2, w, h/2, Color.Green);
+            window.AddLine(w/2, 0, w/2, h, Color.Green);
+            for(int x = 0; x<w+1; x += 50/s)
             {
-                double f2 = 150-Quadratic(a, b, c, x2-200);
+                window.AddLine(x, (h / 2) - 5, x, (h / 2) + 5, Color.Green);
+            }
+            for (int y = 0; y < h + 1; y += 50/s)
+            {
+                window.AddLine((w/2)-5, y, (w/2)+5, y, Color.Green);
+            }
+            for (double x2 = L+w/2; x2 < U+w/2; x2 += 0.02)
+            {
+                double f2 = h/2-Quadratic(a, b, c, x2-200);
                 window.AddLine((int)x1, (int)f1, (int)x2, (int)f2);
                 x1 = x2;
                 f1 = f2;

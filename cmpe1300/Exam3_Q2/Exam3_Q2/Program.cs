@@ -163,21 +163,34 @@ namespace LE3_Fall2021_Q2
 
         /*** Add Your Methods Below ***/
         /*system use only: 2021-11-30T10:33:57-07:00        * 9990        */
-        //GetShape
+        static private bool GetShape(string prompt, out string shape)
         /*2 string parameters. first is prompt for user to enter a shape
          * second string to output the shape name
          * display prompt
          * check if user input is either rectangle, square, or circle and assign that shape to the out parameter and return true
          * return false if not one of these 3 options
-         * 
          */
+        {
+            Console.Write(prompt);
+            shape = Console.ReadLine();
+            if (shape == "rectangle" || shape == "square" || shape == "circle")
+                return true;
+            else
+                return false;
+        }
 
-        //GetDouble
+
+        static private bool GetDouble(string prompt, out double d)
         /*first parameter is user prompt
          * 2nd parameter is an out argument of type double
          * display prompt
          * pass value to out, return true if value is valid, return false if not
          */
+        {
+            Console.Write(prompt);
+            bool valid = double.TryParse(Console.ReadLine(), out d);
+            return valid;
+        }
 
         //CalculateArea (two overloaded methods)
         /*Both methods have string parameter that passes a shape
@@ -188,6 +201,22 @@ namespace LE3_Fall2021_Q2
          * second method calculates for rectangles (two double values are length and width)
          * both methods return a double for the respective area
          */
+        static private double CalculateArea(string shape, double para)
+        {
+            double area=0;
+            if (shape == "circle")
+                area = Math.PI * para * para;
+            else if (shape == "square")
+                area = para * para;
+            return area;
+        }
 
+        static private double CalculateArea(string shape, double para1, double para2)
+        {
+            double area=0;
+            if (shape == "rectangle")
+                area = para1 * para2;
+            return area;
+        }
     }
 }

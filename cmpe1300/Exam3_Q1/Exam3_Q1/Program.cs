@@ -44,7 +44,7 @@ namespace _1211Exam3Q1
 
         }
 
-        static private void CreateNewGDIDrawerWindow(ref CDrawer window, int w, int h)
+        static private void CreateNewGDIDrawerWindow(ref CDrawer window, int h, int w)
         /* 
         * create GDIDrawer window of size corresponding to passed width and height
         * save back to main using ref
@@ -60,16 +60,16 @@ namespace _1211Exam3Q1
         */
         {
             Console.Write("\nEnter a value for a: ");
-            int.TryParse(Console.ReadLine(), out a);
+            int.TryParse(Console.ReadLine(), out a);//parse input as int and send out
             Console.Write("\nEnter a value for b: ");
-            int.TryParse(Console.ReadLine(), out b);
+            int.TryParse(Console.ReadLine(), out b);//parse input as int and send out
         }
 
         static private double CalculateThirdSide(int a, int b)
         /* pass a and b, calculate hypotenuse c using pythag and return as double
         */
         {
-            double c = Math.Sqrt(a * a + b * b);
+            double c = Math.Sqrt(a * a + b * b);//pythagreum thereom
             return c;
         }
         static private void DrawTriangle(CDrawer canvas, int a, int b, double c)
@@ -80,21 +80,21 @@ namespace _1211Exam3Q1
         * side 3 meets up with side 1 and 2
         */
         {
-            canvas.AddLine(10, 10, 10, 10 + a, Color.Pink);
-            canvas.AddLine(10, 10 + a, 10 + b, 10 + a, Color.Pink);
-            canvas.AddLine(10 + b, 10 + a, 10, 10, Color.Pink);
+            canvas.AddLine(10, 10, 10, 10 + a, Color.Pink);//vertical line length a
+            canvas.AddLine(10, 10 + a, 10 + b, 10 + a, Color.Pink); //horizontal line length b
+            canvas.AddLine(10 + b, 10 + a, 10, 10, Color.Pink); //line from end of previous line, back to start
         }
 
         static private bool RunAgain()
         /* prompt user to run program again. Y to run again. anything else causes an exit
         */
         {
-            bool again = false;
-            Console.Write("RunAgain program again ? ");
-            string input = Console.ReadLine();
-            if (input == "Y")
+            bool again = false;//bool var
+            Console.Write("\nRun program again ? ");//prompt for input
+            string input = Console.ReadLine();//store string input
+            if (input == "Y")//if input is "Y" bool is true, otherwise false
                 again = true;
-            return again;
+            return again;//return bool
 
         }
     }

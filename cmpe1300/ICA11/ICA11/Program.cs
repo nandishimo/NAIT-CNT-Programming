@@ -29,12 +29,18 @@ namespace CNT157_ICA19_RefOut_Fall_09
 					Console.WriteLine("The CD is full, exiting..."); bExit = true;
 				}
 			} while ((YesNo("Add another track?") == "yes") && !bExit);
+			Console.WriteLine("Bye!");
+			Console.Read();
 		}
 
         private static string YesNo(string v)
         {
 			Console.WriteLine(v);
-			return Console.ReadLine();
+			string input = Console.ReadLine();
+            if (input != "yes" && input != "no")
+                Console.WriteLine("You must answer yes or no");
+
+            return Console.ReadLine();
         }
 
         private static int SecTotal(int iMinTotal, int iSecTotal)
@@ -44,37 +50,42 @@ namespace CNT157_ICA19_RefOut_Fall_09
 
         private static void DisplayTotal(int iMinTotal, int iSecTotal)
         {
-			Console.WriteLine($"The minutes are {iMinTotal} and the seconds are {iSecTotal}.");
-        }
+			Console.WriteLine($"The current total is {iMinTotal}:{iSecTotal}.");
+
+		}
 
         static private void GetTrack(out int min, out int sec)
 		{
-			bool valid1 = false;
-			bool valid2 = false;
-			do
-			{
-				Console.Write("Please enter a track length (mm:ss): ");
-				string time = Console.ReadLine();
-				string[] bettertime = time.Split(':');
-				valid1 = int.TryParse(bettertime[0], out min);
-				valid2 = int.TryParse(bettertime[1], out sec);
-				if(!valid1)
-                {
-
-                }
-
-			} while (!valid1 || !valid2);
+			min = GetInt("Enter the minutes: ", 0, 59);
+			sec = GetInt("Enter the seconds: ", 0, 59);
 		}
 
 		static private int GetInt(string prompt, int min, int max)
         {
-			Console.
+			bool valid = false;
+			int number = 0;
+			do
+			{
+				Console.Write(prompt);
+				valid = int.TryParse(Console.ReadLine(), out number);
+				if(number<min || number>max)
+					Console.WriteLine("That value is out of range.");
+				if (!valid)
+					Console.WriteLine("That entry is not a valid number.");
+			} while (!valid || number<min ||number >max);
+			return number;
+
         }
 
 		static private void AddTrack(int MinIn, int SecIn, ref int MinTotal, ref int SecTotal)
         {
 			MinTotal += MinIn;
 			SecTotal += SecIn;
+			while(SecTotal>59)
+            {
+				SecTotal -= 60;
+				MinTotal += 1;
+            }
         }
 	}
 }

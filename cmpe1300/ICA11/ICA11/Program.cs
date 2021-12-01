@@ -49,12 +49,27 @@ namespace CNT157_ICA19_RefOut_Fall_09
 
         static private void GetTrack(out int min, out int sec)
 		{
-			Console.Write("Please enter a track length (mm:ss): ");
-			string time = Console.ReadLine();
-			string[] bettertime = time.Split(':');
-			int.TryParse(bettertime[0], out min);
-			int.TryParse(bettertime[1], out sec);
+			bool valid1 = false;
+			bool valid2 = false;
+			do
+			{
+				Console.Write("Please enter a track length (mm:ss): ");
+				string time = Console.ReadLine();
+				string[] bettertime = time.Split(':');
+				valid1 = int.TryParse(bettertime[0], out min);
+				valid2 = int.TryParse(bettertime[1], out sec);
+				if(!valid1)
+                {
+
+                }
+
+			} while (!valid1 || !valid2);
 		}
+
+		static private int GetInt(string prompt, int min, int max)
+        {
+			Console.
+        }
 
 		static private void AddTrack(int MinIn, int SecIn, ref int MinTotal, ref int SecTotal)
         {

@@ -33,7 +33,7 @@ namespace Lab3
 
                 //Pass coefficients, range vlues, and CDrawer window reference
                 CDrawer window = new CDrawer();
-                window.Scale = 2;
+                window.Scale = 800/Math.Max((int)up,(int)down);
                 DrawGraph(a, b, c, up, down, ref window);
 
                 //receive prompt to be displayed. return a bool based on user response

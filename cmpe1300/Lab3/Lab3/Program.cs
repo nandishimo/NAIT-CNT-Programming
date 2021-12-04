@@ -33,7 +33,7 @@ namespace Lab3
 
                 //Pass coefficients, range vlues, and CDrawer window reference
                 CDrawer window = new CDrawer();
-                window.Scale = 800/Math.Max((int)up,(int)down);
+                window.Scale = 5;
                 DrawGraph(a, b, c, up, down, ref window);
 
                 //receive prompt to be displayed. return a bool based on user response
@@ -84,25 +84,34 @@ namespace Lab3
             int h = window.ScaledHeight;
             int w = window.ScaledWidth;
             int s = window.Scale;
-            double x1 = L+w/2;
-            double f1 = h/2-Quadratic(a,b,c,x1-w);
-            window.AddLine(0, h/2, w, h/2, Color.Green);
-            window.AddLine(w/2, 0, w/2, h, Color.Green);
-            for(int x = 0; x<w+1; x += 50/s)
+            //double x1 = L;
+            //double f1 = Quadratic(a,b,c,L);
+            for(int x=0; x<800/s; x += 50 / s)
             {
-                window.AddLine(x, (h / 2) - 5, x, (h / 2) + 5, Color.Green);
+                window.SetBBScaledPixel(x, h / 2,Color.Green);
             }
-            for (int y = 0; y < h + 1; y += 50/s)
+            for(double x2 = L; x2 < U; x2 += 0.02)
             {
-                window.AddLine((w/2)-5, y, (w/2)+5, y, Color.Green);
+                double f2 = Quadratic(a, b, c, x2);
+                window.SetBBScaledPixel(w/2+(int)x2, h/2-(int)f2, Color.White);
             }
-            for (double x2 = L+w/2; x2 < U+w/2; x2 += 0.02)
-            {
-                double f2 = h/2-Quadratic(a, b, c, x2-200);
-                window.AddLine((int)x1, (int)f1, (int)x2, (int)f2);
-                x1 = x2;
-                f1 = f2;
-            }
+            //window.AddLine(0, h/2, w, h/2, Color.Green);
+            //window.AddLine(w/2, 0, w/2, h, Color.Green);
+            //for(int x = 0; x<w; x += 50/s)
+            //{
+            //    window.AddLine(x, h / 2, x, (h / 2) + 5/s, Color.Green);
+            //}
+            //for (int y = 0; y < h; y += 50/s)
+            //{
+            //    window.AddLine(w/2, y, (w/2)+5/s, y, Color.Green);
+            //}
+            //for (double x2 = L; x2 < U; x2 += 0.02)
+            //{
+            //    double f2 = Quadratic(a, b, c, x2);
+            //    window.AddLine(2*(int)x1+w/2, (h/2)-(int)f1, 2*(int)x2+w/2, (h/2)-(int)f2);
+            //    x1 = x2;
+            //    f1 = f2;
+            //}
         }
 
         private static double Quadratic(double a, double b, double c, double x)

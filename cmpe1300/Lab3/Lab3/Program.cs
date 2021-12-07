@@ -33,11 +33,10 @@ namespace Lab3
 
                 //Pass coefficients, range vlues, and CDrawer window reference
                 CDrawer window = new CDrawer();
-                window.Scale = 5;
                 DrawGraph(a, b, c, up, down, ref window);
 
                 //receive prompt to be displayed. return a bool based on user response
-                again=YesNo("Run again?");
+                again = YesNo("Run again?");
 
             } while (again);
         }
@@ -45,17 +44,56 @@ namespace Lab3
         private static void GetRange(out double upper, out double lower)
         {
             //pass user input to getvalue. return upper and lower range values as doubles
-            upper = GetValue("Please enter an upper range: ");
-            lower = GetValue("Please enter a lower range: ");
+            bool valid1 = false;
+            bool valid2 = false;
+            bool valid3 = false;
+
+            do//main getrange loop
+            {
+                do//lower range validation loop
+                {
+                    lower = GetValue("Please enter a lower range: ");
+                    if (lower < -40)//limit of -40 for range
+                    {
+                        Console.WriteLine("Values this low cannot be displayed.");
+                        valid2 = false;
+                    }
+                    else
+                        valid2 = true;
+                } while (!valid2);
+
+                do//upper range validation loop
+                {
+                    upper = GetValue("Please enter an upper range: ");
+                    if (upper > 40)//limit of 40 for range
+                    {
+                        Console.WriteLine("Values this high cannot be displayed.");
+                        valid3 = false;
+                    }
+                    else
+                        valid3 = true;
+                } while (!valid3);
+                if (lower > upper)//lower less than upper validation loop
+                {
+                    Console.WriteLine("Lower must be less than Upper range.");
+                    valid1 = false;
+                }
+                else
+                    valid1 = true;
+                
+
+            } while (!valid1||!valid2||!valid3);//all validation loops must check out for main loop to pass
+
         }
 
         private static bool YesNo(string prompt)
         {
-            bool valid = false;
-            bool again = false;
-            do
+            bool valid = false;//checks for valid response
+            bool again = false;//checks for yes to return true
+            do//main bool loop
             {
-                Console.Write(prompt + " yes or no: ");
+                Console.Write(prompt + " yes or no: ");//grabs prompt and adds yes or no for options
+
                 string input = Console.ReadLine();
                 if (input != "yes" && input != "no")
                 {
@@ -73,7 +111,7 @@ namespace Lab3
                 }
 
 
-            } while (!valid);
+            } while (!valid);//needs valid response(yes or no) to exit loop
             return again;
 
         }
@@ -83,35 +121,38 @@ namespace Lab3
             //pass coefficients and current value of x. calculate f(x)
             int h = window.ScaledHeight;
             int w = window.ScaledWidth;
-            int s = window.Scale;
-            //double x1 = L;
-            //double f1 = Quadratic(a,b,c,L);
-            for(int x=0; x<800/s; x += 50 / s)
+            //inital values at lower range
+            double x1 = L-1;
+            double f1 = Quadratic(a, b, c, x1);
+            for (int x = 0; x < 800; x++)//draw horizontal axis 
             {
-                window.SetBBScaledPixel(x, h / 2,Color.Green);
+                window.SetBBPixel(x, 300, Color.Green);
             }
-            for(double x2 = L; x2 < U; x2 += 0.02)
+            for (int y = 0; y < 600; y++)//draw vertical axis
+            {
+                window.SetBBPixel(400, y, Color.Green);
+            }
+            for (int x = 0; x < 800; x += 50)//Draw ticks on horizontal axis
+            {
+                for (int y = 300; y > 295; y--)
+                {
+                    window.SetBBPixel(x, y, Color.Green);
+                }
+            }
+            for (int y = 0; y < 600; y += 50)//draw ticks on vertical axis
+            {
+                for (int x = 400; x < 405; x++)
+                {
+                    window.SetBBPixel(x, y, Color.Green);
+                }
+            }
+            for (double x2 = L; x2 < U; x2 += 0.02)//function drawing loop
             {
                 double f2 = Quadratic(a, b, c, x2);
-                window.SetBBScaledPixel(w/2+(int)x2, h/2-(int)f2, Color.White);
+                window.AddLine((int)(10*x1 + w / 2), (int)((h / 2) - 10*f1), (int)(10*x2 + w / 2), (int)((h / 2) - 10*f2));//scale up by factor of 10
+                x1 = x2;
+                f1 = f2;
             }
-            //window.AddLine(0, h/2, w, h/2, Color.Green);
-            //window.AddLine(w/2, 0, w/2, h, Color.Green);
-            //for(int x = 0; x<w; x += 50/s)
-            //{
-            //    window.AddLine(x, h / 2, x, (h / 2) + 5/s, Color.Green);
-            //}
-            //for (int y = 0; y < h; y += 50/s)
-            //{
-            //    window.AddLine(w/2, y, (w/2)+5/s, y, Color.Green);
-            //}
-            //for (double x2 = L; x2 < U; x2 += 0.02)
-            //{
-            //    double f2 = Quadratic(a, b, c, x2);
-            //    window.AddLine(2*(int)x1+w/2, (h/2)-(int)f1, 2*(int)x2+w/2, (h/2)-(int)f2);
-            //    x1 = x2;
-            //    f1 = f2;
-            //}
         }
 
         private static double Quadratic(double a, double b, double c, double x)
@@ -136,8 +177,8 @@ namespace Lab3
             double output = 0;
             do
             {
-                Console.Write(prompt);
-                valid = double.TryParse(Console.ReadLine(), out output);
+                Console.Write(prompt);//display prompt
+                valid = double.TryParse(Console.ReadLine(), out output);//checks if input is valid, loops if not
                 if (!valid)
                 {
                     Console.WriteLine("That input is invalid.");

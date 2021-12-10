@@ -46,18 +46,23 @@ namespace ICA14
             found = Array.BinarySearch(iArray1, GetInt("Enter an integer from 1 to 29 to search for: ", 1, 29));
             if(found < 0)
             {
-
+                Draw("The value could not be found",iArray1);
             }
-
+            else
+            {
+                Draw("iArray1", iArray1,found);
+            }
+            Console.Read();
             //if the value could not be found, use AddText() to display a message on the bar graph. If it could be found, change the color of that bar in the graph to red.
 
             //reverse the contents of iArray1 and display the results on the bar graph display.
-
+            Array.Reverse(iArray1);
+            Draw("Reversed iArray1", iArray1);
 
             Console.Read();
         }
 
-        static void Draw(string text, int[] array)
+        static void Draw(string text, int[] array, int index=-1)
         {
             CDrawer window = new CDrawer();
             window.Scale = 15;
@@ -65,6 +70,10 @@ namespace ICA14
             int i = 1;
             foreach (int j in array)
             {
+                if (i == index)
+                {
+                    window.AddLine(i, 0, i, j, Color.Red, 5);
+                }
                 window.AddLine(i, 0, i, j, Color.Yellow, 5);
                 i += 2;
             }

@@ -10,7 +10,8 @@ namespace ICA14
     {
         static void Main(string[] args)
         {
-            //create an array called iArray to contain 20 in values. vary from 1 to 29 inclusive
+            //create an array called iArray to contain 20 int values. vary from 1 to 29 inclusive
+
             //display contents as bar graph with method Draw(), with centered text "iArray1 Original Contents"
 
             //create in array iArray2. assign iArray 2 a clone of iArray1. assign iArray2[1]=0.

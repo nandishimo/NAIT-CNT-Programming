@@ -19,6 +19,17 @@ namespace ICA14
             //display iArray 1 again using Draw() to allow comparison to iArray2, with centered text "iArray1"
 
             //create new array of 40 integers for iArray2
+
+            //copy contents of iArray1 to start at index position 10 of iArray2. Display contents of iArray2 using the Draw() method, with the message"iArray2 Cleared"
+
+            //sort iArray1 and display the results using Draw() with the message "Sorted iArray1".
+
+            //use GetInt() to input a value(from 1 to 29) to search for in iArray1. use the binary search method to find the index of the value
+            //if the value could not be found, use AddText() to display a message on the bar graph. If it could be found, change the color of that bar in the graph to red.
+
+            //reverse the contents of iArray1 and display the results on the bar graph display.
+
+
           
         }
     }

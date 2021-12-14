@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ICA15
+namespace ICA17
 {
     class Program
     {
@@ -62,9 +62,6 @@ namespace ICA15
                         break;
 
                 }
-
-
-                Console.Read();
             } while (again);
         }
 
@@ -146,15 +143,15 @@ namespace ICA15
             }
         }
 
-        static private bool RunAgain()
-        {
-            bool again = false;
-            Console.WriteLine("\nWould you like to run the program again? Yes or No");//prompt
-            string input = Console.ReadLine();
-            if (input == "Yes" || input == "yes")// if input is yes ot Yes, again is true, or else, its false and program exits
-                again = true;
-            return again;
+        //static private bool RunAgain()
+        //{
+        //    bool again = false;
+        //    Console.WriteLine("\nWould you like to run the program again? Yes or No");//prompt
+        //    string input = Console.ReadLine();
+        //    if (input == "Yes" || input == "yes")// if input is yes ot Yes, again is true, or else, its false and program exits
+        //        again = true;
+        //    return again;
 
-        }
+        //}
     }
 }

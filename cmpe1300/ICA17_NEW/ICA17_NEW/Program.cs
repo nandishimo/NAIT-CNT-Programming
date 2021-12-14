@@ -31,7 +31,7 @@ namespace ICA17_NEW
                     case 'w':
                         try
                         {
-                            Show(size, names, marks);
+                            //(size, names, marks);
                         }
                         catch (Exception ex)
                         {
@@ -47,7 +47,7 @@ namespace ICA17_NEW
                     case 'a':
                         try
                         {
-                            Average(names, marks);
+                            //Average(names, marks);
                         }
                         catch (Exception ex)
                         {
@@ -57,7 +57,7 @@ namespace ICA17_NEW
                         break;
 
                     case 'f':
-                        Fails(names, marks);
+                        //Fails(names, marks);
                         break;
 
                     case 'q':

@@ -10,7 +10,7 @@ namespace ICA15
     {
         static void Main(string[] args)
         {
-            bool again = false;
+            bool again = true;
             do
             {
                 Console.Clear();
@@ -20,35 +20,52 @@ namespace ICA15
                 Console.WriteLine(title);
                 Console.WriteLine("Select the operation...");
                 Console.Write("\nr. Read student data from a file.\nw. Write student data to a file.\ng. Generate random student data." +
-                    "\na. Display the average.\ff. Display a list of failing students.\nq. Quit the program.\nYour selection: ");                                                                                                                                                                                                      
+                    "\na. Display the average.\ff. Display a list of failing students.\nq. Quit the program.\nYour selection: ");
+
+                char select = Console.ReadKey().KeyChar;
+                switch (select)
+                {
+                    case 'r':
+                        break;
+
+                    case 'w':
+                        Show(size, names, marks);
+                        break;
+
+                    case 'g':
+                        GetValue(out int size, "Enter an integer from 4 to 10: ", 4, 10);
+                        MakeRecords(size, out string[] names, out double[] marks);
+                        break;
+
+                    case 'a':
+                        try
+                        {
+                            Average(names, marks);
+                        }
+                        catch(Exception ex)
+                        {
+                            Console.WriteLine("An error occured.");
+                            Console.WriteLine($"The error was:{ex.Message}");                        }
+                        break;
+
+                    case 'f':
+                        Fails(names, marks);
+                        break;
+
+                    case 'q':
+                        again = false;
+                        break;
+
+                    default:
+                        Console.WriteLine("That is not a valid selection.");
+                        again = true;
+                        break;
+
+                }
 
 
-                //user enters size of array using GetValue() method limit 4 to 10.
-                GetValue(out int size, "Enter an integer from 4 to 10: ", 4, 10);
-
-                //MakeRecords() receives size of array
-                //create array of marks to store random doubles from 0.0 to 100.0
-                //array of student names using random strings 5 to 12 characters long
-                //first character must be capitalized. rest of characters are lower case
-                //use ASCII table for random integers and typecast
-                MakeRecords(size, out string[] names, out double[] marks);
-
-
-                //Show() method display contents of name array in column 1 and marks in coloumn 2
-                //use example format
-                Show(size, names, marks);
-
-                //Average() method to calc and display the average marks (one decimalplace).
-                //display name and grade of student who is closest to average.
-                Average(names, marks);
-
-                //Fails() method determine and list students and marks who fail( lower than 50.0)
-                Fails(names, marks);
-
-                //run program again?
-                again = RunAgain();
+                Console.Read();
             } while (again);
-
         }
 
         static private void GetValue(out int iTest, string request, int min, int max)
@@ -139,6 +156,5 @@ namespace ICA15
             return again;
 
         }
-
     }
 }

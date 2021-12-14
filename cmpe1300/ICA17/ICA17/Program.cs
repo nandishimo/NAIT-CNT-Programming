@@ -29,7 +29,14 @@ namespace ICA17
                         break;
 
                     case 'w':
-                        Show(size, names, marks);
+                        try
+                        {
+                            Show(size, names, marks);
+                        }
+                        catch(Exception ex)
+                        {
+                            Console.WriteLine(ex.Message);
+                        }
                         break;
 
                     case 'g':
@@ -45,7 +52,8 @@ namespace ICA17
                         catch(Exception ex)
                         {
                             Console.WriteLine("An error occured.");
-                            Console.WriteLine($"The error was:{ex.Message}");                        }
+                            Console.WriteLine($"The error was:{ex.Message}");                        
+                        }
                         break;
 
                     case 'f':

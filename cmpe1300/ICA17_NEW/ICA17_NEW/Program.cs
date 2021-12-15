@@ -13,12 +13,12 @@ namespace ICA17_NEW
         {
             //display title
             string title = "Nandish Patel - ICA17";
-            Console.CursorLeft = Console.WindowWidth / 2 - title.Length / 2;
+            Console.CursorLeft = Console.WindowWidth / 2 - title.Length / 2;//centered title
             Console.WriteLine(title);
-            bool again = true;
-            double[] marks = new double[10];
-            string[] names = new string[10];
-            int size = 0;
+            bool again = true;//initial loop boolean
+            double[] marks = new double[10];//initialize dummy arrays
+            string[] names = new string[10];//initialize dummy arrays
+            int size = 0;//starting size of 0
             do
             {
 
@@ -26,118 +26,126 @@ namespace ICA17_NEW
 
                 Console.WriteLine("\nSelect the operation...");
                 Console.Write("\nr. Read student data from a file.\nw. Write student data to a file.\ng. Generate random student data." +
-                    "\na. Display the average.\nf. Display a list of failing students.\nq. Quit the program.\n\nYour selection: ");
+                    "\na. Display the average.\nf. Display a list of failing students.\nq. Quit the program.\n\nYour selection: ");//display options
 
-                char select = Console.ReadKey().KeyChar;
+                char select = Console.ReadKey().KeyChar;//grab next keypress
                 switch (select)
                 {
                     case 'r':
                         {
-                            ReadFile(out size, out names, out marks);
-                            Show(size, names, marks);
+                            ReadFile(out size, out names, out marks);//pass size, names, marks. readfile method and display array
+                            Show(size, names, marks);//display array
                             break;
                         }
 
                     case 'w':
                         {
-                            if (size == 0)
+                            if (size == 0)//if size is still 0 then an array was not generated or written. cannot proceed with writefile method
                             {
-                                Console.WriteLine("\nYou must read a file or generate new records first.");
+                                Console.WriteLine("\nYou must read a file or generate new records first.");//error message
                                 break;
                             }
-                            WriteFile(size, names, marks);
+                            WriteFile(size, names, marks);//pass size and arrays to write
                             break;
                         }
 
                     case 'g':
                         {
-                            GetValue(out size, "\nEnter an integer from 4 to 10: ", 4, 10);
-                            names = new string[size];
+                            GetValue(out size, "\nEnter an integer from 4 to 10: ", 4, 10);//get int value for size
+                            names = new string[size];//new arrays of size
                             marks = new double[size];
-                            MakeRecords(size, out names, out marks);
-                            Show(size, names, marks);
+                            MakeRecords(size, out names, out marks);//pass size, names, marks for random record generation
+                            Show(size, names, marks);//display array
                             break;
                         }
 
                     case 'a':
                         {
-                            if (size == 0)
+                            if (size == 0)//checks size, if 0, then an array was not generated or read yet
                             {
                                 Console.WriteLine("\nYou must read a file or generate new records first.");
                                 break;
                             }
-                            Average(names, marks);
+                            Average(names, marks);//pass arrays and displays average mark and closest studetn
                             break;
                         }
 
                     case 'f':
                         {
-                            if (size == 0)
+                            if (size == 0)//checks size, if 0, then an array was not generated or read yet
                             {
                                 Console.WriteLine("\nYou must read a file or generate new records first.");
                                 break;
                             }
-                            Fails(names, marks);
+                            Fails(names, marks);//pass arrays and display fails
                             break;
                         }
 
                     case 'q':
                         {
-                            again = false;
+                            again = false;//loop exit
                             break;
                         }
 
                     default:
                         {
-                            Console.WriteLine("That is not a valid selection.");
+                            Console.WriteLine("\nThat is not a valid selection.");//if one of the previous options is not pressed, display error message and loop again
                             again = true;
                             break;
                         }
                 }
-                
-                Console.Read();
             } while (again);
         }
         static private void ReadFile(out int size, out string[] names, out double[] marks)
         {
-            Console.WriteLine("\n\nEnter a file name: ");
+            Console.Write("\n\nEnter a file name: ");//prompt for file name
             string file = Console.ReadLine();
-            StreamReader marksIn = new StreamReader(file);
-            string[] words;
             size = 0;
-            while (marksIn.ReadLine()!=null)
-            {
-                size++;
-            }
-            marksIn.Close();
-            marksIn = new StreamReader(file);
-
-            marks = new double[size];
             names = new string[size];
-            for (int j=0; j<size; j++)
+            marks = new double[size];
+            try
             {
-                words = marksIn.ReadLine().Split(' ');
-                names[j] = words[0];
-                double.TryParse(words[1], out marks[j]);
+                StreamReader marksIn = new StreamReader(file);//opens file in buffer
+                string[] words;
+                size = 0;
+                while (marksIn.ReadLine() != null)
+                {
+                    size++;//counts lines in file
+                }
+                marksIn.Close();//closes
+                marksIn = new StreamReader(file);//opens file again to read
+
+                marks = new double[size];//generates new arrays of proper size
+                names = new string[size];
+                for (int j = 0; j < size; j++)
+                {
+                    words = marksIn.ReadLine().Split(' ');//splits name and marks
+                    names[j] = words[0];//transfwe word string to names array
+                    double.TryParse(words[1], out marks[j]); //parse second index of words as double
+                }
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine("Could not execute due to error: " + ex.Message);
             }
 
         }
         static private void WriteFile(int size, string[] names, double[] marks)
         {
-            Console.WriteLine("\n\nEnter a file name: ");
+            Console.Write("\n\nEnter a file name: ");//prompt user for file
             string file = Console.ReadLine();
             try
             {
-                StreamWriter marksOut = new StreamWriter(file);
+                StreamWriter marksOut = new StreamWriter(file);//open buffer stream
                 for (int i=0;i<size;i++)
                 {
-                    marksOut.WriteLine(names[i]+' '+marks[i]);
+                    marksOut.WriteLine(names[i]+' '+marks[i]);// writes name and double value with a space delimiter
                 }
                 marksOut.Close();
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine("Could not execute due to error: "+ex.Message);
             }
         }
 

@@ -11,121 +11,73 @@ namespace ICA17_NEW
     {
         static void Main(string[] args)
         {
+            //display title
+            string title = "Nandish Patel - ICA17";
+            Console.CursorLeft = Console.WindowWidth / 2 - title.Length / 2;
+            Console.WriteLine(title);
             bool again = true;
+            double[] marks = new double[10];
+            string[] names = new string[10];
+            int size = 0;
             do
             {
-                Console.Clear();
-                //display title
-                string title = "Nandish Patel - ICA17";
-                Console.CursorLeft = Console.WindowWidth / 2 - title.Length / 2;
-                Console.WriteLine(title);
-                Console.WriteLine("Select the operation...");
+
+                
+
+                Console.WriteLine("\nSelect the operation...");
                 Console.Write("\nr. Read student data from a file.\nw. Write student data to a file.\ng. Generate random student data." +
-                    "\na. Display the average.\ff. Display a list of failing students.\nq. Quit the program.\nYour selection: ");
+                    "\na. Display the average.\nf. Display a list of failing students.\nq. Quit the program.\n\nYour selection: ");
 
                 char select = Console.ReadKey().KeyChar;
                 switch (select)
                 {
                     case 'r':
                         {
-                            Console.WriteLine("\nEnter a file name: ");
-                            string file = Console.ReadLine();
-                            StreamReader marksIn = new StreamReader($"{file}.txt");
-                            StreamReader namesIn = new StreamReader("names.txt");
-                            int size = 0;
-                            while (marksIn.ReadLine() != null)
-                                size++;
-                            double mInput;
-                            double[] marks = new double[size];
-                            //double[] marks;
-                            string nInput;
-                            string[] names = new string[size];
-                            int i;
-                            try
-                            {
-                                i = 0;
-                                while (double.TryParse(marksIn.ReadLine(), out mInput))
-                                {
-                                    marks[i] = mInput;
-                                    i++;
-                                }
-
-                            }
-                            catch (Exception ex)
-                            {
-                                Console.WriteLine(ex.Message);
-                            }
-                            try
-                            {
-                                i = 0;
-                                while ((nInput = namesIn.ReadLine()) != null)
-                                {
-                                    names[i] = nInput;
-                                    i++;
-                                }
-                            }
-                            catch (Exception ex)
-                            {
-                                Console.WriteLine(ex.Message);
-                            }
+                            ReadFile(out size, out names, out marks);
+                            Show(size, names, marks);
                             break;
                         }
 
                     case 'w':
                         {
-                            StreamWriter marksOut = new StreamWriter("marks.txt");
-                            StreamWriter namesOut = new StreamWriter("names.txt");
-                            try
+                            if (size == 0)
                             {
-                                foreach (double value in marks)
-                                {
-                                    marksOut.WriteLine(value);
-                                }
-                                marksOut.Close();
+                                Console.WriteLine("\nYou must read a file or generate new records first.");
+                                break;
                             }
-                            catch (Exception ex)
-                            {
-                                Console.WriteLine(ex.Message);
-                            }
-                            try
-                            {
-                                foreach (string name in names)
-                                {
-                                    namesOut.WriteLine(name);
-                                }
-                                namesOut.Close();
-                            }
-                            catch (Exception ex)
-                            {
-                                Console.WriteLine(ex.Message);
-                            }
+                            WriteFile(size, names, marks);
                             break;
                         }
 
                     case 'g':
                         {
-                            GetValue(out size, "Enter an integer from 4 to 10: ", 4, 10);
+                            GetValue(out size, "\nEnter an integer from 4 to 10: ", 4, 10);
+                            names = new string[size];
+                            marks = new double[size];
                             MakeRecords(size, out names, out marks);
+                            Show(size, names, marks);
                             break;
                         }
 
                     case 'a':
                         {
-                        try
-                        {
-                            //Average(names, marks);
-                        }
-                        catch (Exception ex)
-                        {
-                            Console.WriteLine("An error occured.");
-                            Console.WriteLine($"The error was:{ex.Message}");
-                        }
-                        break;
+                            if (size == 0)
+                            {
+                                Console.WriteLine("\nYou must read a file or generate new records first.");
+                                break;
+                            }
+                            Average(names, marks);
+                            break;
                         }
 
                     case 'f':
                         {
-                            //Fails(names, marks);
+                            if (size == 0)
+                            {
+                                Console.WriteLine("\nYou must read a file or generate new records first.");
+                                break;
+                            }
+                            Fails(names, marks);
                             break;
                         }
 
@@ -141,9 +93,51 @@ namespace ICA17_NEW
                             again = true;
                             break;
                         }
-
                 }
+                
+                Console.Read();
             } while (again);
+        }
+        static private void ReadFile(out int size, out string[] names, out double[] marks)
+        {
+            Console.WriteLine("\n\nEnter a file name: ");
+            string file = Console.ReadLine();
+            StreamReader marksIn = new StreamReader(file);
+            string[] words;
+            size = 0;
+            while (marksIn.ReadLine()!=null)
+            {
+                size++;
+            }
+            marksIn.Close();
+            marksIn = new StreamReader(file);
+
+            marks = new double[size];
+            names = new string[size];
+            for (int j=0; j<size; j++)
+            {
+                words = marksIn.ReadLine().Split(' ');
+                names[j] = words[0];
+                double.TryParse(words[1], out marks[j]);
+            }
+
+        }
+        static private void WriteFile(int size, string[] names, double[] marks)
+        {
+            Console.WriteLine("\n\nEnter a file name: ");
+            string file = Console.ReadLine(); StreamWriter marksOut = new StreamWriter(file);
+            try
+            {
+                for(int i=0;i<size;i++)
+                {
+                    marksOut.WriteLine(names[i]+' '+marks[i]);
+                }
+                marksOut.Close();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
 
         static private void GetValue(out int iTest, string request, int min, int max)
@@ -179,7 +173,7 @@ namespace ICA17_NEW
                 }
                 string name = new string(namechar);//convert character array into a string array entry
                 names[i] = name;
-                marks[i] = 100 * rand.NextDouble();//enter random double into marks
+                marks[i] = Math.Round(100 * rand.NextDouble(),1);//enter random double into marks
             }
         }
         static private void Show(int size, string[] names, double[] marks)
@@ -189,7 +183,7 @@ namespace ICA17_NEW
             for (int i = 0; i < size; i++)
             {
 
-                Console.WriteLine("{0,13}{1,1}{2,1:N1}", names[i], " : ", marks[i]);//table formate enntries
+                Console.WriteLine("{0,13}{1,1}{2,1}", names[i], " : ", marks[i]);//table formate enntries
             }
         }
 

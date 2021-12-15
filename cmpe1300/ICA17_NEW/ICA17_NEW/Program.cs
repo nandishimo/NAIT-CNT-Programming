@@ -125,10 +125,11 @@ namespace ICA17_NEW
         static private void WriteFile(int size, string[] names, double[] marks)
         {
             Console.WriteLine("\n\nEnter a file name: ");
-            string file = Console.ReadLine(); StreamWriter marksOut = new StreamWriter(file);
+            string file = Console.ReadLine();
             try
             {
-                for(int i=0;i<size;i++)
+                StreamWriter marksOut = new StreamWriter(file);
+                for (int i=0;i<size;i++)
                 {
                     marksOut.WriteLine(names[i]+' '+marks[i]);
                 }

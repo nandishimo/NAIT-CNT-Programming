@@ -1,6 +1,6 @@
 ﻿/* *************************************
 
-   * YOUR NAME
+   * NANDISH PATEL
 
    * LAB EXAM 4 Q1
 

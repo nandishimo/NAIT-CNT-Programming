@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace ICA17_NEW
 {
@@ -26,25 +27,90 @@ namespace ICA17_NEW
                 switch (select)
                 {
                     case 'r':
-                        break;
+                        {
+                            Console.WriteLine("\nEnter a file name: ");
+                            string file = Console.ReadLine();
+                            StreamReader marksIn = new StreamReader($"{file}.txt");
+                            StreamReader namesIn = new StreamReader("names.txt");
+                            int size = 0;
+                            while (marksIn.ReadLine() != null)
+                                size++;
+                            double mInput;
+                            double[] marks = new double[size];
+                            //double[] marks;
+                            string nInput;
+                            string[] names = new string[size];
+                            int i;
+                            try
+                            {
+                                i = 0;
+                                while (double.TryParse(marksIn.ReadLine(), out mInput))
+                                {
+                                    marks[i] = mInput;
+                                    i++;
+                                }
+
+                            }
+                            catch (Exception ex)
+                            {
+                                Console.WriteLine(ex.Message);
+                            }
+                            try
+                            {
+                                i = 0;
+                                while ((nInput = namesIn.ReadLine()) != null)
+                                {
+                                    names[i] = nInput;
+                                    i++;
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                Console.WriteLine(ex.Message);
+                            }
+                            break;
+                        }
 
                     case 'w':
-                        try
                         {
-                            //(size, names, marks);
+                            StreamWriter marksOut = new StreamWriter("marks.txt");
+                            StreamWriter namesOut = new StreamWriter("names.txt");
+                            try
+                            {
+                                foreach (double value in marks)
+                                {
+                                    marksOut.WriteLine(value);
+                                }
+                                marksOut.Close();
+                            }
+                            catch (Exception ex)
+                            {
+                                Console.WriteLine(ex.Message);
+                            }
+                            try
+                            {
+                                foreach (string name in names)
+                                {
+                                    namesOut.WriteLine(name);
+                                }
+                                namesOut.Close();
+                            }
+                            catch (Exception ex)
+                            {
+                                Console.WriteLine(ex.Message);
+                            }
+                            break;
                         }
-                        catch (Exception ex)
-                        {
-                            Console.WriteLine(ex.Message);
-                        }
-                        break;
 
                     case 'g':
-                        GetValue(out int size, "Enter an integer from 4 to 10: ", 4, 10);
-                        MakeRecords(size, out string[] names, out double[] marks);
-                        break;
+                        {
+                            GetValue(out size, "Enter an integer from 4 to 10: ", 4, 10);
+                            MakeRecords(size, out names, out marks);
+                            break;
+                        }
 
                     case 'a':
+                        {
                         try
                         {
                             //Average(names, marks);
@@ -55,19 +121,26 @@ namespace ICA17_NEW
                             Console.WriteLine($"The error was:{ex.Message}");
                         }
                         break;
+                        }
 
                     case 'f':
-                        //Fails(names, marks);
-                        break;
+                        {
+                            //Fails(names, marks);
+                            break;
+                        }
 
                     case 'q':
-                        again = false;
-                        break;
+                        {
+                            again = false;
+                            break;
+                        }
 
                     default:
-                        Console.WriteLine("That is not a valid selection.");
-                        again = true;
-                        break;
+                        {
+                            Console.WriteLine("That is not a valid selection.");
+                            again = true;
+                            break;
+                        }
 
                 }
             } while (again);

@@ -15,7 +15,7 @@ namespace ICA01
             Console.CursorLeft = Console.WindowWidth / 2 - title.Length / 2;
             Console.WriteLine(title);
             GetValue(out int size, "Please enter the number of values to be generated: ", 10, 100);
-            GetRange(out int upper, out int lower, 0, 100);
+            GetRange(out int upper, out int lower, 100, 0);
             int[] array = GenerateArray(size, lower, upper);
             ShowArray(array);
             Console.Read();
@@ -97,11 +97,11 @@ namespace ICA01
         static private void ShowArray(int[] array)//show array method
         {
             Console.WriteLine("\nThe array contents...");
-            for (int i = 0; i < array.Length; i++)
+            for (int i = 0; i < array.Length-1; i++)
             {
-                Console.WriteLine($"array[{i}] = " + array[i]);//loop through array indices and display contents
+                Console.Write(array[i]+", ");//loop through array indices and display contents
             }
-
+            Console.Write(array[array.Length-1]);
         }
     }
 

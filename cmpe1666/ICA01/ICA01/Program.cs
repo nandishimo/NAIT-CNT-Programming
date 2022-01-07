@@ -18,10 +18,32 @@ namespace ICA01
             GetRange(out int upper, out int lower, 100, 0);
             int[] array = GenerateArray(size, lower, upper);
             ShowArray(array);
-            Console.Read();
+            do
+            {
+                GetValue(out int search, "Please enter a value to search for: ", lower, upper);
+                if (1 == CountOccurences(array, search))
+                    Console.WriteLine($"There is 1 instance of {search} in the array.");
+                Console.WriteLine($"There are {CountOccurences(array, search)} instances of {search} in the array.");
+
+            } while (GetAnswer("Would you like to search again? (y/n): "));
         }
 
-        
+        private static bool GetAnswer(string request)
+        {
+            bool valid = false;
+            do
+            {
+                Console.Write(request);
+                char answer = Console.ReadKey().KeyChar;
+                if (answer == 'y' || answer == 'Y')
+                    return true;
+                if (answer == 'n' || answer == 'N')
+                    return false;
+                Console.WriteLine("That is not a valid answer.");
+            } while (!valid);
+            return false;
+        }
+
         static private void GetValue(out int value, string request, int min, int max)
             //grabbed from previous assignment and modified
         {
@@ -96,12 +118,23 @@ namespace ICA01
         }
         static private void ShowArray(int[] array)//show array method
         {
-            Console.WriteLine("\nThe array contents...");
+            Console.WriteLine("\nThe array contents are:");
             for (int i = 0; i < array.Length-1; i++)
             {
                 Console.Write(array[i]+", ");//loop through array indices and display contents
             }
-            Console.Write(array[array.Length-1]);
+            Console.Write(array[array.Length-1]+"\n\n");
+        }
+
+        static private int CountOccurences(int[] array, int value)
+        {
+            int i = 0;
+            foreach(int num in array)
+            {
+                if (num == value)
+                    i++;
+            }
+            return i;
         }
     }
 

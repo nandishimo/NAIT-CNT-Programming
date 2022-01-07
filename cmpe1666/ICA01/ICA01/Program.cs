@@ -14,8 +14,11 @@ namespace ICA01
             string title = "CMPE 1666 - ICA01 - Winter 2022 - Nandish Patel";
             Console.CursorLeft = Console.WindowWidth / 2 - title.Length / 2;
             Console.WriteLine(title);
-
-
+            GetValue(out int size, "Please enter the number of values to be generated: ", 10, 100);
+            GetRange(out int upper, out int lower, 0, 100);
+            int[] array = GenerateArray(size, lower, upper);
+            ShowArray(array);
+            Console.Read();
         }
 
         
@@ -78,6 +81,26 @@ namespace ICA01
 
 
             } while (!valid1 || !valid2 || !valid3);//all validation loops must check out for main loop to pass
+
+        }
+
+        static private int[] GenerateArray(int size, int lower, int upper)
+        {
+            int[] array = new int[size];
+            Random rand = new Random();
+            for (int i = 0; i < size; i++)
+            {
+                array[i] = rand.Next(lower, upper + 1);
+            }
+            return array;
+        }
+        static private void ShowArray(int[] array)//show array method
+        {
+            Console.WriteLine("\nThe array contents...");
+            for (int i = 0; i < array.Length; i++)
+            {
+                Console.WriteLine($"array[{i}] = " + array[i]);//loop through array indices and display contents
+            }
 
         }
     }

@@ -14,18 +14,21 @@ namespace ICA01
             string title = "CMPE 1666 - ICA01 - Winter 2022 - Nandish Patel";
             Console.CursorLeft = Console.WindowWidth / 2 - title.Length / 2;
             Console.WriteLine(title);
-            GetValue(out int size, "Please enter the number of values to be generated: ", 10, 100);
+            GetValue(out int size, "Please enter the number of values to be generated", 10, 100);
             GetRange(out int upper, out int lower, 100, 0);
             int[] array = GenerateArray(size, lower, upper);
             ShowArray(array);
             do
             {
-                GetValue(out int search, "Please enter a value to search for: ", lower, upper);
+                GetValue(out int search, "\nPlease enter a value to search for: ", lower, upper);
                 if (1 == CountOccurences(array, search))
-                    Console.WriteLine($"There is 1 instance of {search} in the array.");
-                Console.WriteLine($"There are {CountOccurences(array, search)} instances of {search} in the array.");
+                    Console.WriteLine($"\nThere is 1 instance of {search} in the array.\n");
+                else
+                    Console.WriteLine($"\nThere are {CountOccurences(array, search)} instances of {search} in the array.\n");
 
             } while (GetAnswer("Would you like to search again? (y/n): "));
+            Console.Write("\nPress any key to exit...");
+            Console.ReadKey();
         }
 
         private static bool GetAnswer(string request)
@@ -39,7 +42,7 @@ namespace ICA01
                     return true;
                 if (answer == 'n' || answer == 'N')
                     return false;
-                Console.WriteLine("That is not a valid answer.");
+                Console.WriteLine("\nThat is not a valid answer.");
             } while (!valid);
             return false;
         }
@@ -50,12 +53,12 @@ namespace ICA01
             bool valid = false;
             do
             {
-                Console.Write(request);
+                Console.Write(request+$" ({min}, {max}): ");
                 string input = Console.ReadLine();
                 valid = int.TryParse(input, out value);//validate user input 
                 if (!valid)
                     Console.WriteLine(input + " is not a valid input.");
-                if (value < min || value > max)//check against max and min
+                else if (value < min || value > max)//check against max and min
                     Console.WriteLine(input + " is outside the accepted range.");
             } while (!valid || value < min || value > max);//loop until valid output is created
         }
@@ -123,7 +126,7 @@ namespace ICA01
             {
                 Console.Write(array[i]+", ");//loop through array indices and display contents
             }
-            Console.Write(array[array.Length-1]+"\n\n");
+            Console.WriteLine(array[array.Length-1]);
         }
 
         static private int CountOccurences(int[] array, int value)

@@ -35,16 +35,17 @@ namespace ICA02
         static private bool IsPalindrome(string word)
         {
             int i = 0;
-            if
-            if (word[i] == word[word.Length - i - 1])
+            if (word.Length < 2)
+                return true;
+            else if (word[i] == word[word.Length - i - 1])
             {
-                string word = word.Substring(1, word.Length - 2);
-
+                IsPalindrome(word.Substring(1, word.Length - 1));
             }
             else
             {
                 return false;
             }
+            return false;
         }
     }
 }

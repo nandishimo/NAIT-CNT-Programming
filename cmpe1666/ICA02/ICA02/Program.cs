@@ -12,17 +12,19 @@ namespace ICA02
         static void Main(string[] args)
         {
             //declare variables
-            string title = "CMPE 1666 - ICA01 - Winter 2022 - Nandish Patel";
+            string title = "CMPE 1666 - ICA02 - Winter 2022 - Nandish Patel";
             bool again = true;
             string input;
+            char selection;
 
             do
             {
                 Console.Clear();
+                
                 //display menu options
                 Console.WriteLine(title);
                 Console.Write("\n1. Check Palindrome on Input Value\n2. Find Palindromes in File\n3. Exit\nPlease select an option [1/2/3]: ");
-                char selection = Console.ReadKey().KeyChar; //grab keypress from user
+                selection = Console.ReadKey().KeyChar; //grab keypress from user
                 
                 switch (selection)//switch case based on keypress
                 {

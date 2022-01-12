@@ -24,7 +24,7 @@ namespace ICA02
                 //display menu options
                 Console.WriteLine(title);
                 Console.Write("\n1. Check Palindrome on Input Value\n2. Find Palindromes in File\n3. Exit\nPlease select an option [1/2/3]: ");
-                selection = Console.ReadKey().KeyChar; //grab keypress from user
+                selection = Console.ReadKey(true).KeyChar; //grab keypress from user
                 
                 switch (selection)//switch case based on keypress
                 {
@@ -37,8 +37,8 @@ namespace ICA02
                                 Console.WriteLine("\nThe word " + input + " is a palindrome!");
                             else
                                 Console.WriteLine("\nThe word " + input + " is not a palindrome.");
-                            Console.Write("\nPress <ENTER> to exit...");
-                            Console.Read();
+                            Console.Write("\nPress any key to continue...");
+                            Console.ReadKey();
                             break;
                         }
                     case '2':
@@ -63,21 +63,21 @@ namespace ICA02
                             {
                                 Console.WriteLine(ex.Message);
                             }
-                            Console.Write("\nPress <ENTER> to continue...");
-                            Console.Read();
+                            Console.Write("\nPress any key to continue...");
+                            Console.ReadKey();
                             break;
                         }
                     case '3': //changes again variable to false. display exit message
                         {
                             again=false;
-                            Console.Write("\nPress <ENTER> to exit...");
-                            Console.Read();
+                            Console.Write("\nPress any key to exit...");
+                            Console.ReadKey();
                             break;
                         }
                     default: //if valid selection is not pressed, display error
                         {
-                            Console.Write("\nThat is not a valid option. Press<ENTER> to try again...");
-                            Console.Read();
+                            Console.Write("\nThat is not a valid option. Press any key to try again...");
+                            Console.ReadKey();
                             break;
                         }
                 }

@@ -1,4 +1,13 @@
-﻿using System;
+﻿//ICA05 - CMPE1666 - Nandish Patel
+/*
+ *          Test                    Direction           Output(m/s)         Input (source)
+ *  Escape Velocity of Earth            mph              11184.94           25020 mph (https://en.wikipedia.org/wiki/Escape_velocity)
+ *      Speed of Sound                  mph              342.88             767 mph (https://en.wikipedia.org/wiki/Speed_of_sound)
+ *  Escape Velocity of Phobos           mph              11.18              25 mph (https://www.space.com/20346-phobos-moon.html#:~:text=Density%3A%201.872%20g%2Fcm,mph%20(41%20km%2Fh)
+ *      Speed of Light                  kph              300000240.00       1080000000 kph (https://en.wikipedia.org/wiki/Speed_of_light)
+ * */
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;

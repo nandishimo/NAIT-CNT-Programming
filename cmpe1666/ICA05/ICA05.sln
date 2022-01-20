@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31702.278
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICA05", "ICA05\ICA05.csproj", "{638DE59D-3223-4C31-ABF6-BCBC5D16ABFB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{638DE59D-3223-4C31-ABF6-BCBC5D16ABFB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{638DE59D-3223-4C31-ABF6-BCBC5D16ABFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{638DE59D-3223-4C31-ABF6-BCBC5D16ABFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{638DE59D-3223-4C31-ABF6-BCBC5D16ABFB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8993E1A6-04C1-497B-808E-8957D40FA891}
+	EndGlobalSection
+EndGlobal

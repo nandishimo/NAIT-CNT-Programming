@@ -38,23 +38,34 @@ namespace Lab01
             Console.WriteLine($"User entry of {raw:C} interpreted and rounded to {rounded:C}");
             //calculate required amount of each denomination and display
             //use modulus to get remainder
+            Console.WriteLine(rounded.ToString());
             double remain;
             int fifty = (int)(rounded / 50);
+
             remain = rounded % 50;
+            Console.WriteLine(remain.ToString());
             int twenty = (int)(remain / 20);
-            remain %= 20;
+            remain = Math.Round(remain*100)/100 % 20;
+            Console.WriteLine(remain.ToString());
             int ten = (int)(remain / 10);
-            remain %= 10;
+            remain = Math.Round(remain * 100) / 100 % 10;
+            Console.WriteLine(remain.ToString());
             int five = (int)(remain / 5);
-            remain %= 5;
-            int toon = (int)(remain / 2);
-            remain %= 2;
-            int loon = (int)remain;
-            remain %= 1;
+            remain = Math.Round(remain * 100) / 100 % 5;
+            Console.WriteLine(remain.ToString());
+            int toon = (int)(remain/ 2);
+            remain = Math.Round(remain * 100) / 100 % 2;
+            Console.WriteLine(remain.ToString());
+            int loon = (int)(remain/1);
+            remain = Math.Round(remain * 100) / 100 % 1;
+            Console.WriteLine(remain.ToString());
             int quart = (int)(remain / 0.25);
-            remain %= 0.25; //had a bug where the next calculation would not result in 1 dime remaining if the remainder was exactly 0.10
+            remain = Math.Round(remain * 100) / 100 % 0.25;
+            Console.WriteLine(remain.ToString());
+            //have a bug where the next calculation would not result in 1 dime remaining if the remainder is 0.10 sometimes
             int dime = (int)(remain / 0.1);
-            remain %= 0.10;
+            remain = Math.Round(remain * 100) / 100 % 0.1;
+            Console.WriteLine(remain.ToString());
             int nick = (int)(remain / 0.05);
 
             //display results in console
@@ -114,7 +125,7 @@ namespace Lab01
             }
             if (loon > 0)
             {
-                drawCoin(ref app, Color.Gold, count, "$1", loon,100);
+                drawCoin(ref app, Color.Goldenrod, count, "$1", loon,100);
                 count++;
             }
             if (quart > 0)
@@ -151,7 +162,7 @@ namespace Lab01
                 y = ((count - 5) * 100)+90;
             }
             //draw bills and add text based on passed information
-            window.AddRectangle(new Rectangle(new Point(x, y), new Size(150, 75)), colour, 2, Color.Black);
+            window.AddRectangle(new Rectangle(new Point(x, y), new Size(150, 75)), colour, 2, Color.DarkGray);
             window.AddText($"{denom} x {qty}", 10, new Rectangle(new Point(x, y), new Size(150, 75)));
         }
         private static void drawCoin(ref CDrawer window, Color colour, int count, string denom, int qty, int size)
@@ -170,7 +181,7 @@ namespace Lab01
                 y = ((count - 5) * 100) + 90;
             }
             //draw coin and add text based on passed information
-            window.AddEllipse(x + 75-size/2, y + 50-size/2, size, size, colour, 2, Color.Black); 
+            window.AddEllipse(x + 75-size/2, y + 50-size/2, size, size, colour, 2, Color.DarkGray); 
             window.AddText($"{denom} x {qty}", 10, new Rectangle(new Point(x+75-size/2, y+50-size/2), new Size(size, size)));
         }
     }

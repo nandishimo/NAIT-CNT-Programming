@@ -52,9 +52,9 @@ namespace Lab01
             int loon = (int)remain;
             remain %= 1;
             int quart = (int)(remain / 0.25);
-            remain %= 0.25;
+            remain %= 0.25; //had a bug where the next calculation would not result in 1 dime remaining if the remainder was exactly 0.10
             int dime = (int)(remain / 0.1);
-            remain %= 0.1;
+            remain %= 0.10;
             int nick = (int)(remain / 0.05);
 
             //display results in console

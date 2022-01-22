@@ -1,7 +1,6 @@
 ﻿/*
  LAB01 - CMPE1666 - NANDISH PATEL
  */
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +23,7 @@ namespace Lab01
             //prompt user for currency to convert
             do
             {
+                Console.Clear();
                 Console.WriteLine("How much money would you like to convert ?");
                 //parse and display error message and check for invalid entry
                 bueno = double.TryParse(Console.ReadLine(), out raw);
@@ -62,6 +62,7 @@ namespace Lab01
 
             //create new drawer window
             CDrawer app = new CDrawer();
+            app.AddText($"{rounded:C}", 20, 300, 50, 200, 25, Color.White);
 
 
             //draw bills and coins
@@ -87,94 +88,90 @@ namespace Lab01
             int count = 0;
             if (fifty > 0)
             {
-                //app.AddRectangle(50, 100 + 150 * count, 200, 100, Color.Red, 2, Color.Black);
-                drawBill(ref app, Color.Red, count, "Fifty", fifty);
+                drawBill(ref app, Color.FromArgb(235,158,153), count, "$50", fifty);
                 count++;
             }
             if (twenty > 0)
             {
-                //app.AddRectangle(50, 100 + 150 * count, 200, 100, Color.Green, 2, Color.Black);
-                drawBill(ref app, Color.LightGreen, count, "Twenty", twenty);
+                drawBill(ref app, Color.FromArgb(166, 215, 170), count, "$20", twenty);
                 count++;
             }
             if (ten > 0)
             {
-                //app.AddRectangle(50, 100 + 150 * count, 200, 100, Color.Purple, 2, Color.Black);
-                drawBill(ref app, Color.MediumPurple, count, "Ten", ten);
+                drawBill(ref app, Color.FromArgb(187, 170, 230), count, "$10", ten);
                 count++;
             }
             if (five > 0)
             {
-                //app.AddRectangle(50, 100 + 150 * count, 200, 100, Color.Blue, 2, Color.Black);
-                drawBill(ref app, Color.LightBlue, count, "Five", five);
+                drawBill(ref app, Color.FromArgb(153, 163, 206), count, "$5", five);
+                count++;
             }
-            count = 0;
             if (toon > 0)
             {
-                //app.AddEllipse(500, 100 * count, 100, 100, Color.Silver, 2, Color.Black);
-                //app.AddEllipse(525, 25+100 * count, 50, 50, Color.Gold, 1, Color.Black);
-
+                drawCoin(ref app, Color.Silver, count, "$2", toon,100);
+                drawCoin(ref app, Color.Gold, count, "$2", toon,60);
                 count++;
             }
             if (loon > 0)
             {
-                //app.AddEllipse(500, 100 * count, 100, 100, Color.Gold, 2, Color.Black);
+                drawCoin(ref app, Color.Gold, count, "$1", loon,100);
                 count++;
             }
             if (quart > 0)
             {
-                //app.AddEllipse(500, 100 * count, 100, 100, Color.Silver, 2, Color.Black);
+                drawCoin(ref app, Color.Silver, count, "$0.25", quart,85);
                 count++;
             }
             if (dime > 0)
             {
-                //app.AddEllipse(525, 25+100 * count, 50, 50, Color.Silver, 2, Color.Black);
+                drawCoin(ref app, Color.Silver, count, "0.10", dime,60);
                 count++;
             }
             if (nick > 0)
             {
-                //app.AddEllipse(525, 25 + 100 * count, 50, 50, Color.Gray, 2, Color.Black);
+                drawCoin(ref app, Color.Gray, count, "0.05", nick,70);
             }
 
-
-
             //display value and quantity of each denomination
-
-
             Console.Read();
         }
         private static void drawBill(ref CDrawer window, Color colour, int count, string denom, int qty)
+            //helper mthod to draw bills, pass bill denomination, qty and color
         {
             int x,y;
+            //find coordinates based on count of denominations displayed so far
             if (count < 5)
             {
                 x = 100;
-                y = (count * 100) + 100;
+                y = (count * 100) + 90;
             }
             else
             {
                 x = 500;
-                y = (count - 4) * 100;
+                y = ((count - 5) * 100)+90;
             }
+            //draw bills and add text based on passed information
             window.AddRectangle(new Rectangle(new Point(x, y), new Size(150, 75)), colour, 2, Color.Black);
-            window.AddText($"{denom} x {qty}", 20, new Rectangle(new Point(x, y), new Size(150, 75)));
+            window.AddText($"{denom} x {qty}", 10, new Rectangle(new Point(x, y), new Size(150, 75)));
         }
-        private static void drawCoin(ref CDrawer window, Color colour, int count, string denom, int qty)
+        private static void drawCoin(ref CDrawer window, Color colour, int count, string denom, int qty, int size)
+            //helper function to draw coins, pass coin denomination, qty, size and color
         {
             int x, y;
+            //find coordinate to draw coin based on denominations drawn so far
             if (count < 5)
             {
                 x = 100;
-                y = (count * 100) + 100;
+                y = (count * 100) + 90;
             }
             else
             {
                 x = 500;
-                y = (count - 4) * 100;
+                y = ((count - 5) * 100) + 90;
             }
-            //window.AddRectangle(new Rectangle(new Point(x, y), new Size(150, 75)), colour, 2, Color.Black);
-            window.AddEllipse(x, y, 75, 75, colour, 2, Color.Black);
-            window.AddText($"{denom} x {qty}", 20, new Rectangle(new Point(x, y), new Size(150, 75)));
+            //draw coin and add text based on passed information
+            window.AddEllipse(x + 75-size/2, y + 50-size/2, size, size, colour, 2, Color.Black); 
+            window.AddText($"{denom} x {qty}", 10, new Rectangle(new Point(x+75-size/2, y+50-size/2), new Size(size, size)));
         }
     }
 }

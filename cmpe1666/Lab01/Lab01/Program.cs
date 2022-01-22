@@ -18,7 +18,7 @@ namespace Lab01
 
             
             bool bueno = false;
-            float raw;
+            double raw;
 
             //prompt user for currency to convert
             do
@@ -26,7 +26,7 @@ namespace Lab01
                 Console.Clear();
                 Console.WriteLine("How much money would you like to convert ?");
                 //parse and display error message and check for invalid entry
-                bueno = float.TryParse(Console.ReadLine(), out raw);
+                bueno = double.TryParse(Console.ReadLine(), out raw);
                 if (!bueno)
                 {
                     Console.WriteLine("Your entry is invalid. Press <enter> to try again... ");
@@ -34,40 +34,27 @@ namespace Lab01
                 }
             } while (!bueno);
             //round value to nearest nickel and display
-            float rounded = (float)Math.Round(raw*20)/20;
+            double rounded = Math.Round(raw*20)/20;
             Console.WriteLine($"User entry of {raw:C} interpreted and rounded to {rounded:C}");
             //calculate required amount of each denomination and display
             //use modulus to get remainder
-            Console.WriteLine(rounded.ToString());
-            float remain;
-            int fifty = (int)(rounded / 50);
-
-            remain = math.rounded % 50;
-            Console.WriteLine(remain.ToString());
-            int twenty = (int)(remain / 20);
-            remain = (float)Math.Round(remain*100)/100 % 20;
-            Console.WriteLine(remain.ToString());
-            int ten = (int)(remain / 10);
-            remain = (float)Math.Round(remain * 100) / 100 % 10;
-            Console.WriteLine(remain.ToString());
-            int five = (int)(remain / 5);
-            remain = (float)Math.Round(remain * 100) / 100 % 5;
-            Console.WriteLine(remain.ToString());
-            int toon = (int)(remain/ 2);
-            remain = (float)Math.Round(remain * 100) / 100 % 2;
-            Console.WriteLine(remain.ToString());
-            int loon = (int)(remain/1);
-            remain = (float)Math.Round(remain * 100) / 100 % 1;
-            Console.WriteLine(remain.ToString());
-            int quart = (int)(remain / 0.25);
-            //remain = Math.Round(remain * 100) / 100 % 0.25;
-            remain = (float)(remain - (quart * 0.25));
-            Console.WriteLine(remain.ToString());
-            //have a bug where the next calculation would not result in 1 dime remaining if the remainder is 0.10 sometimes
-            int dime = (int)(remain / 0.1);
-            remain = (float)(Math.Round(remain * 100) / 100 % 0.1);
-            Console.WriteLine(remain.ToString());
-            int nick = (int)(remain / 0.05);
+            int fifty = (int)Math.Round((rounded / 50), 2);
+            double remain = Math.Round(rounded % 50,2);
+            int twenty = (int)Math.Round((remain / 20), 2);
+            remain = Math.Round(remain % 20, 2);
+            int ten = (int)Math.Round((remain / 10), 2);
+            remain = Math.Round(remain % 10, 2);
+            int five = (int)Math.Round((remain / 5), 2);
+            remain = Math.Round(remain % 5, 2);
+            int toon = (int)Math.Round((remain/ 2), 2);
+            remain = Math.Round(remain % 2, 2);
+            int loon = (int)Math.Round((remain/1), 2);
+            remain = Math.Round(remain % 1, 2);
+            int quart = (int)Math.Round((remain / 0.25), 2);
+            remain = Math.Round(remain % 0.25,2);
+            int dime = (int)Math.Round((remain / 0.1), 2);
+            remain = Math.Round(remain % 0.1, 2);
+            int nick = (int)Math.Round((remain / 0.05), 2);
 
             //display results in console
             Console.WriteLine($"Fifty x {fifty}\nTwenty x {twenty}\nTen x {ten}\nFive x {five}\nToonie x {toon}\nLoonie x {loon}\nQuarter x {quart}\nDime x {dime}\nNickel x {nick}");

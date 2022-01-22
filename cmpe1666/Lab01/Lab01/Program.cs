@@ -60,7 +60,8 @@ namespace Lab01
             remain = Math.Round(remain * 100) / 100 % 1;
             Console.WriteLine(remain.ToString());
             int quart = (int)(remain / 0.25);
-            remain = Math.Round(remain * 100) / 100 % 0.25;
+            //remain = Math.Round(remain * 100) / 100 % 0.25;
+            remain = remain - (quart * 0.25);
             Console.WriteLine(remain.ToString());
             //have a bug where the next calculation would not result in 1 dime remaining if the remainder is 0.10 sometimes
             int dime = (int)(remain / 0.1);

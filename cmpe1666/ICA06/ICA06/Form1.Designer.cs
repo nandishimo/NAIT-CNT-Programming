@@ -43,29 +43,30 @@ namespace ICA06
             // nameList
             // 
             this.nameList.FormattingEnabled = true;
-            this.nameList.Location = new System.Drawing.Point(13, 55);
+            this.nameList.Location = new System.Drawing.Point(10, 35);
             this.nameList.Name = "nameList";
             this.nameList.Size = new System.Drawing.Size(167, 225);
             this.nameList.TabIndex = 0;
             // 
             // sortedNamesList
             // 
+            this.sortedNamesList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.sortedNamesList.FormattingEnabled = true;
-            this.sortedNamesList.Location = new System.Drawing.Point(622, 55);
+            this.sortedNamesList.Location = new System.Drawing.Point(436, 35);
             this.sortedNamesList.Name = "sortedNamesList";
             this.sortedNamesList.Size = new System.Drawing.Size(167, 225);
             this.sortedNamesList.TabIndex = 1;
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(342, 55);
+            this.textBox1.Location = new System.Drawing.Point(231, 61);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(163, 20);
             this.textBox1.TabIndex = 2;
             // 
             // nameEntryButton
             // 
-            this.nameEntryButton.Location = new System.Drawing.Point(342, 119);
+            this.nameEntryButton.Location = new System.Drawing.Point(231, 125);
             this.nameEntryButton.Name = "nameEntryButton";
             this.nameEntryButton.Size = new System.Drawing.Size(163, 30);
             this.nameEntryButton.TabIndex = 3;
@@ -75,7 +76,7 @@ namespace ICA06
             // 
             // nameSearchButton
             // 
-            this.nameSearchButton.Location = new System.Drawing.Point(342, 190);
+            this.nameSearchButton.Location = new System.Drawing.Point(231, 196);
             this.nameSearchButton.Name = "nameSearchButton";
             this.nameSearchButton.Size = new System.Drawing.Size(163, 30);
             this.nameSearchButton.TabIndex = 4;
@@ -87,7 +88,7 @@ namespace ICA06
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(13, 36);
+            this.label1.Location = new System.Drawing.Point(10, 16);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(211, 16);
             this.label1.TabIndex = 5;
@@ -95,9 +96,10 @@ namespace ICA06
             // 
             // label2
             // 
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(603, 36);
+            this.label2.Location = new System.Drawing.Point(417, 16);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(162, 16);
             this.label2.TabIndex = 6;
@@ -106,7 +108,7 @@ namespace ICA06
             // nameLabel
             // 
             this.nameLabel.AutoSize = true;
-            this.nameLabel.Location = new System.Drawing.Point(298, 58);
+            this.nameLabel.Location = new System.Drawing.Point(187, 64);
             this.nameLabel.Name = "nameLabel";
             this.nameLabel.Size = new System.Drawing.Size(38, 13);
             this.nameLabel.TabIndex = 7;
@@ -116,7 +118,7 @@ namespace ICA06
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(617, 278);
             this.Controls.Add(this.nameLabel);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -125,6 +127,8 @@ namespace ICA06
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.sortedNamesList);
             this.Controls.Add(this.nameList);
+            this.MaximumSize = new System.Drawing.Size(633, 317);
+            this.MinimumSize = new System.Drawing.Size(633, 317);
             this.Name = "Form1";
             this.Text = "ICA06";
             this.ResumeLayout(false);

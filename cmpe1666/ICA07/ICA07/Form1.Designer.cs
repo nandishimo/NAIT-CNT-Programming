@@ -247,7 +247,7 @@ namespace ICA07
             this.sortClearButton.TabIndex = 15;
             this.sortClearButton.Text = "Clear Sorted";
             this.sortClearButton.UseVisualStyleBackColor = true;
-            this.sortClearButton.Click += new System.EventHandler(this.button3_Click);
+            this.sortClearButton.Click += new System.EventHandler(this.sortClearButton_Click);
             // 
             // sortingTimeLabel
             // 

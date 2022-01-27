@@ -18,37 +18,78 @@ namespace ICA07
         }
         Random rand = new Random();
         List<int> numList = new List<int>();
+        List<int> cloneList = new List<int>();
+        System.Diagnostics.Stopwatch stopwatch = new System.Diagnostics.Stopwatch();
         private void generateButton_Click(object sender, EventArgs e)
         {
-            int.TryParse(numValBox.Text, out int num);
-            int.TryParse(minValBox.Text, out int min);
-            int.TryParse(maxValBox.Text, out int max);
+            bool error = false;
+            string errorMessage = "";
+            if (!int.TryParse(numValBox.Text, out int num)|| num <= 10)
+            {
+                errorMessage += "\"Number of Values\" must be a valid integer greater than 10. ";
+                error = true;
+            }
+            if (!int.TryParse(minValBox.Text, out int min))
+            {
+                errorMessage += "\"Minimum Value\" must be a valid integer. ";
+                error = true;
+            }
+            if (!int.TryParse(maxValBox.Text, out int max)|| min>=max)
+            {
+                errorMessage += "\"Maximum Value\" must be a valid integer greater than the minimum value. ";
+                error = true;
+            }
+            numValBox.Clear();
+            minValBox.Clear();
+            maxValBox.Clear();
+            if (error)
+            {
+                MessageBox.Show(errorMessage, "Error");
+                return;
+            }
             numList.Clear();
             generateList(num, min, max);
-
-            string listGen="";
-            foreach (int i in numList)
-            {
-                listGen += $"{i}, ";
-            }
-            generatedBox.Text = listGen;
+            displayRAW();
         }
         private void sortButton_Click(object sender, EventArgs e)
         {
-            if (bubbleButton.Checked)
-                bubbleSort();
+            cloneList.Clear();
+            for(int i=0; i<numList.Count;i++)
+            {
+                cloneList.Add(numList[i]);
+            }
+            if (clearSortButton.Checked)
+            {
+                stopwatch.Start();
+                bubbleSort(ref cloneList);
+                stopwatch.Stop();
+            }
             else if (selectionButton.Checked)
-                selectionSort();
+            {
+                stopwatch.Start();
+                selectionSort(ref cloneList);
+                stopwatch.Stop();
+            }
             else if (insertionButton.Checked)
-                insertionSort();
+            {
+                stopwatch.Start();
+                insertionSort(ref cloneList);
+                stopwatch.Stop();
+            }
             else
-                quickSort(0,numList.Count-1);
+            {
+                stopwatch.Start();
+                quickSort(ref cloneList,0, cloneList.Count - 1);
+                stopwatch.Stop();
+            }
             string listGen = "";
-            foreach (int i in numList)
+            foreach (int i in cloneList)
             {
                 listGen += $"{i}, ";
             }
             sortedBox.Text = listGen;
+            sortingTimeBox.Text = stopwatch.ElapsedTicks.ToString();
+            stopwatch.Reset();
         }
 
         private void generateList(int num, int min, int max)
@@ -59,83 +100,107 @@ namespace ICA07
             }
         }
 
-        private void quickSort(int start, int end)
+        private void quickSort(ref List<int> list, int start, int end)
         {
             int i;
             if (start < end)
             {
-                i = Partition(start, end);
-                quickSort(start, i - 1);
-                quickSort(i + 1, end);
+                i = Partition(ref list, start, end);
+                quickSort(ref list, start, i - 1);
+                quickSort(ref list, i + 1, end);
             }
         }
 
-        private int Partition(int start, int end)
+        private int Partition(ref List<int> list, int start, int end)
         {
-            int p = numList[end];
+            int p = list[end];
             int i = start - 1;
             for(int j=start; j < end; j++)
             {
-                if (numList[j] <= p)
+                if (list[j] <= p)
                 {
                     i++;
-                    swap(i, j);
+                    swap(ref list, i, j);
                 }
             }
-            swap(i + 1, end);
+            swap(ref list, i + 1, end);
             return i + 1;
         }
 
-        private void insertionSort()
+        private void insertionSort(ref List<int> list)
         {
             int j;
             int temp;
-            for (int i=1; i < numList.Count; i++)
+            for (int i=1; i < list.Count; i++)
             {
-                temp = numList[i];
+                temp = list[i];
                 j = i - 1;
-                while((j>=0)&&(numList[j]>temp))
+                while((j >= 0)&&(list[j] > temp))
                 {
-                    numList[j + 1] = numList[j];
+                    list[j + 1] = list[j];
                     j--;
                 }
-                numList[j + 1] = temp;
+                list[j + 1] = temp;
             }
         }
 
-        private void selectionSort()
+        private void selectionSort(ref List<int> list)
         {
-            for(int i = 0; i < numList.Count; i++)
+            for(int i = 0; i < list.Count; i++)
             {
                 int maxP = 0;
-                int lastP = numList.Count - 1 - i;
-                for (int j=0; j < numList.Count - i; j++)
+                int lastP = list.Count - 1 - i;
+                for (int j=0; j < list.Count - i; j++)
                 {
-                    if (numList[j] > numList[maxP])
+                    if (list[j] > list[maxP])
                         maxP = j;
                 }
-                swap(maxP, lastP);
+                swap(ref list, maxP, lastP);
             }
         }
 
-        private void swap(int a, int b)
+        private void swap(ref List<int> list, int a, int b)
         {
-            System.Diagnostics.Trace.WriteLine(a);
-            int temp = numList[a];
-            numList[a] = numList[b];
-            numList[b] = temp;
+            int temp = list[a];
+            list[a] = list[b];
+            list[b] = temp;
         }
 
-        private void bubbleSort()
+        private void bubbleSort(ref List<int> list)
         {
-            for (int i = 0; i < numList.Count; i++)
+            for (int i = 0; i < list.Count; i++)
             {
-                for (int j = 0; j < numList.Count - i - 1;j++)
+                for (int j = 0; j < list.Count - i - 1;j++)
                 {
-                    if (numList[j] > numList[j + 1])
-                        swap(j, j + 1);
+                    if (list[j] > list[j + 1])
+                        swap(ref list, j, j + 1);
                 }
             }
+        }
+
+        private void clearRawButton_Click(object sender, EventArgs e)
+        {
+            generatedBox.Clear();
+        }
+
+        private void reDisplayButton_Click(object sender, EventArgs e)
+        {
+            displayRAW();
+        }
+        private void displayRAW()
+        {
+            string listGen = "";
+            foreach (int i in numList)
+            {
+                listGen += $"{i}, ";
+            }
+            generatedBox.Text = listGen;
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            sortedBox.Clear();
+            sortingTimeBox.Clear();
         }
     }
 }

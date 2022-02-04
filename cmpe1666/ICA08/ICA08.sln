@@ -22,4 +22,8 @@ Global
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0FA249EA-61F9-46D9-9D62-2CB2D31D28DD}
 	EndGlobalSection
+	GlobalSection(SubversionScc) = preSolution
+		Svn-Managed = True
+		Manager = AnkhSVN2019 - Subversion Support for Visual Studio
+	EndGlobalSection
 EndGlobal

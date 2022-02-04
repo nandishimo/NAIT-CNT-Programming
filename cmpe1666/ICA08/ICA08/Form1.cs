@@ -12,6 +12,11 @@ namespace ICA08
 {
     public partial class Form1 : Form
     {
+        public struct Employee
+        {
+            string id;
+            int salary;
+        }
         public Form1()
         {
             InitializeComponent();

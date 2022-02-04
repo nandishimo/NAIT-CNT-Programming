@@ -29,119 +29,103 @@ namespace ICA08
         /// </summary>
         private void InitializeComponent()
         {
-            this.unsortedBox = new System.Windows.Forms.TextBox();
-            this.sortedBox = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
+            this.loadButton = new System.Windows.Forms.Button();
+            this.clearSortedButton = new System.Windows.Forms.Button();
+            this.quickSortButton = new System.Windows.Forms.Button();
+            this.nSquaredSortButton = new System.Windows.Forms.Button();
+            this.providedListRadio = new System.Windows.Forms.RadioButton();
+            this.fileDataRadio = new System.Windows.Forms.RadioButton();
+            this.clearUnsortedButton = new System.Windows.Forms.Button();
+            this.displayUnsortedButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.elapsedTicksBox = new System.Windows.Forms.TextBox();
+            this.unsortedBox = new System.Windows.Forms.ListBox();
+            this.sortedBox = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
             // 
-            // unsortedBox
+            // loadButton
             // 
-            this.unsortedBox.Location = new System.Drawing.Point(12, 48);
-            this.unsortedBox.Multiline = true;
-            this.unsortedBox.Name = "unsortedBox";
-            this.unsortedBox.Size = new System.Drawing.Size(285, 355);
-            this.unsortedBox.TabIndex = 0;
+            this.loadButton.Location = new System.Drawing.Point(340, 360);
+            this.loadButton.Name = "loadButton";
+            this.loadButton.Size = new System.Drawing.Size(123, 43);
+            this.loadButton.TabIndex = 2;
+            this.loadButton.Text = "Load Files";
+            this.loadButton.UseVisualStyleBackColor = true;
             // 
-            // sortedBox
+            // clearSortedButton
             // 
-            this.sortedBox.Location = new System.Drawing.Point(503, 48);
-            this.sortedBox.Multiline = true;
-            this.sortedBox.Name = "sortedBox";
-            this.sortedBox.Size = new System.Drawing.Size(285, 355);
-            this.sortedBox.TabIndex = 1;
+            this.clearSortedButton.Location = new System.Drawing.Point(340, 311);
+            this.clearSortedButton.Name = "clearSortedButton";
+            this.clearSortedButton.Size = new System.Drawing.Size(123, 43);
+            this.clearSortedButton.TabIndex = 3;
+            this.clearSortedButton.Text = "Clear Sorted Listbox";
+            this.clearSortedButton.UseVisualStyleBackColor = true;
             // 
-            // button1
+            // quickSortButton
             // 
-            this.button1.Location = new System.Drawing.Point(340, 360);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(123, 43);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
+            this.quickSortButton.Location = new System.Drawing.Point(340, 262);
+            this.quickSortButton.Name = "quickSortButton";
+            this.quickSortButton.Size = new System.Drawing.Size(123, 43);
+            this.quickSortButton.TabIndex = 4;
+            this.quickSortButton.Text = "Quick Sort";
+            this.quickSortButton.UseVisualStyleBackColor = true;
             // 
-            // button2
+            // nSquaredSortButton
             // 
-            this.button2.Location = new System.Drawing.Point(340, 311);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(123, 43);
-            this.button2.TabIndex = 3;
-            this.button2.Text = "button2";
-            this.button2.UseVisualStyleBackColor = true;
+            this.nSquaredSortButton.Location = new System.Drawing.Point(340, 213);
+            this.nSquaredSortButton.Name = "nSquaredSortButton";
+            this.nSquaredSortButton.Size = new System.Drawing.Size(123, 43);
+            this.nSquaredSortButton.TabIndex = 5;
+            this.nSquaredSortButton.Text = "N^2 Sorting";
+            this.nSquaredSortButton.UseVisualStyleBackColor = true;
             // 
-            // button3
+            // providedListRadio
             // 
-            this.button3.Location = new System.Drawing.Point(340, 262);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(123, 43);
-            this.button3.TabIndex = 4;
-            this.button3.Text = "button3";
-            this.button3.UseVisualStyleBackColor = true;
+            this.providedListRadio.AutoSize = true;
+            this.providedListRadio.Location = new System.Drawing.Point(356, 157);
+            this.providedListRadio.Name = "providedListRadio";
+            this.providedListRadio.Size = new System.Drawing.Size(86, 17);
+            this.providedListRadio.TabIndex = 6;
+            this.providedListRadio.TabStop = true;
+            this.providedListRadio.Text = "Provided List";
+            this.providedListRadio.UseVisualStyleBackColor = true;
             // 
-            // button4
+            // fileDataRadio
             // 
-            this.button4.Location = new System.Drawing.Point(340, 213);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(123, 43);
-            this.button4.TabIndex = 5;
-            this.button4.Text = "button4";
-            this.button4.UseVisualStyleBackColor = true;
+            this.fileDataRadio.AutoSize = true;
+            this.fileDataRadio.Location = new System.Drawing.Point(356, 180);
+            this.fileDataRadio.Name = "fileDataRadio";
+            this.fileDataRadio.Size = new System.Drawing.Size(67, 17);
+            this.fileDataRadio.TabIndex = 7;
+            this.fileDataRadio.TabStop = true;
+            this.fileDataRadio.Text = "File Data";
+            this.fileDataRadio.UseVisualStyleBackColor = true;
             // 
-            // radioButton1
+            // clearUnsortedButton
             // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(356, 157);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(85, 17);
-            this.radioButton1.TabIndex = 6;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "radioButton1";
-            this.radioButton1.UseVisualStyleBackColor = true;
+            this.clearUnsortedButton.Location = new System.Drawing.Point(340, 97);
+            this.clearUnsortedButton.Name = "clearUnsortedButton";
+            this.clearUnsortedButton.Size = new System.Drawing.Size(123, 43);
+            this.clearUnsortedButton.TabIndex = 8;
+            this.clearUnsortedButton.Text = "Clear Unsorted Listbox";
+            this.clearUnsortedButton.UseVisualStyleBackColor = true;
             // 
-            // radioButton2
+            // displayUnsortedButton
             // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(356, 180);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(85, 17);
-            this.radioButton2.TabIndex = 7;
-            this.radioButton2.TabStop = true;
-            this.radioButton2.Text = "radioButton2";
-            this.radioButton2.UseVisualStyleBackColor = true;
-            // 
-            // button5
-            // 
-            this.button5.Location = new System.Drawing.Point(340, 97);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(123, 43);
-            this.button5.TabIndex = 8;
-            this.button5.Text = "button5";
-            this.button5.UseVisualStyleBackColor = true;
-            // 
-            // button6
-            // 
-            this.button6.Location = new System.Drawing.Point(340, 48);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(123, 43);
-            this.button6.TabIndex = 9;
-            this.button6.Text = "button6";
-            this.button6.UseVisualStyleBackColor = true;
+            this.displayUnsortedButton.Location = new System.Drawing.Point(340, 48);
+            this.displayUnsortedButton.Name = "displayUnsortedButton";
+            this.displayUnsortedButton.Size = new System.Drawing.Size(123, 43);
+            this.displayUnsortedButton.TabIndex = 9;
+            this.displayUnsortedButton.Text = "Display Unsorted List";
+            this.displayUnsortedButton.UseVisualStyleBackColor = true;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(12, 28);
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(87, 28);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(113, 17);
             this.label1.TabIndex = 10;
@@ -151,8 +135,8 @@ namespace ICA08
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(500, 28);
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(603, 28);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(95, 17);
             this.label2.TabIndex = 11;
@@ -178,48 +162,63 @@ namespace ICA08
             this.elapsedTicksBox.Size = new System.Drawing.Size(120, 20);
             this.elapsedTicksBox.TabIndex = 13;
             // 
+            // unsortedBox
+            // 
+            this.unsortedBox.FormattingEnabled = true;
+            this.unsortedBox.Location = new System.Drawing.Point(12, 48);
+            this.unsortedBox.Name = "unsortedBox";
+            this.unsortedBox.Size = new System.Drawing.Size(275, 355);
+            this.unsortedBox.TabIndex = 14;
+            // 
+            // sortedBox
+            // 
+            this.sortedBox.FormattingEnabled = true;
+            this.sortedBox.Location = new System.Drawing.Point(513, 48);
+            this.sortedBox.Name = "sortedBox";
+            this.sortedBox.Size = new System.Drawing.Size(275, 355);
+            this.sortedBox.TabIndex = 15;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.sortedBox);
+            this.Controls.Add(this.unsortedBox);
             this.Controls.Add(this.elapsedTicksBox);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.button6);
-            this.Controls.Add(this.button5);
-            this.Controls.Add(this.radioButton2);
-            this.Controls.Add(this.radioButton1);
-            this.Controls.Add(this.button4);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.sortedBox);
-            this.Controls.Add(this.unsortedBox);
+            this.Controls.Add(this.displayUnsortedButton);
+            this.Controls.Add(this.clearUnsortedButton);
+            this.Controls.Add(this.fileDataRadio);
+            this.Controls.Add(this.providedListRadio);
+            this.Controls.Add(this.nSquaredSortButton);
+            this.Controls.Add(this.quickSortButton);
+            this.Controls.Add(this.clearSortedButton);
+            this.Controls.Add(this.loadButton);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "ICA08 - Sorting Structs";
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.TextBox unsortedBox;
-        private System.Windows.Forms.TextBox sortedBox;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.RadioButton radioButton1;
-        private System.Windows.Forms.RadioButton radioButton2;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button loadButton;
+        private System.Windows.Forms.Button clearSortedButton;
+        private System.Windows.Forms.Button quickSortButton;
+        private System.Windows.Forms.Button nSquaredSortButton;
+        private System.Windows.Forms.RadioButton providedListRadio;
+        private System.Windows.Forms.RadioButton fileDataRadio;
+        private System.Windows.Forms.Button clearUnsortedButton;
+        private System.Windows.Forms.Button displayUnsortedButton;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox elapsedTicksBox;
+        private System.Windows.Forms.ListBox unsortedBox;
+        private System.Windows.Forms.ListBox sortedBox;
     }
 }
 

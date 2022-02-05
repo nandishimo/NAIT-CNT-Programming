@@ -43,6 +43,7 @@ namespace ICA08
             this.elapsedTicksBox = new System.Windows.Forms.TextBox();
             this.unsortedBox = new System.Windows.Forms.ListBox();
             this.sortedBox = new System.Windows.Forms.ListBox();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.SuspendLayout();
             // 
             // loadButton
@@ -53,6 +54,7 @@ namespace ICA08
             this.loadButton.TabIndex = 2;
             this.loadButton.Text = "Load Files";
             this.loadButton.UseVisualStyleBackColor = true;
+            this.loadButton.Click += new System.EventHandler(this.loadButton_Click);
             // 
             // clearSortedButton
             // 
@@ -178,6 +180,10 @@ namespace ICA08
             this.sortedBox.Size = new System.Drawing.Size(275, 355);
             this.sortedBox.TabIndex = 15;
             // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.FileName = "openFileDialog1";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -219,6 +225,7 @@ namespace ICA08
         private System.Windows.Forms.TextBox elapsedTicksBox;
         private System.Windows.Forms.ListBox unsortedBox;
         private System.Windows.Forms.ListBox sortedBox;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
     }
 }
 

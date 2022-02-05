@@ -85,10 +85,12 @@ namespace ICA08
             this.nSquaredSortButton.TabIndex = 5;
             this.nSquaredSortButton.Text = "N^2 Sorting";
             this.nSquaredSortButton.UseVisualStyleBackColor = true;
+            this.nSquaredSortButton.Click += new System.EventHandler(this.nSquaredSortButton_Click);
             // 
             // providedListRadio
             // 
             this.providedListRadio.AutoSize = true;
+            this.providedListRadio.Checked = true;
             this.providedListRadio.Location = new System.Drawing.Point(356, 157);
             this.providedListRadio.Name = "providedListRadio";
             this.providedListRadio.Size = new System.Drawing.Size(86, 17);

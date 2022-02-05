@@ -8,18 +8,17 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
-using System.Runtime.Serialization;
-using System.Runtime.Serialization.Formatters.Binary;
 
 namespace ICA08
 {
-    public struct Employee
+    public struct Employee//struct employees, have ids and salaries
     {
         public int id;
         public int salary;
     }
     public partial class Form1 : Form
     {
+        //hardcoded lists for provided IDs and salaries
         List<int> providedIDs = new List<int>() { 28, 53, 12, 18, 8, 2, 19, 57, 62, 34, 23, 14, 48, 35, 55, 22, 26, 15, 7, 9, 32, 43, 41, 51 };
         List<int> providedSalary = new List<int>() { 4500, 2800, 1900, 3100, 7000, 3500, 2200, 2800, 2850, 3150, 4000, 4500, 6000, 7200, 3700, 2100, 2450, 2500, 3250, 3700, 3800, 4200, 4100, 3900 };
         public Form1()
@@ -34,7 +33,6 @@ namespace ICA08
         private void loadButton_Click(object sender, EventArgs e)
         {
             employees.Clear();
-            cloneEmployees.Clear();
             List<int> IDs = new List<int>();
             List<int> salary = new List<int>();
             if (providedListRadio.Checked)
@@ -56,14 +54,15 @@ namespace ICA08
                 newEmployee.id = IDs[i];
                 newEmployee.salary = salary[i];
                 employees.Add(newEmployee);
-                cloneEmployees.Add(newEmployee);
             }
+            displayList(employees, unsortedBox);
+            unsortClone();
             
         }
 
         private void clearSortedButton_Click(object sender, EventArgs e)
         {
-            sortedBox.ClearSelected();
+            sortedBox.Items.Clear();
         }
 
         private void bubbleSort(ref List<Employee> list)
@@ -116,18 +115,29 @@ namespace ICA08
             StreamReader sr2 = new StreamReader(fileName2);
             int id;
             int sal;
-            while (!sr1.EndOfStream)
+            try
             {
-                int.TryParse(sr1.ReadLine(), out id);
-                int.TryParse(sr2.ReadLine(), out sal);
-                IDs.Add(id);
-                salary.Add(sal);
+                while (!sr1.EndOfStream)
+                {
+                    int.TryParse(sr1.ReadLine(), out id);
+                    int.TryParse(sr2.ReadLine(), out sal);
+                    IDs.Add(id);
+                    salary.Add(sal);
+                }
             }
+            catch(Exception ex)
+            {
+                MessageBox.Show($"{ex}");
+            }
+
         }
 
         private void quickSortButton_Click(object sender, EventArgs e)
         {
-            quickSort(ref cloneEmployees, 0, cloneEmployees.Count);
+            unsortClone();
+            sw.Start();
+            quickSort(ref cloneEmployees, 0, cloneEmployees.Count-1);
+            sw.Stop();
             displayList(cloneEmployees, sortedBox);
         }
 
@@ -143,10 +153,36 @@ namespace ICA08
 
         private void displayList(List<Employee> list, ListBox box)
         {
+            box.Items.Clear();
             foreach (Employee emp in list)
             {
                 box.Items.Add($"{emp.id}:\t{emp.salary}");
             }
         }
+        private void unsortClone()//clears clonelist and replaces items from unsorted list
+        {
+            cloneEmployees.Clear();
+            for (int i = 0; i <employees.Count; i++)
+            {
+                cloneEmployees.Add(employees[i]);
+            }
+        }
+
+        private void nSquaredSortButton_Click(object sender, EventArgs e)
+        {
+            unsortClone();
+            sw.Start();
+            bubbleSort(ref cloneEmployees);
+            sw.Stop();
+            displayList(cloneEmployees, sortedBox);
+            displayTicks();
+        }
+
+        private void displayTicks()
+        {
+            elapsedTicksBox.Text = sw.ElapsedTicks.ToString();
+            sw.Reset();
+        }
+
     }
 }

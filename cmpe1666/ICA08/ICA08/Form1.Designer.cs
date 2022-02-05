@@ -75,6 +75,7 @@ namespace ICA08
             this.quickSortButton.TabIndex = 4;
             this.quickSortButton.Text = "Quick Sort";
             this.quickSortButton.UseVisualStyleBackColor = true;
+            this.quickSortButton.Click += new System.EventHandler(this.quickSortButton_Click);
             // 
             // nSquaredSortButton
             // 
@@ -115,6 +116,7 @@ namespace ICA08
             this.clearUnsortedButton.TabIndex = 8;
             this.clearUnsortedButton.Text = "Clear Unsorted Listbox";
             this.clearUnsortedButton.UseVisualStyleBackColor = true;
+            this.clearUnsortedButton.Click += new System.EventHandler(this.clearUnsortedButton_Click);
             // 
             // displayUnsortedButton
             // 
@@ -124,6 +126,7 @@ namespace ICA08
             this.displayUnsortedButton.TabIndex = 9;
             this.displayUnsortedButton.Text = "Display Unsorted List";
             this.displayUnsortedButton.UseVisualStyleBackColor = true;
+            this.displayUnsortedButton.Click += new System.EventHandler(this.displayUnsortedButton_Click);
             // 
             // label1
             // 

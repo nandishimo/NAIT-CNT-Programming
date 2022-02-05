@@ -115,9 +115,9 @@ namespace ICA08
             }
         }
 
-        private void quickSortButton_Click(object sender, EventArgs e)
+        private void quickSortButton_Click(object sender, EventArgs e)//quick sort and measure and display elapsed ticks
         {
-            unsortClone();
+            unsortClone();//assign cloned list the values of unsorted list
             sw.Start();
             quickSort(ref cloneEmployees, 0, cloneEmployees.Count-1);
             sw.Stop();
@@ -125,26 +125,26 @@ namespace ICA08
             displayTicks();
         }
 
-        private void displayUnsortedButton_Click(object sender, EventArgs e)
+        private void displayUnsortedButton_Click(object sender, EventArgs e)//checks which radio button is pressed and displays appropriate unsorted list
         {
             employees.Clear();
             if (providedListRadio.Checked)
             {
-                for (int i = 0; i < providedIDs.Count; i++)
+                for (int i = 0; i < providedIDs.Count; i++)//assign IDs and salaries to employees in employee list (uses) provided list
                 {
                     Employee newEmployee = new Employee();
-                    newEmployee.id = providedIDs[i];
-                    newEmployee.salary = providedSalary[i];
+                    newEmployee.id = (int)providedIDs[i];
+                    newEmployee.salary = (int)providedSalary[i];
                     employees.Add(newEmployee);
                 }
             }
             else
             {
-                for (int i = 0; i < IDs.Count; i++)
+                for (int i = 0; i < IDs.Count; i++) //same as above but used loaded list
                 {
                     Employee newEmployee = new Employee();
-                    newEmployee.id = IDs[i];
-                    newEmployee.salary = salary[i];
+                    newEmployee.id = (int)IDs[i];
+                    newEmployee.salary = (int)salary[i];
                     employees.Add(newEmployee);
                 }
             }

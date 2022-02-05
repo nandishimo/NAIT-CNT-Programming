@@ -21,6 +21,8 @@ namespace ICA08
         //hardcoded lists for provided IDs and salaries
         List<int> providedIDs = new List<int>() { 28, 53, 12, 18, 8, 2, 19, 57, 62, 34, 23, 14, 48, 35, 55, 22, 26, 15, 7, 9, 32, 43, 41, 51 };
         List<int> providedSalary = new List<int>() { 4500, 2800, 1900, 3100, 7000, 3500, 2200, 2800, 2850, 3150, 4000, 4500, 6000, 7200, 3700, 2100, 2450, 2500, 3250, 3700, 3800, 4200, 4100, 3900 };
+        List<int> IDs = new List<int>();
+        List<int> salary = new List<int>();
         public Form1()
         {
             InitializeComponent();
@@ -30,33 +32,14 @@ namespace ICA08
         List<Employee> cloneEmployees = new List<Employee>(); //clone list to be sorted / operated on
         System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
 
-        private void loadButton_Click(object sender, EventArgs e)
+        private void loadButton_Click(object sender, EventArgs e) //opens dialog boxes for employee ids and salary
         {
-            employees.Clear();
-            List<int> IDs = new List<int>();
-            List<int> salary = new List<int>();
-            if (providedListRadio.Checked)
-            {
-                IDs = providedIDs;
-                salary = providedSalary;
-            }
-            else
-            {
-                openFileDialog1.ShowDialog();
-                string fn1 = openFileDialog1.FileName;
-                openFileDialog2.ShowDialog();
-                string fn2 = openFileDialog2.FileName;
-                fileRead(fn1, fn2, ref IDs, ref salary);
-            }
-            for(int i = 0; i<IDs.Count; i++)
-            {
-                Employee newEmployee = new Employee();
-                newEmployee.id = IDs[i];
-                newEmployee.salary = salary[i];
-                employees.Add(newEmployee);
-            }
-            displayList(employees, unsortedBox);
-            unsortClone();
+            openFileDialog1.ShowDialog();
+            string fn1 = openFileDialog1.FileName;
+            openFileDialog2.ShowDialog();
+            string fn2 = openFileDialog2.FileName;
+            fileRead(fn1, fn2, ref IDs, ref salary);//read files
+            loadButton.Enabled = false; //disable button after load
             
         }
 
@@ -111,6 +94,7 @@ namespace ICA08
 
         public void fileRead(string fileName1, string fileName2, ref List<int> IDs, ref List<int> salary)
         {
+            //open two streamreaders for different files
             StreamReader sr1 = new StreamReader(fileName1);
             StreamReader sr2 = new StreamReader(fileName2);
             int id;
@@ -129,7 +113,6 @@ namespace ICA08
             {
                 MessageBox.Show($"{ex}");
             }
-
         }
 
         private void quickSortButton_Click(object sender, EventArgs e)
@@ -139,19 +122,42 @@ namespace ICA08
             quickSort(ref cloneEmployees, 0, cloneEmployees.Count-1);
             sw.Stop();
             displayList(cloneEmployees, sortedBox);
+            displayTicks();
         }
 
         private void displayUnsortedButton_Click(object sender, EventArgs e)
         {
+            employees.Clear();
+            if (providedListRadio.Checked)
+            {
+                for (int i = 0; i < providedIDs.Count; i++)
+                {
+                    Employee newEmployee = new Employee();
+                    newEmployee.id = providedIDs[i];
+                    newEmployee.salary = providedSalary[i];
+                    employees.Add(newEmployee);
+                }
+            }
+            else
+            {
+                for (int i = 0; i < IDs.Count; i++)
+                {
+                    Employee newEmployee = new Employee();
+                    newEmployee.id = IDs[i];
+                    newEmployee.salary = salary[i];
+                    employees.Add(newEmployee);
+                }
+            }
             displayList(employees, unsortedBox);
+            unsortClone();
         }
 
-        private void clearUnsortedButton_Click(object sender, EventArgs e)
+        private void clearUnsortedButton_Click(object sender, EventArgs e)//clears the unsorted box display
         {
             unsortedBox.Items.Clear();
         }
 
-        private void displayList(List<Employee> list, ListBox box)
+        private void displayList(List<Employee> list, ListBox box) //display specified Employee list into specified list box
         {
             box.Items.Clear();
             foreach (Employee emp in list)
@@ -168,17 +174,17 @@ namespace ICA08
             }
         }
 
-        private void nSquaredSortButton_Click(object sender, EventArgs e)
+        private void nSquaredSortButton_Click(object sender, EventArgs e)//runs bubble sort and displays results and elapsed ticks
         {
             unsortClone();
             sw.Start();
             bubbleSort(ref cloneEmployees);
             sw.Stop();
-            displayList(cloneEmployees, sortedBox);
-            displayTicks();
+            displayList(cloneEmployees, sortedBox); //show sorted list
+            displayTicks();//display elapsed ticks and reset sw
         }
 
-        private void displayTicks()
+        private void displayTicks()//display elapsed sw ticks
         {
             elapsedTicksBox.Text = sw.ElapsedTicks.ToString();
             sw.Reset();

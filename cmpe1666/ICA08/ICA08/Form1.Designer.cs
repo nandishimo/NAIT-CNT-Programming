@@ -189,11 +189,11 @@ namespace ICA08
             // 
             // openFileDialog1
             // 
-            this.openFileDialog1.FileName = "Select Employee IDs File";
+            this.openFileDialog1.Title = "Select Employee IDs File";
             // 
             // openFileDialog2
             // 
-            this.openFileDialog2.FileName = "Select Employee Salaries File";
+            this.openFileDialog2.Title = "Select Employee Salaries File";
             // 
             // Form1
             // 

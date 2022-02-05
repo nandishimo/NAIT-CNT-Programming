@@ -214,6 +214,8 @@ namespace ICA08
             this.Controls.Add(this.quickSortButton);
             this.Controls.Add(this.clearSortedButton);
             this.Controls.Add(this.loadButton);
+            this.MaximumSize = new System.Drawing.Size(816, 489);
+            this.MinimumSize = new System.Drawing.Size(816, 489);
             this.Name = "Form1";
             this.Text = "ICA08 - Sorting Structs";
             this.ResumeLayout(false);

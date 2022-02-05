@@ -44,6 +44,7 @@ namespace ICA08
             this.unsortedBox = new System.Windows.Forms.ListBox();
             this.sortedBox = new System.Windows.Forms.ListBox();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.openFileDialog2 = new System.Windows.Forms.OpenFileDialog();
             this.SuspendLayout();
             // 
             // loadButton
@@ -64,6 +65,7 @@ namespace ICA08
             this.clearSortedButton.TabIndex = 3;
             this.clearSortedButton.Text = "Clear Sorted Listbox";
             this.clearSortedButton.UseVisualStyleBackColor = true;
+            this.clearSortedButton.Click += new System.EventHandler(this.clearSortedButton_Click);
             // 
             // quickSortButton
             // 
@@ -182,7 +184,11 @@ namespace ICA08
             // 
             // openFileDialog1
             // 
-            this.openFileDialog1.FileName = "openFileDialog1";
+            this.openFileDialog1.FileName = "Select Employee IDs File";
+            // 
+            // openFileDialog2
+            // 
+            this.openFileDialog2.FileName = "Select Employee Salaries File";
             // 
             // Form1
             // 
@@ -226,6 +232,7 @@ namespace ICA08
         private System.Windows.Forms.ListBox unsortedBox;
         private System.Windows.Forms.ListBox sortedBox;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.OpenFileDialog openFileDialog2;
     }
 }
 

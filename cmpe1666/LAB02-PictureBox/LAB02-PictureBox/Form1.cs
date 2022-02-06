@@ -22,5 +22,10 @@ namespace LAB02_PictureBox
             openFileDialog1.ShowDialog();
             pictureBox1.Load(openFileDialog1.FileName);
         }
+
+        private void adjustSlider_Scroll(object sender, EventArgs e)
+        {
+            slideValue.Text = adjustSlider.Value.ToString();
+        }
     }
 }

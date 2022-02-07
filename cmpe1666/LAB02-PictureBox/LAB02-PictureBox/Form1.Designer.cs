@@ -84,6 +84,7 @@ namespace LAB02_PictureBox
             this.noiseButton.TabIndex = 4;
             this.noiseButton.Text = "Noise";
             this.noiseButton.UseVisualStyleBackColor = true;
+            this.noiseButton.CheckedChanged += new System.EventHandler(this.modificationChanged);
             // 
             // tintButton
             // 
@@ -94,6 +95,7 @@ namespace LAB02_PictureBox
             this.tintButton.TabIndex = 2;
             this.tintButton.Text = "Tint";
             this.tintButton.UseVisualStyleBackColor = true;
+            this.tintButton.CheckedChanged += new System.EventHandler(this.modificationChanged);
             // 
             // bwButton
             // 
@@ -104,6 +106,7 @@ namespace LAB02_PictureBox
             this.bwButton.TabIndex = 3;
             this.bwButton.Text = "Black & White";
             this.bwButton.UseVisualStyleBackColor = true;
+            this.bwButton.CheckedChanged += new System.EventHandler(this.modificationChanged);
             // 
             // contrastButton
             // 
@@ -116,6 +119,7 @@ namespace LAB02_PictureBox
             this.contrastButton.TabStop = true;
             this.contrastButton.Text = "Contrast";
             this.contrastButton.UseVisualStyleBackColor = true;
+            this.contrastButton.CheckedChanged += new System.EventHandler(this.modificationChanged);
             // 
             // progressBar1
             // 
@@ -140,23 +144,26 @@ namespace LAB02_PictureBox
             // transformButton
             // 
             this.transformButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.transformButton.Enabled = false;
             this.transformButton.Location = new System.Drawing.Point(657, 478);
             this.transformButton.Name = "transformButton";
             this.transformButton.Size = new System.Drawing.Size(98, 30);
             this.transformButton.TabIndex = 3;
             this.transformButton.Text = "Transform";
             this.transformButton.UseVisualStyleBackColor = true;
+            this.transformButton.Click += new System.EventHandler(this.transformButton_Click);
             // 
             // adjustSlider
             // 
             this.adjustSlider.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.adjustSlider.Location = new System.Drawing.Point(280, 478);
-            this.adjustSlider.Maximum = 20;
+            this.adjustSlider.Maximum = 100;
             this.adjustSlider.Name = "adjustSlider";
             this.adjustSlider.Size = new System.Drawing.Size(371, 45);
             this.adjustSlider.TabIndex = 2;
-            this.adjustSlider.Value = 10;
+            this.adjustSlider.TickFrequency = 5;
+            this.adjustSlider.Value = 50;
             this.adjustSlider.Scroll += new System.EventHandler(this.adjustSlider_Scroll);
             // 
             // slideLeft
@@ -173,7 +180,7 @@ namespace LAB02_PictureBox
             // 
             this.slideRight.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.slideRight.AutoSize = true;
-            this.slideRight.Location = new System.Drawing.Point(624, 510);
+            this.slideRight.Location = new System.Drawing.Point(620, 510);
             this.slideRight.Name = "slideRight";
             this.slideRight.Size = new System.Drawing.Size(31, 13);
             this.slideRight.TabIndex = 8;
@@ -182,16 +189,19 @@ namespace LAB02_PictureBox
             // openFileDialog1
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
+            this.openFileDialog1.Filter = "Image Files|*.bmp;*.jpg;*.png|All Files|*.*";
+            this.openFileDialog1.RestoreDirectory = true;
             // 
             // slideValue
             // 
             this.slideValue.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.slideValue.AutoSize = true;
-            this.slideValue.Location = new System.Drawing.Point(446, 510);
+            this.slideValue.ForeColor = System.Drawing.Color.DarkBlue;
+            this.slideValue.Location = new System.Drawing.Point(456, 510);
             this.slideValue.Name = "slideValue";
-            this.slideValue.Size = new System.Drawing.Size(35, 13);
+            this.slideValue.Size = new System.Drawing.Size(19, 13);
             this.slideValue.TabIndex = 9;
-            this.slideValue.Text = "label3";
+            this.slideValue.Text = "50";
             // 
             // Form1
             // 

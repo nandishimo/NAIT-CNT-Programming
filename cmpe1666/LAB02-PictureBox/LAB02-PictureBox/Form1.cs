@@ -186,7 +186,7 @@ namespace LAB02_PictureBox
                 }
             }
             progressBar1.Value = 100;//placebo progress;
-            pictureBox1.Image = bm;
+            pictureBox1.Image = bm;//display image with altered bitmap
         }
     }
 }

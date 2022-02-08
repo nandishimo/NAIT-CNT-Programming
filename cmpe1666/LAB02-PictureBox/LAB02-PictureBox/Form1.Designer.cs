@@ -189,7 +189,7 @@ namespace LAB02_PictureBox
             // openFileDialog1
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
-            this.openFileDialog1.Filter = "Image Files|*.bmp;*.jpg;*.png|All Files|*.*";
+            this.openFileDialog1.Filter = "Bitmap File|*.bmp|JPEG File|*.jpg|PNG File|*.png|All Files|*.*";
             this.openFileDialog1.RestoreDirectory = true;
             // 
             // slideValue

@@ -81,8 +81,23 @@ namespace LabExam1Q3
         private void SortById(List<Sensor> myList)
         {
             //**Include your code here**/
+            int j;
+            Sensor temp;
+            for (int i = 1; i < myList.Count; i++)//passes through entire list once and stores current value to temp
+            {
+                temp = myList[i];
+                j = i - 1;
+                //finds compares the temp value to the value at one index lower, moves into the "insertion" loop when the temp is smaller
 
-      
+                while ((j >= 0) && (myList[j]._sensorId > temp._sensorId))
+                //passes back through the array moving each value to one index higher until it finds a spot where the temp value is not smaller
+                {
+                    myList[j + 1] = myList[j];
+                    j--;
+                }
+                //"inserts" the temp value in current index
+                myList[j + 1] = temp;
+            }
 
         }
 
@@ -90,12 +105,55 @@ namespace LabExam1Q3
         //The SortByTemp method sorts a list of Sensor structs in descending order of temperatures
         private void SortByTemp(List<Sensor> L)
         {
-           /*Include Your Code here**/
+            /*Include Your Code here**/
+            int j;
+            Sensor temp;
+            for (int i = 1; i < L.Count; i++)//passes through entire list once and stores current value to temp
+            {
+                temp = L[i];
+                j = i - 1;
+                //finds compares the temp value to the value at one index lower, moves into the "insertion" loop when the temp is smaller
 
+                while ((j >= 0) && (L[j]._temperature > temp._temperature))
+                //passes back through the array moving each value to one index higher until it finds a spot where the temp value is not smaller
+                {
+                    L[j + 1] = L[j];
+                    j--;
+                }
+                //"inserts" the temp value in current index
+                L[j + 1] = temp;
+
+
+            }
+        }
+        List<Sensor> rawData = new List<Sensor>();//create list of sensor structs
+        List<Sensor> copyData = new List<Sensor>();//copied list to sort
+        private void UI_LoadProvidedData_Btn_Click(object sender, EventArgs e)
+        {
+
+            for (int i =0; i<SensorIdArray.Length; i++)
+            {
+                Sensor data = new Sensor();
+                data._sensorId = SensorIdArray[i];
+                data._temperature = temperatureArray[i];
+                rawData.Add(data);
+                copyData.Add(data);
+                UI_RawData_LB.Items.Add($"{data._sensorId}: \t {data._temperature}");
+            }
 
         }
 
+        private void UI_SortProvidedData_btn_Click(object sender, EventArgs e)
+        {
+            if (UI_SortByID_Radio.Checked)
+                SortById(copyData);
+            else
+                SortByTemp(copyData);
+            for (int i = 0; i < copyData.Count; i++)
+            {
+                UI_SortedData_LB.Items.Add($"{copyData[i]._sensorId}: \t {copyData[i]._temperature}");
+            }
 
-
+        }
     }
 }

@@ -1,4 +1,14 @@
-﻿using System;
+﻿/**
+ * 
+ * CMPE 1666- Intemediate Programming
+ * 
+ * Lab Exam 1- Winter 2022- Question 1
+ * 
+ * Name: Nandish Patel
+ * 
+ * 
+ */
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;

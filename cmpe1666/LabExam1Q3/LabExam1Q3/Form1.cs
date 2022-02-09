@@ -145,15 +145,16 @@ namespace LabExam1Q3
         }
 
         private void UI_SortProvidedData_btn_Click(object sender, EventArgs e)
-        {
+        {//check which button is checked and do the relevant sorting
+
             if (UI_SortByID_Radio.Checked)
                 SortById(copyData);
             else
                 SortByTemp(copyData);
-            UI_SortedData_LB.Items.Clear();
+            UI_SortedData_LB.Items.Clear();//clear sorted data listbox
             for (int i = 0; i < copyData.Count; i++)
             {
-                UI_SortedData_LB.Items.Add($"{copyData[i]._sensorId}: \t {copyData[i]._temperature}");
+                UI_SortedData_LB.Items.Add($"{copyData[i]._sensorId}: \t {copyData[i]._temperature}");//add sorted data to listbox
             }
 
         }

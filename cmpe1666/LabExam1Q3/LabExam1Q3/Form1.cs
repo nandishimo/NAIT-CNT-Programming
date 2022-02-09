@@ -130,12 +130,13 @@ namespace LabExam1Q3
         List<Sensor> copyData = new List<Sensor>();//copied list to sort
         private void UI_LoadProvidedData_Btn_Click(object sender, EventArgs e)
         {
-
+            UI_RawData_LB.Items.Clear();//clear lsit box
             for (int i =0; i<SensorIdArray.Length; i++)
-            {
+            {//create new sensor struct object and fill with array data
                 Sensor data = new Sensor();
                 data._sensorId = SensorIdArray[i];
                 data._temperature = temperatureArray[i];
+                //add to original list and copy list
                 rawData.Add(data);
                 copyData.Add(data);
                 UI_RawData_LB.Items.Add($"{data._sensorId}: \t {data._temperature}");
@@ -149,6 +150,7 @@ namespace LabExam1Q3
                 SortById(copyData);
             else
                 SortByTemp(copyData);
+            UI_SortedData_LB.Items.Clear();
             for (int i = 0; i < copyData.Count; i++)
             {
                 UI_SortedData_LB.Items.Add($"{copyData[i]._sensorId}: \t {copyData[i]._temperature}");

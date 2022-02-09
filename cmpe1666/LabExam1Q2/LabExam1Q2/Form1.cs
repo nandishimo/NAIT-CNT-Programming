@@ -54,7 +54,7 @@ namespace LabExam1Q2
         }
 
         private void UI_LoadData_Btn_Click(object sender, EventArgs e)
-        {
+        {//check which radio button is checked and load relevant dataset into working array and display in textbox
             if (UI_DataSet1_Radio.Checked)
             {
                 displayArray(DataSet1);
@@ -73,7 +73,7 @@ namespace LabExam1Q2
             }
         }
 
-        private void displayArray(int[] array)
+        private void displayArray(int[] array) //helper method to display array in textbox
         {
             string display = "";
             foreach(int num in array)
@@ -84,16 +84,16 @@ namespace LabExam1Q2
         }
 
         private void UI_CalculateScore_Btn_Click(object sender, EventArgs e)
-        {
+        {//calls symmetry scoring function and displays results in results textbox
             UI_Score_Tbx.Text = $"{checkSymmetry(workingArray)}";
         }
 
         private void UI_GenerateValues_Btn_Click(object sender, EventArgs e)
-        {
+        { //generates a random array based on given parameters, loads it into the workingArray var and displays the array
             Random rand = new Random();
-            int.TryParse(UI_NumValues_Tbx.Text, out int num);
-            int.TryParse(UI_LowerLimit_Tbx.Text, out int low);
-            int.TryParse(UI_UpperLimit_Tbx.Text, out int high);
+            int.TryParse(UI_NumValues_Tbx.Text, out int num);//number of values to generate
+            int.TryParse(UI_LowerLimit_Tbx.Text, out int low);//lower limit of values to generate
+            int.TryParse(UI_UpperLimit_Tbx.Text, out int high);//upper limit of values to generate
             workingArray = new int[num];
             for(int i = 0; i<num; i++)
             {

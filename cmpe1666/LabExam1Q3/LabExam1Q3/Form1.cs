@@ -112,10 +112,10 @@ namespace LabExam1Q3
             {
                 temp = L[i];
                 j = i - 1;
-                //finds compares the temp value to the value at one index lower, moves into the "insertion" loop when the temp is smaller
+                //finds compares the temp value to the value at one index lower, moves into the "insertion" loop when the temp is larger
 
                 while ((j >= 0) && (L[j]._temperature > temp._temperature))
-                //passes back through the array moving each value to one index higher until it finds a spot where the temp value is not smaller
+                //passes back through the array moving each value to one index higher until it finds a spot where the temp value is not larger
                 {
                     L[j + 1] = L[j];
                     j--;

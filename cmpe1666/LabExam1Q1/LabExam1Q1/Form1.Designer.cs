@@ -145,6 +145,7 @@ namespace LabExam1Q1
             // 
             // timer1
             // 
+            this.timer1.Enabled = true;
             this.timer1.Interval = 200;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
@@ -162,7 +163,6 @@ namespace LabExam1Q1
             this.Controls.Add(this.groupBox1);
             this.Name = "Form1";
             this.Text = "No of Milliseconds Elapsed: 0";
-            this.Load += new System.EventHandler(this.Form1_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);

@@ -91,9 +91,14 @@ namespace LabExam1Q2
         private void UI_GenerateValues_Btn_Click(object sender, EventArgs e)
         { //generates a random array based on given parameters, loads it into the workingArray var and displays the array
             Random rand = new Random();
-            int.TryParse(UI_NumValues_Tbx.Text, out int num);//number of values to generate
-            int.TryParse(UI_LowerLimit_Tbx.Text, out int low);//lower limit of values to generate
-            int.TryParse(UI_UpperLimit_Tbx.Text, out int high);//upper limit of values to generate
+            if (//check if textbox entries are invalid
+            !int.TryParse(UI_NumValues_Tbx.Text, out int num)//number of values to generate
+            || !int.TryParse(UI_LowerLimit_Tbx.Text, out int low)//lower limit of values to generate
+            || !int.TryParse(UI_UpperLimit_Tbx.Text, out int high))//upper limit of values to generate
+            {
+                UI_Display_Tbx.Text = ("One or more the parameters are invalid.");//error message displayed instead of array
+                return;
+            }
             workingArray = new int[num];
             for(int i = 0; i<num; i++)
             {

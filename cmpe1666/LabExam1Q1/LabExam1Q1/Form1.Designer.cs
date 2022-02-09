@@ -29,6 +29,7 @@ namespace LabExam1Q1
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.multiplyRB = new System.Windows.Forms.RadioButton();
             this.addRB = new System.Windows.Forms.RadioButton();
@@ -39,6 +40,7 @@ namespace LabExam1Q1
             this.value1Box = new System.Windows.Forms.TextBox();
             this.value2Box = new System.Windows.Forms.TextBox();
             this.resultsBox = new System.Windows.Forms.TextBox();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -131,6 +133,7 @@ namespace LabExam1Q1
             this.value2Box.Name = "value2Box";
             this.value2Box.Size = new System.Drawing.Size(206, 20);
             this.value2Box.TabIndex = 5;
+            this.value2Box.TextChanged += new System.EventHandler(this.valueChanged);
             // 
             // resultsBox
             // 
@@ -139,6 +142,11 @@ namespace LabExam1Q1
             this.resultsBox.ReadOnly = true;
             this.resultsBox.Size = new System.Drawing.Size(206, 20);
             this.resultsBox.TabIndex = 6;
+            // 
+            // timer1
+            // 
+            this.timer1.Interval = 200;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // Form1
             // 
@@ -154,6 +162,7 @@ namespace LabExam1Q1
             this.Controls.Add(this.groupBox1);
             this.Name = "Form1";
             this.Text = "No of Milliseconds Elapsed: 0";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
@@ -173,6 +182,7 @@ namespace LabExam1Q1
         private System.Windows.Forms.TextBox value1Box;
         private System.Windows.Forms.TextBox value2Box;
         private System.Windows.Forms.TextBox resultsBox;
+        private System.Windows.Forms.Timer timer1;
     }
 }
 

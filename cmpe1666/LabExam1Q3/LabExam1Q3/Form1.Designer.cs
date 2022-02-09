@@ -65,6 +65,7 @@ namespace LabExam1Q3
             this.UI_LoadProvidedData_Btn.TabIndex = 2;
             this.UI_LoadProvidedData_Btn.Text = "Load Data";
             this.UI_LoadProvidedData_Btn.UseVisualStyleBackColor = true;
+            this.UI_LoadProvidedData_Btn.Click += new System.EventHandler(this.UI_LoadProvidedData_Btn_Click);
             // 
             // label1
             // 
@@ -94,6 +95,7 @@ namespace LabExam1Q3
             this.UI_SortProvidedData_btn.TabIndex = 5;
             this.UI_SortProvidedData_btn.Text = "Sort Data";
             this.UI_SortProvidedData_btn.UseVisualStyleBackColor = true;
+            this.UI_SortProvidedData_btn.Click += new System.EventHandler(this.UI_SortProvidedData_btn_Click);
             // 
             // UI_SortByID_Radio
             // 

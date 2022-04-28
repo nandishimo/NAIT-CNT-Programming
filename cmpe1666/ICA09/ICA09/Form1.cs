@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using GDIDrawer;
 
+//made by Nandish Patel
+//CMPE1666
 namespace ICA09
 {
     public partial class Form1 : Form

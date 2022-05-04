@@ -94,10 +94,5 @@ namespace ICA12
                 timer1.Enabled = false;
             }
         }
-
-        private void Window_MouseLeftClickScaled(Point pos, CDrawer dr)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

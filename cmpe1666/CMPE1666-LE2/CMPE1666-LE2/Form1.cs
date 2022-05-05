@@ -19,25 +19,26 @@ namespace CMPE1666_LE2
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            UI_lb_NameList.Items.Add("Example Name");
+            UI_lb_NameList.Items.Add("Example Name"); //add example name to listbox in start
         }
 
         private void UI_btn_AddName_Click(object sender, EventArgs e)
         {
-            ModalForm dlg = new ModalForm();
+            ModalForm dlg = new ModalForm();//create new instance of modal form
             if(UI_lb_NameList.SelectedIndex!=-1)
             {
-                dlg.string1 = UI_lb_NameList.SelectedItem.ToString();
+                dlg.string1 = UI_lb_NameList.SelectedItem.ToString();//display selected name in listbox
             }
             else
             {
-                dlg.string1 = "no selection";
+                dlg.string1 = "no selection";//if nothing is selected in listbox, display no selection
             }
             if(dlg.ShowDialog()==DialogResult.OK)
             {
-                UI_lb_NameList.Items.Add(dlg.string1);
+                if (dlg.string1!="")
+                    UI_lb_NameList.Items.Add(dlg.string1);//add name to listbox if its not empty
             }
-            UI_lb_NameList.SelectedIndex = -1;
+            UI_lb_NameList.SelectedIndex = -1;//unselect item in listbox
 
         }
     }

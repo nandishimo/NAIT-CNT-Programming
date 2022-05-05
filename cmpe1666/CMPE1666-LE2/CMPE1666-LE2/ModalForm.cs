@@ -25,12 +25,11 @@ namespace CMPE1666_LE2
         {
             get
             {
-                return UI_tb_NameEntry.Text;
-
+                return UI_tb_NameEntry.Text; //return value entered in modal form textbox
             }
             set
             {
-                UI_tb_NameEntry.Text = value;
+                UI_tb_NameEntry.Text = value; //display string passed from main form
             }
         }
 

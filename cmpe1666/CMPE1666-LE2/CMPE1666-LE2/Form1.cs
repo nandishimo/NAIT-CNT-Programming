@@ -37,6 +37,8 @@ namespace CMPE1666_LE2
             {
                 UI_lb_NameList.Items.Add(dlg.string1);
             }
+            UI_lb_NameList.SelectedIndex = -1;
+
         }
     }
 }

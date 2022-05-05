@@ -16,5 +16,27 @@ namespace CMPE1666_LE2
         {
             InitializeComponent();
         }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            UI_lb_NameList.Items.Add("Example Name");
+        }
+
+        private void UI_btn_AddName_Click(object sender, EventArgs e)
+        {
+            ModalForm dlg = new ModalForm();
+            if(UI_lb_NameList.SelectedIndex!=-1)
+            {
+                dlg.string1 = UI_lb_NameList.SelectedItem.ToString();
+            }
+            else
+            {
+                dlg.string1 = "no selection";
+            }
+            if(dlg.ShowDialog()==DialogResult.OK)
+            {
+                UI_lb_NameList.Items.Add(dlg.string1);
+            }
+        }
     }
 }

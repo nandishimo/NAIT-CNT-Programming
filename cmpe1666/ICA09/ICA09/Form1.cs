@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using GDIDrawer;
 
-//made by Nandish Patel
+//made by Nandish Patel 2022
 //CMPE1666
 namespace ICA09
 {

@@ -69,9 +69,9 @@ namespace ICA13
             // UI_Test_TB
             // 
             this.UI_Test_TB.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.UI_Test_TB.Location = new System.Drawing.Point(577, 15);
+            this.UI_Test_TB.Location = new System.Drawing.Point(448, 15);
             this.UI_Test_TB.Name = "UI_Test_TB";
-            this.UI_Test_TB.Size = new System.Drawing.Size(100, 26);
+            this.UI_Test_TB.Size = new System.Drawing.Size(229, 26);
             this.UI_Test_TB.TabIndex = 3;
             // 
             // UI_Test_btn

@@ -67,6 +67,8 @@ namespace ICA13
         private void UI_Test_btn_Click(object sender, EventArgs e)
         {
             string message = "";
+            if (UI_Test_TB.Text == "")
+                return;
             if (isPalindrome(UI_Test_TB.Text))
             {
                 message = $"{UI_Test_TB.Text} is a palindrome!";

@@ -99,7 +99,7 @@ namespace ICA13
             this.Controls.Add(this.UI_Find_btn);
             this.Controls.Add(this.UI_Load_btn);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "ICA13 - Palindromes";
             this.ResumeLayout(false);
             this.PerformLayout();
 

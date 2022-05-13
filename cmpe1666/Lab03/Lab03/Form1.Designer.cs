@@ -29,9 +29,11 @@ namespace Lab03
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.UI_cb_ShowScore = new System.Windows.Forms.CheckBox();
             this.UI_cb_ShowSpeed = new System.Windows.Forms.CheckBox();
             this.UI_btn_Play = new System.Windows.Forms.Button();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // UI_cb_ShowScore
@@ -64,6 +66,10 @@ namespace Lab03
             this.UI_btn_Play.UseVisualStyleBackColor = true;
             this.UI_btn_Play.Click += new System.EventHandler(this.UI_btn_Play_Click);
             // 
+            // timer1
+            // 
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -84,6 +90,7 @@ namespace Lab03
         private System.Windows.Forms.CheckBox UI_cb_ShowScore;
         private System.Windows.Forms.CheckBox UI_cb_ShowSpeed;
         private System.Windows.Forms.Button UI_btn_Play;
+        private System.Windows.Forms.Timer timer1;
     }
 }
 

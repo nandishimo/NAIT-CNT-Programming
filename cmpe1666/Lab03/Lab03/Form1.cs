@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using GDIDrawer;
 using System.Threading;
+using System.IO;
 
 namespace Lab03
 {
@@ -16,12 +17,14 @@ namespace Lab03
     {
         ScoreForm scoreDialog = null;
         AnimationSpeedDialog animationDialog = null;
+        HighScoreDialog highScoreDlg = null;
         Random randColor = new Random();
         const int width = 800;
         const int height = 800;
         const int size = 40;
         const int rowCount = width / size;
         const int colCount = height / size;
+        string difficulty = "";
         int animationSpeed = 10;
         int tScore = 0;
         enum Active
@@ -48,7 +51,8 @@ namespace Lab03
             difficultyDialog.ShowDialog();
             if(difficultyDialog.DialogResult==DialogResult.OK)
             {
-                StartGame(difficultyDialog.difficulty);
+                difficulty = difficultyDialog.difficulty;
+                StartGame(difficulty);
                 UI_btn_Play.Enabled = false;
             }
         }
@@ -152,6 +156,51 @@ namespace Lab03
         private void gameOver()
         {
             game.AddText("GAME OVER",100);
+            string path="";
+            switch (difficulty)
+            {
+                case ("Easy"):
+                    path = "easyScore.txt";
+                    break;
+                case ("Medium"):
+                    path = "mediumScore.txt";
+                    break;
+                case ("Hard"):
+                    path = "hardScore.txt";
+                    break;
+            }
+            highScoreDlg = new HighScoreDialog();
+            if (File.Exists(path))
+            {
+                StreamReader readScore = new StreamReader(path);
+                int.TryParse(readScore.ReadLine(), out int hScore);
+                readScore.Close();
+                if (tScore > hScore)
+                {
+                    highScoreDlg.ShowDialog();
+                    if (highScoreDlg.DialogResult == DialogResult.OK)
+                    {
+                        StreamWriter scoreRecord = new StreamWriter(path);
+                        scoreRecord.WriteLine(tScore.ToString());
+                        scoreRecord.WriteLine(highScoreDlg.name);
+                        scoreRecord.Close();
+                    }
+                }
+            }
+            else
+            {
+                highScoreDlg.ShowDialog();
+                if (highScoreDlg.DialogResult == DialogResult.OK)
+                {
+                    StreamWriter scoreRecord = new StreamWriter(path);
+                    scoreRecord.WriteLine(tScore.ToString());
+                    scoreRecord.WriteLine(highScoreDlg.name);
+                    scoreRecord.Close();
+                }
+            }
+            
+            
+            
             UI_btn_Play.Enabled = true;
         }
         private int killBallz(int x, int y, int ballColor)

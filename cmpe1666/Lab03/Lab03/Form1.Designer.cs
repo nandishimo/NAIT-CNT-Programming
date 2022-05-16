@@ -45,6 +45,7 @@ namespace Lab03
             this.UI_cb_ShowScore.TabIndex = 0;
             this.UI_cb_ShowScore.Text = "Show Score";
             this.UI_cb_ShowScore.UseVisualStyleBackColor = true;
+            this.UI_cb_ShowScore.CheckedChanged += new System.EventHandler(this.UI_cb_ShowScore_CheckedChanged);
             // 
             // UI_cb_ShowSpeed
             // 
@@ -55,6 +56,7 @@ namespace Lab03
             this.UI_cb_ShowSpeed.TabIndex = 1;
             this.UI_cb_ShowSpeed.Text = "Show Animation Speed";
             this.UI_cb_ShowSpeed.UseVisualStyleBackColor = true;
+            this.UI_cb_ShowSpeed.CheckedChanged += new System.EventHandler(this.UI_cb_ShowSpeed_CheckedChanged);
             // 
             // UI_btn_Play
             // 

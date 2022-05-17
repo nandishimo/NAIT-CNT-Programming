@@ -23,6 +23,7 @@ namespace CMPE1666_LE3_Q1
         Random rand = new Random();
         List<Thread> thList = new List<Thread>();
         const int size = 20;
+        bool threadStop = false;
         struct Shape
         {
             public int type;
@@ -35,6 +36,7 @@ namespace CMPE1666_LE3_Q1
         }
         private void UI_BTN_Start_Click(object sender, EventArgs e)
         {
+            threadStop = false;
             colorDialog1.ShowDialog();
             Shape newShape = new Shape(rand.Next(2), colorDialog1.Color);
             thList.Add(new Thread(new ParameterizedThreadStart(DrawShape)));
@@ -55,11 +57,16 @@ namespace CMPE1666_LE3_Q1
                     window.AddCenteredRectangle(rand.Next(800), rand.Next(600), size, size, shape.color);
                 }
             }
+            Thread.Sleep(200);
+            DrawShape(objData);
         }
 
         private void UI_BTN_Stop_Click(object sender, EventArgs e)
         {
-
+            foreach(Thread th in thList)
+            {
+                th.Abort();
+            }
         }
     }
 }

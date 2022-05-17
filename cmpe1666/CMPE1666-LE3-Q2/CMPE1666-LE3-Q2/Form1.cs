@@ -83,7 +83,6 @@ namespace CMPE1666_LE3_Q2
             {
                 th1.Abort();
                 EnableStart();
-
             }
         }
     }

@@ -45,8 +45,12 @@ namespace CMPE1666_LE3_Q1
         }
         private void DrawShape(object objData)
         {
+            if (threadStop)
+                return;
             if (objData is Shape)
             {
+                
+                    
                 Shape shape = (Shape)objData;
                 if (shape.type == 0)
                 {
@@ -56,17 +60,20 @@ namespace CMPE1666_LE3_Q1
                 {
                     window.AddCenteredRectangle(rand.Next(800), rand.Next(600), size, size, shape.color);
                 }
+                
             }
             Thread.Sleep(200);
             DrawShape(objData);
+
         }
 
         private void UI_BTN_Stop_Click(object sender, EventArgs e)
         {
-            foreach(Thread th in thList)
+            threadStop = true;
+            /*foreach (Thread th in thList)
             {
                 th.Abort();
-            }
+            }*/
         }
     }
 }

@@ -18,7 +18,6 @@ namespace CMPE1666_LE3_Q1
         {
             InitializeComponent();
         }
-        Thread drawThead = null;
         CDrawer window = new CDrawer();
         Random rand = new Random();
         List<Thread> thList = new List<Thread>();

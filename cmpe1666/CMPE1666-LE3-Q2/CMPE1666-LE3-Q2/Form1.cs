@@ -26,6 +26,7 @@ namespace CMPE1666_LE3_Q2
         {
             UI_BTN_Start.Enabled = false;
             th1 = new Thread(new ParameterizedThreadStart(Count));
+            th1.IsBackground = true;
             th1.Start(UI_Track_MaxCount.Value);
         }
         private void Count(object objData)
@@ -37,12 +38,34 @@ namespace CMPE1666_LE3_Q2
                 max = (int)objData;
                 for (i = 1; i < max; i++)
                 {
-                    Invoke(new delvoidint(PushCountToLabel), i);
+                    try
+                    {
+                        Invoke(new delvoidint(PushCountToLabel), i);
+                    }
+                    catch(Exception ex)
+                    {
+                        System.Diagnostics.Trace.WriteLine(ex);
+                    }
+                    
                     Thread.Sleep(500);
                 }
-                Invoke(new delvoidint(PushCountToLabel), i);
+                try
+                {
+                    Invoke(new delvoidint(PushCountToLabel), i);
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Trace.WriteLine(ex);
+                }
             }
-            Invoke(new delvoidvoid(EnableStart));
+            try
+            {
+                Invoke(new delvoidvoid(EnableStart));
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Trace.WriteLine(ex);
+            }
 
         }
         private void PushCountToLabel(int count)
@@ -59,7 +82,7 @@ namespace CMPE1666_LE3_Q2
             if (th1.IsAlive)
             {
                 th1.Abort();
-                Invoke(new delvoidvoid(EnableStart));
+                EnableStart();
 
             }
         }

@@ -29,21 +29,23 @@ namespace ICA14
         /// </summary>
         private void InitializeComponent()
         {
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.components = new System.ComponentModel.Container();
+            this.UI_lb_Text = new System.Windows.Forms.ListBox();
             this.UI_btn_Go = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
-            // listBox1
+            // UI_lb_Text
             // 
-            this.listBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.UI_lb_Text.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(12, 12);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(776, 381);
-            this.listBox1.TabIndex = 0;
+            this.UI_lb_Text.FormattingEnabled = true;
+            this.UI_lb_Text.Location = new System.Drawing.Point(12, 12);
+            this.UI_lb_Text.Name = "UI_lb_Text";
+            this.UI_lb_Text.Size = new System.Drawing.Size(776, 381);
+            this.UI_lb_Text.TabIndex = 0;
             // 
             // UI_btn_Go
             // 
@@ -59,6 +61,12 @@ namespace ICA14
             // openFileDialog1
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
+            this.openFileDialog1.Filter = "All File (Images) | *.*";
+            this.openFileDialog1.Multiselect = true;
+            // 
+            // timer1
+            // 
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // Form1
             // 
@@ -66,18 +74,19 @@ namespace ICA14
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.UI_btn_Go);
-            this.Controls.Add(this.listBox1);
+            this.Controls.Add(this.UI_lb_Text);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Image Scanner";
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.ListBox UI_lb_Text;
         private System.Windows.Forms.Button UI_btn_Go;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.Timer timer1;
     }
 }
 

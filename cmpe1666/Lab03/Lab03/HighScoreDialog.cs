@@ -12,6 +12,7 @@ namespace Lab03
 {
     public partial class HighScoreDialog : Form
     {
+        //query user for name and send to main form if required
         public HighScoreDialog()
         {
             InitializeComponent();

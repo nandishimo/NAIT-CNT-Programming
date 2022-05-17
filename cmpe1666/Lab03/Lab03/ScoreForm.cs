@@ -10,6 +10,7 @@ using System.Windows.Forms;
 
 namespace Lab03
 {
+    //display score from main form
     public partial class ScoreForm : Form
     {
         public ScoreForm()

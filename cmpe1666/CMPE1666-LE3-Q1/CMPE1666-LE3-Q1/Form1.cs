@@ -49,8 +49,6 @@ namespace CMPE1666_LE3_Q1
                 return;
             if (objData is Shape)
             {
-                
-                    
                 Shape shape = (Shape)objData;
                 if (shape.type == 0)
                 {
@@ -60,10 +58,14 @@ namespace CMPE1666_LE3_Q1
                 {
                     window.AddCenteredRectangle(rand.Next(800), rand.Next(600), size, size, shape.color);
                 }
-                
+
+                Thread.Sleep(200);
+                DrawShape(objData);
             }
-            Thread.Sleep(200);
-            DrawShape(objData);
+            else
+            {
+                return;
+            }
 
         }
 

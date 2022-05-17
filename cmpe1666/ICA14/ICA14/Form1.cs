@@ -29,7 +29,6 @@ namespace ICA14
                 bitmap = bm;
                 file = fname;
             }
-
         }
         public Form1()
         {
@@ -38,11 +37,6 @@ namespace ICA14
 
         private void UI_btn_Go_Click(object sender, EventArgs e)
         {
-            //_delColorAnalyzer = new delvoidvoid()
-            //th1 = new Thread(AnalyzeColour);
-            //th1.IsBackground = true;
-            //Thread newThread = new Thread(new ParameterizedThreadStart(AnalyzeColour));
-
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 timer1.Enabled=true;
@@ -54,10 +48,7 @@ namespace ICA14
                     thList.Add(new Thread(new ParameterizedThreadStart(AnalyzeColour)));
                     thList.Last().IsBackground = true;
                     thList.Last().Start(new PictureBM(bm,fname));
-                    
                 }
-                //CheckThreadDone();
-                
             }
         }
         private bool CheckThreadDone()

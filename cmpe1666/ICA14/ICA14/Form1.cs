@@ -11,15 +11,14 @@ using System.Threading;
 
 namespace ICA14
 {
-    delegate void delvoidvoid();
-    delegate void delvoidstring(string s);
+    delegate void delvoidstring(string s); 
     public partial class Form1 : Form
     {
         //delvoidvoid _delColorAnalyzer = null;
         //Thread th1 = null;
-        List<Thread> thList = new List<Thread>();
-        List<string> pictures = null;
-        struct PictureBM
+        List<Thread> thList = new List<Thread>(); //lsit of threads
+        List<string> pictures = null; //list of pictures(file paths)
+        struct PictureBM//struct to pass bitmap and filename in one object
         {
             public Bitmap bitmap;
             public string file;
@@ -37,13 +36,13 @@ namespace ICA14
 
         private void UI_btn_Go_Click(object sender, EventArgs e)
         {
-            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)//if openfile dialog is okayed
             {
-                timer1.Enabled=true;
-                Invoke(new delvoidstring(PushItemToTextBox),"Starting...");
-                pictures = new List<string>(openFileDialog1.FileNames);
+                timer1.Enabled=true; //enable and start timer
+                Invoke(new delvoidstring(PushItemToTextBox),"Starting..."); //push starting text to listb
+                pictures = new List<string>(openFileDialog1.FileNames); //load one or many filepaths into list
                 foreach (string fname in pictures)
-                {
+                {//load bitmap for each picture, create a thread in the list as background, start threads to analyze color
                     Bitmap bm = (Bitmap)Bitmap.FromFile(fname);
                     thList.Add(new Thread(new ParameterizedThreadStart(AnalyzeColour)));
                     thList.Last().IsBackground = true;
@@ -52,7 +51,7 @@ namespace ICA14
             }
         }
         private bool CheckThreadDone()
-        {
+        {//check if all threads have stopped running.
             bool threadDone = true;
             foreach(Thread th in thList)
             {
@@ -61,17 +60,10 @@ namespace ICA14
             }
             return threadDone;
         }
-        private void AnalyzeAllPictures()
-        {
-            foreach (string fname in pictures)
-            {
-                Bitmap bm = (Bitmap)Bitmap.FromFile(fname);
-                AnalyzeColour(bm);
-            }
-        }
 
         public void AnalyzeColour(object objData)
-        {
+        { //receive PictureBM struct obj which contains bitmap and filename
+            //sum the amount of red, blue, and green overall and divide by total to get ratios
             int red=0;
             int green=0;
             int blue=0;
@@ -89,7 +81,7 @@ namespace ICA14
                         blue += bm.bitmap.GetPixel(i, j).B;
                     }
                 }
-            }
+            } //calculate percents and results to listbox
             int sum = red + green + blue;
             float rpercent = (float)red / sum;
             float gpercent = (float)green / sum;
@@ -102,7 +94,7 @@ namespace ICA14
         }
 
         private void timer1_Tick(object sender, EventArgs e)
-        {
+        {//check if all threads are done and push message to listbox
             if (CheckThreadDone())
             {
                 Invoke(new delvoidstring(PushItemToTextBox), "Done!");

@@ -9,9 +9,10 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Lab03
-{
+{//difficulty selector
     public partial class ModalDialog : Form
     {
+        //send checked radio button back to main form
         public ModalDialog()
         {
             InitializeComponent();
@@ -36,7 +37,7 @@ namespace Lab03
         }
 
         private void UI_btn_OK_Click(object sender, EventArgs e)
-        {
+        { 
             if (UI_rb_Easy.Checked)
                 checkedButton = "Easy";
             else if (UI_rb_Medium.Checked)

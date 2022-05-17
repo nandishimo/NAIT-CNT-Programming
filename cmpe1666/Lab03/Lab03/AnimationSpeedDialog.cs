@@ -10,6 +10,8 @@ using System.Windows.Forms;
 
 namespace Lab03
 {
+    //animation speed selector
+    //send speed back to main form (trackbar value)
     public delegate void delvoidint(int x);
     public partial class AnimationSpeedDialog : Form
     {

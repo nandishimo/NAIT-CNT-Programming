@@ -41,8 +41,8 @@ namespace ICA15
             this.UI_BTN_DisplaySorted = new System.Windows.Forms.Button();
             this.UI_BTN_DispSelected = new System.Windows.Forms.Button();
             this.UI_GB_SortCriteria = new System.Windows.Forms.GroupBox();
-            this.UI_RB_SensorID = new System.Windows.Forms.RadioButton();
             this.UI_RB_Temperature = new System.Windows.Forms.RadioButton();
+            this.UI_RB_SensorID = new System.Windows.Forms.RadioButton();
             this.UI_GB_SortOrder = new System.Windows.Forms.GroupBox();
             this.UI_RB_Desc = new System.Windows.Forms.RadioButton();
             this.UI_RB_Ascending = new System.Windows.Forms.RadioButton();
@@ -143,6 +143,7 @@ namespace ICA15
             this.UI_BTN_DisplaySorted.TabIndex = 11;
             this.UI_BTN_DisplaySorted.Text = "Display Sorted";
             this.UI_BTN_DisplaySorted.UseVisualStyleBackColor = true;
+            this.UI_BTN_DisplaySorted.Click += new System.EventHandler(this.UI_BTN_DisplaySorted_Click);
             // 
             // UI_BTN_DispSelected
             // 
@@ -152,6 +153,7 @@ namespace ICA15
             this.UI_BTN_DispSelected.TabIndex = 12;
             this.UI_BTN_DispSelected.Text = "Display Selected";
             this.UI_BTN_DispSelected.UseVisualStyleBackColor = true;
+            this.UI_BTN_DispSelected.Click += new System.EventHandler(this.UI_BTN_DispSelected_Click);
             // 
             // UI_GB_SortCriteria
             // 
@@ -164,17 +166,6 @@ namespace ICA15
             this.UI_GB_SortCriteria.TabStop = false;
             this.UI_GB_SortCriteria.Text = "Sort Criteria";
             // 
-            // UI_RB_SensorID
-            // 
-            this.UI_RB_SensorID.AutoSize = true;
-            this.UI_RB_SensorID.Location = new System.Drawing.Point(6, 16);
-            this.UI_RB_SensorID.Name = "UI_RB_SensorID";
-            this.UI_RB_SensorID.Size = new System.Drawing.Size(72, 17);
-            this.UI_RB_SensorID.TabIndex = 0;
-            this.UI_RB_SensorID.TabStop = true;
-            this.UI_RB_SensorID.Text = "Sensor ID";
-            this.UI_RB_SensorID.UseVisualStyleBackColor = true;
-            // 
             // UI_RB_Temperature
             // 
             this.UI_RB_Temperature.AutoSize = true;
@@ -182,9 +173,20 @@ namespace ICA15
             this.UI_RB_Temperature.Name = "UI_RB_Temperature";
             this.UI_RB_Temperature.Size = new System.Drawing.Size(85, 17);
             this.UI_RB_Temperature.TabIndex = 1;
-            this.UI_RB_Temperature.TabStop = true;
             this.UI_RB_Temperature.Text = "Temperature";
             this.UI_RB_Temperature.UseVisualStyleBackColor = true;
+            // 
+            // UI_RB_SensorID
+            // 
+            this.UI_RB_SensorID.AutoSize = true;
+            this.UI_RB_SensorID.Checked = true;
+            this.UI_RB_SensorID.Location = new System.Drawing.Point(6, 16);
+            this.UI_RB_SensorID.Name = "UI_RB_SensorID";
+            this.UI_RB_SensorID.Size = new System.Drawing.Size(72, 17);
+            this.UI_RB_SensorID.TabIndex = 0;
+            this.UI_RB_SensorID.TabStop = true;
+            this.UI_RB_SensorID.Text = "Sensor ID";
+            this.UI_RB_SensorID.UseVisualStyleBackColor = true;
             // 
             // UI_GB_SortOrder
             // 
@@ -204,13 +206,13 @@ namespace ICA15
             this.UI_RB_Desc.Name = "UI_RB_Desc";
             this.UI_RB_Desc.Size = new System.Drawing.Size(82, 17);
             this.UI_RB_Desc.TabIndex = 1;
-            this.UI_RB_Desc.TabStop = true;
             this.UI_RB_Desc.Text = "Descending";
             this.UI_RB_Desc.UseVisualStyleBackColor = true;
             // 
             // UI_RB_Ascending
             // 
             this.UI_RB_Ascending.AutoSize = true;
+            this.UI_RB_Ascending.Checked = true;
             this.UI_RB_Ascending.Location = new System.Drawing.Point(6, 16);
             this.UI_RB_Ascending.Name = "UI_RB_Ascending";
             this.UI_RB_Ascending.Size = new System.Drawing.Size(75, 17);
@@ -244,13 +246,13 @@ namespace ICA15
             this.UI_RB_LessThan.Name = "UI_RB_LessThan";
             this.UI_RB_LessThan.Size = new System.Drawing.Size(117, 17);
             this.UI_RB_LessThan.TabIndex = 1;
-            this.UI_RB_LessThan.TabStop = true;
             this.UI_RB_LessThan.Text = "Less Than or Equal";
             this.UI_RB_LessThan.UseVisualStyleBackColor = true;
             // 
             // UI_RB_Greater
             // 
             this.UI_RB_Greater.AutoSize = true;
+            this.UI_RB_Greater.Checked = true;
             this.UI_RB_Greater.Location = new System.Drawing.Point(6, 16);
             this.UI_RB_Greater.Name = "UI_RB_Greater";
             this.UI_RB_Greater.Size = new System.Drawing.Size(130, 17);

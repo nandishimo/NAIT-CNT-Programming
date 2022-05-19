@@ -8,7 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using GDIDrawer;
-
+//Made by Nandish Patel
+//May 2022
 namespace Lab04
 {
     public partial class Form1 : Form

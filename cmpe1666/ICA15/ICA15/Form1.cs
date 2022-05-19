@@ -41,6 +41,10 @@ namespace ICA15
         {
             if(int.TryParse(UI_TB_NumSensors.Text,out int i))
             {
+                if (th1!=null)
+                {
+                    th1.Abort();
+                }
                 UI_LB_RawData.Items.Clear();
                 th1 = new Thread(GenerateRawData);
                 th1.IsBackground = true;
@@ -49,6 +53,10 @@ namespace ICA15
         }
         private void UI_BTN_DisplaySorted_Click(object sender, EventArgs e)
         {
+            if (th2!=null)
+            {
+                th2.Abort();
+            }
             UI_LB_SortedData.Items.Clear();
             th2 = new Thread(SortData);
             th2.IsBackground = true;
@@ -154,6 +162,10 @@ namespace ICA15
 
         private void UI_BTN_DispSelected_Click(object sender, EventArgs e)
         {
+            if (th3!=null)
+            {
+                th3.Abort();
+            }
             UI_LB_SensorWTemp.Items.Clear();
             th3 = new Thread(FilterByTemp);
             th3.IsBackground = true;

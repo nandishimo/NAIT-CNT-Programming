@@ -16,6 +16,7 @@ namespace ICA15
     {
         List<Sensor> RawSensorData = null;
         List<Sensor> RawSensorClone = null;
+        List<Sensor> SortedClone = null;
         Thread th1 = null;
         Random rand = new Random();
         public struct Sensor
@@ -102,6 +103,18 @@ namespace ICA15
             thDisplay.IsBackground = true;
             thDisplay.Start();
 
+        }
+        private int SortAsc(int x, int y)
+        {
+            if (x > y) return 1;
+            else if (x < y) return -1;
+            else return 0;
+        }
+        private int SortDesc(int x, int y)
+        {
+            if (x > y) return -1;
+            else if (x < y) return 1;
+            else return 0;
         }
     }
 }

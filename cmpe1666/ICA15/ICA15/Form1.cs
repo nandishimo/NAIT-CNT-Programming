@@ -17,7 +17,10 @@ namespace ICA15
         List<Sensor> RawSensorData = null;
         List<Sensor> RawSensorClone = null;
         List<Sensor> SortedClone = null;
+        List<Sensor> SearchClone = null;
         Thread th1 = null;
+        Thread th2 = null;
+        Thread th3 = null;
         Random rand = new Random();
         public struct Sensor
         {
@@ -36,11 +39,20 @@ namespace ICA15
 
         private void UI_BTN_GenerateS_Click(object sender, EventArgs e)
         {
-            UI_BTN_GenerateS.Enabled = false;
-            UI_LB_RawData.Items.Clear();
-            th1 = new Thread(GenerateRawData);
-            th1.IsBackground = true;
-            th1.Start();
+            if(int.TryParse(UI_TB_NumSensors.Text,out int i))
+            {
+                UI_LB_RawData.Items.Clear();
+                th1 = new Thread(GenerateRawData);
+                th1.IsBackground = true;
+                th1.Start();
+            }
+        }
+        private void UI_BTN_DisplaySorted_Click(object sender, EventArgs e)
+        {
+            UI_LB_SortedData.Items.Clear();
+            th2 = new Thread(SortData);
+            th2.IsBackground = true;
+            th2.Start();
         }
         private void GenerateRawData()
         {
@@ -88,7 +100,6 @@ namespace ICA15
         }
         private void DisplayRawData()
         {
-            
             foreach (Sensor sens in RawSensorClone)
             {
                 Invoke(new delVoidLBString(PushToLB), UI_LB_RawData, $"SensorID: { sens.ID}, Temperature: {sens.Temp}C");
@@ -102,19 +113,74 @@ namespace ICA15
             Thread thDisplay = new Thread(DisplayRawData);
             thDisplay.IsBackground = true;
             thDisplay.Start();
+        }
 
-        }
-        private int SortAsc(int x, int y)
+
+        private void SortData()
         {
-            if (x > y) return 1;
-            else if (x < y) return -1;
-            else return 0;
+            SortedClone = new List<Sensor>(RawSensorClone);
+            if (UI_RB_SensorID.Checked)
+            {
+                if (UI_RB_Ascending.Checked)
+                {
+                    SortedClone.Sort((x, y) => x.ID.CompareTo(y.ID));
+                }
+                else
+                {
+                    SortedClone.Sort((x, y) => y.ID.CompareTo(x.ID));
+                }
+            }
+            else
+            {
+                if (UI_RB_Ascending.Checked)
+                {
+                    SortedClone.Sort((x, y) => x.Temp.CompareTo(y.Temp));
+                }
+                else
+                {
+                    SortedClone.Sort((x, y) => y.Temp.CompareTo(x.Temp));
+                }
+            }
+            DisplaySortedData();
         }
-        private int SortDesc(int x, int y)
+        private void DisplaySortedData()
         {
-            if (x > y) return -1;
-            else if (x < y) return 1;
-            else return 0;
+            foreach (Sensor sens in SortedClone)
+            {
+                Invoke(new delVoidLBString(PushToLB), UI_LB_SortedData, $"SensorID: { sens.ID}, Temperature: {sens.Temp}C");
+                Thread.Sleep(100);
+            }
+        }
+
+        private void UI_BTN_DispSelected_Click(object sender, EventArgs e)
+        {
+            UI_LB_SensorWTemp.Items.Clear();
+            th3 = new Thread(FilterByTemp);
+            th3.IsBackground = true;
+            th3.Start();
+        }
+        private void FilterByTemp()
+        {
+            if(float.TryParse(UI_TB_TempValue.Text, out float f))
+            {
+                if (UI_RB_Greater.Checked)
+                {
+                    SearchClone = RawSensorData.FindAll(x => x.Temp > f);
+                }
+                else
+                {
+                    SearchClone = RawSensorData.FindAll(x => x.Temp < f);
+                }
+            }
+            DisplayFilteredData();
+        }
+        private void DisplayFilteredData()
+        {
+            foreach (Sensor sens in SearchClone)
+            {
+                Invoke(new delVoidLBString(PushToLB), UI_LB_SensorWTemp, $"SensorID: { sens.ID}, Temperature: {sens.Temp}C");
+                Thread.Sleep(100);
+            }
         }
     }
 }

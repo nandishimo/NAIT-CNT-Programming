@@ -8,7 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Threading;
-
+//Made by Nandish Patel
+//May 2022
 namespace ICA15
 {
     public delegate void delVoidLBString(ListBox lb, string s);

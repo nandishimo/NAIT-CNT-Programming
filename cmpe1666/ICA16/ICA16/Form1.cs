@@ -16,50 +16,105 @@ namespace ICA16
     {
         Queue<Point> pointQueue = new Queue<Point>();
         CDrawer window = new CDrawer();
-        Thread renderThread = null;
+        System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
+        Random rand = new Random();
         public Form1()
         {
             InitializeComponent();
-            window.MouseMove += new GDIDrawerMouseEvent(MouseMove);
             
         }
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            window.MouseMove += Window_MouseMove;
+            window.MouseRightClick += Window_MouseRightClick;
+            Thread renderThread = new Thread(RenderLines);
+            renderThread.IsBackground = true;
+            renderThread.Start();
+        }
 
-        private void MouseMove(Point pos, CDrawer window)
+        private void Window_MouseRightClick(Point pos, CDrawer dr)
+        {
+            for(int i = 0; i < 250; i++)
+            {
+                pointQueue.Enqueue(pos);
+                pointQueue.Enqueue(RandomRadial(pos));
+            }
+        }
+        private Point RandomRadial(Point pos)
+        {
+            double angle = 2*Math.PI*rand.NextDouble();
+            return new Point(pos.X + (int)(50 * Math.Cos(angle)), pos.Y+(int)(50 * Math.Sin(angle)));
+        }
+
+        private void Window_MouseMove(Point pos, CDrawer dr)
         {
             pointQueue.Enqueue(pos);
-            if (renderThread == null)
-            {
-                Thread renderThread = new Thread(RenderLines);
-                renderThread.IsBackground = true;
-                renderThread.Start();
-            }
         }
         private void RenderLines()
         {
+            
             Point prev = new Point(-1, -1);
-            Point next = new Point(-1, -1);
-            while(pointQueue.Count > 2)
+            Point next = new Point(-1,-1);
+            int count=0;
+            try
             {
-                if (next.X == -1)
+                count = (int)Invoke(new Func<int>(() => { return pointQueue.Count; }));
+            }
+            catch(Exception e)
+            {
+                System.Diagnostics.Trace.WriteLine(e.ToString());
+            }
+            while (count > 0)
+            {
+                sw.Restart();
+                if (next == new Point(-1, -1))
                 {
-                    prev = pointQueue.Dequeue();
-                    next = pointQueue.Dequeue();
+                    try 
+                    {
+                    prev = next = (Point)Invoke(new Func<Point>(() => { return pointQueue.Dequeue(); }));
+                    }
+                    catch (Exception e)
+                    {
+                        System.Diagnostics.Trace.WriteLine(e.ToString());
+                    }
                 }
                 else
                 {
                     prev = next;
-                    next = pointQueue.Dequeue();
+                    try
+                    {
+                        next = (Point)Invoke(new Func<Point>(() => { return pointQueue.Dequeue(); }));
+                    }
+                    catch (Exception e)
+                    {
+                        System.Diagnostics.Trace.WriteLine(e.ToString());
+                    }
                 }
                 window.AddLine(prev.X, prev.Y, next.X, next.Y, Color.White);
-                Thread.Sleep(50);
-            }
+                try
+                {
+                    Invoke(new Action(() => { UI_TB_Queue.Text = $"{pointQueue.Count} segs in queue. Estimated time to draw: {(.05 * pointQueue.Count):F} seconds"; }));
+                }
+                catch (Exception e)
+                {
+                    System.Diagnostics.Trace.WriteLine(e.ToString());
+                }
+                
+                while (sw.ElapsedMilliseconds < 50)
+                {
+                    Thread.Sleep(1);
+                }
 
+            }
+            if (pointQueue.Count == 0)
+            {
+                Thread.Sleep(50);
+                RenderLines();
+            }
+            
             
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-            UI_TB_Queue.Text = $"{pointQueue.Count} segs in queue. Estimated time to draw: ";
-        }
+
     }
 }

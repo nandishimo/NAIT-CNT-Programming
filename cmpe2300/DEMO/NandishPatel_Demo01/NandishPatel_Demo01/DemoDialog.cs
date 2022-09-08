@@ -36,6 +36,12 @@ namespace NandishPatel_Demo01
     private void DemoDialog_Click(object sender, EventArgs e)
     {
       WriteLine("DemoDialog_Click");
+      
+      Array knownColors = Enum.GetValues(typeof(KnownColor));
+      
+      Color rndColor = Color.FromName(knownColors.GetValue(_rnd.Next(knownColors.Length)).ToString());
+      _GetColor?.Invoke(this,rndColor);
+      BackColor = rndColor;
     }
 
     private void TimerCallback(object sender, EventArgs e)

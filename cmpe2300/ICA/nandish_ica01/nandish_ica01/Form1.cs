@@ -38,7 +38,7 @@ namespace nandish_ica01
     }
 
     private void Form1_KeyDown(object sender, KeyEventArgs e)
-    {
+    {/*
       switch (e.Key)
       {
         case Keys.NumPad1:
@@ -57,7 +57,7 @@ namespace nandish_ica01
 
           break;
 
-      }
+      }*/
     }
 
     private void Timer_Tick(object sender, EventArgs e)

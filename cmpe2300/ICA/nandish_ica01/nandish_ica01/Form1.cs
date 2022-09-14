@@ -31,6 +31,8 @@ namespace nandish_ica01
       timer.Enabled = true;
       timer.Interval = 100;
       timer.Tick += Timer_Tick;
+      this.StartPosition = FormStartPosition.Manual;
+      window.Position = new Point(this.Location.X+this.Width,this.Location.Y);
 
       KeyPreview = true;
       KeyDown += Form1_KeyDown;

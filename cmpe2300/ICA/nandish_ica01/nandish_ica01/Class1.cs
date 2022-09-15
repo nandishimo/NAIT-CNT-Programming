@@ -50,7 +50,7 @@ namespace nandish_ica01
     {
       if (_byTick > _byToggle)
       {
-        window.AddRectangle(lamp % window.ScaledWidth, lamp / window.ScaledWidth, 1, 1, _LampColor, _border);
+        window.AddRectangle(lamp % window.ScaledWidth, lamp / window.ScaledWidth, 1, 1, _LampColor, _border,Color.Black);
       }
 
       

@@ -50,20 +50,21 @@ namespace nandish_ica01
 
     private void Form1_KeyDown(object sender, KeyEventArgs e)
     {
-      //writing and testing on laptop, so number row used, instead of numpad
       switch (e.KeyCode)
       {
-        case Keys.D1:
+        case Keys.NumPad1:
+          if (trekLamps.Count()<window.ScaledWidth*window.ScaledHeight)
           trekLamps.Add(new TrekLamp());
           break;
-        case Keys.D2:
-          trekLamps.Add(new TrekLamp(180,Color.Orange));
+        case Keys.NumPad2:
+          if (trekLamps.Count() < window.ScaledWidth * window.ScaledHeight)
+            trekLamps.Add(new TrekLamp(180,Color.Orange));
           break;
-        case Keys.D3:
-          trekLamps.Add(new TrekLamp((byte)rand.Next(60, 221), RandColor.GetColor(), 4));
+        case Keys.NumPad3:
+          if (trekLamps.Count() < window.ScaledWidth * window.ScaledHeight)
+            trekLamps.Add(new TrekLamp((byte)rand.Next(60, 221), RandColor.GetColor(), 4));
           break;
-        //subtract key on laptop isnt subtract? used F for testing
-        case Keys.F:
+        case Keys.Subtract:
           for (int i = 0; i < trekLamps.Count(); ++i)
           {
             trekLamps[i].RedAlert(false);
@@ -78,7 +79,8 @@ namespace nandish_ica01
           break;
 
         case Keys.Escape:
-          trekLamps.RemoveAt(trekLamps.Count() - 1);
+          if (trekLamps.Count() > 0)
+            trekLamps.RemoveAt(trekLamps.Count() - 1);
           break;
 
       }

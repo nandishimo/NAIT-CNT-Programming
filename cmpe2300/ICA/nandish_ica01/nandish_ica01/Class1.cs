@@ -33,11 +33,11 @@ namespace nandish_ica01
     {
       //default constructor
     }
-    private void TickLamp()
+    public void TickLamp()
     {
       _byTick+=3;
     }
-    private void RedAlert(bool state)
+    public void RedAlert(bool state)
     {
       if (state)
       {
@@ -46,7 +46,7 @@ namespace nandish_ica01
       else
         _byTick = RandColor.GetColor().R;
     }
-    private void RenderLamp(ref CDrawer window, int lamp)
+    public void RenderLamp(ref CDrawer window, int lamp)
     {
       if (_byTick > _byToggle)
       {

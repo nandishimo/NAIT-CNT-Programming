@@ -91,7 +91,7 @@ namespace nandish_ica02
 
     public override string ToString()
     {
-      return $"X: {_center.X}, Y: {_center.Y} - Vel: {_xVel}, {Y} - Opacity: {_opacity}";
+      return $"{_center} - Vel: {_xVel}, {Y} - Opacity: {_opacity}";
     }
   }
 }

@@ -19,13 +19,19 @@ namespace nandish_ica02
   public partial class Form1 : Form
   {
     CDrawer window = null;
+    Timer timer = new Timer();
+    int xVel;
+    int yVel;
+    int opacity;
     public Form1()
     {
       InitializeComponent();
       this.Text = "ICA02 - Bouncing Balls";
       window = new CDrawer();
+      window.ContinuousUpdate = false;
+      timer.Enabled = true;
+      timer.Interval = 20;
     }
-
 
   }
 }

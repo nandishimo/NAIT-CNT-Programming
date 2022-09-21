@@ -127,7 +127,7 @@
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-      this.ClientSize = new System.Drawing.Size(524, 132);
+      this.ClientSize = new System.Drawing.Size(534, 132);
       this.Controls.Add(this._lblOpacityVal);
       this.Controls.Add(this._lblOpacity);
       this.Controls.Add(this._lblBallData);

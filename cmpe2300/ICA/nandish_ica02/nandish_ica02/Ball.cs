@@ -11,7 +11,7 @@ namespace nandish_ica02
   internal class Ball
   {
     private static Random Random = new Random();
-    public PointF _center { get; private set; }
+    public PointF _center { get; private set;}
     private float _xVel;
     public float X
     {
@@ -25,7 +25,7 @@ namespace nandish_ica02
           _xVel = value;
       }
     }
-    public float Y { get; private set; }
+    public float Y { get; set; }
     private Color _color;
     private int _opacity;
     public int Opacity 
@@ -51,6 +51,7 @@ namespace nandish_ica02
 
     public Ball(PointF center)
     {
+      _center = new PointF(center.X, center.Y);
       _color = RandColor.GetColor();
       _radius = Random.Next(30, 101);
       _xVel = (float)(Random.NextDouble()-0.5)*20;
@@ -62,24 +63,24 @@ namespace nandish_ica02
       PointF tmp = _center;
       tmp.X += _xVel;
       tmp.Y += Y;
-      if(tmp.X<_radius)
+      if(tmp.X<_radius/2)
       {
-        tmp.X = _radius;
+        tmp.X = _radius/2;
         _xVel *= -1;
       }
-      else if(tmp.X > window.ScaledWidth-_radius)
+      else if(tmp.X > window.ScaledWidth-_radius/2)
       {
-        tmp.X = window.ScaledWidth - _radius);
+        tmp.X = window.ScaledWidth - _radius/2;
         _xVel *= -1;
       }
-      if (tmp.Y < _radius)
+      if (tmp.Y < _radius / 2)
       {
-        tmp.Y = _radius;
+        tmp.Y = _radius/2;
         Y *= -1;
       }
-      else if (tmp.Y > window.ScaledHeight - _radius)
+      else if (tmp.Y > window.ScaledHeight - _radius/2)
       {
-        tmp.Y = window.ScaledHeight - _radius;
+        tmp.Y = window.ScaledHeight - _radius/2;
         Y *= -1;
       }
       _center = tmp;
@@ -91,7 +92,7 @@ namespace nandish_ica02
 
     public override string ToString()
     {
-      return $"{_center} - Vel: {_xVel}, {Y} - Opacity: {_opacity}";
+      return $"{_center} - Vel: {_xVel:n3}, {Y:n3} - Opacity: {_opacity}";
     }
   }
 }

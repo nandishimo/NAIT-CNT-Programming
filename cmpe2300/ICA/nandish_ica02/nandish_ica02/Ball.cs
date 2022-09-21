@@ -16,7 +16,7 @@ namespace nandish_ica02
     public float X
     {
       set 
-      { 
+      { //bound xvelocity between -10 and 10
         if(value<-10)
           _xVel = -10;
         else if (value > 10)
@@ -31,7 +31,7 @@ namespace nandish_ica02
     public int Opacity 
     { 
       set 
-      {
+      {//bound opacity between 20 and 255. always ensure opacity is positive
         value= Math.Abs(value);
         if(value<20)
         {
@@ -63,6 +63,7 @@ namespace nandish_ica02
       PointF tmp = _center;
       tmp.X += _xVel;
       tmp.Y += Y;
+      //check if out of bounds (4 sides of window) and move ball inbounds + reverse velocity(bounce)
       if(tmp.X<_radius/2)
       {
         tmp.X = _radius/2;
@@ -86,12 +87,12 @@ namespace nandish_ica02
       _center = tmp;
     }
     public void ShowBall(CDrawer window)
-    {
+    {//add circle to drawer window to represent ball
       window.AddCenteredEllipse((int)_center.X, (int)_center.Y, _radius, _radius, Color.FromArgb(_opacity,_color));
     }
 
     public override string ToString()
-    {
+    {//override tostring for nice UI element
       return $"{_center} - Vel: {_xVel:n3}, {Y:n3} - Opacity: {_opacity}";
     }
   }

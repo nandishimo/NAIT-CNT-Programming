@@ -21,27 +21,34 @@ namespace nandish_ica02
     CDrawer window = null;
     List<Ball> balls = new List<Ball>();
     Timer timer = new Timer();
-    int xVel=0;
-    int yVel=0;
-    int opacity = 128;
+    int xVel=0; //for manual set by user
+    int yVel=0; //for manual set by user
+    int opacity = 128; //for manual set by user
     public Form1()
     {
       InitializeComponent();
       this.Text = "ICA02 - Bouncing Balls";
       window = new CDrawer();
       window.ContinuousUpdate = false;
-      timer.Enabled = true;
+      //start timer with interval 20ms
       timer.Interval = 20;
+      timer.Enabled = true;
+
+      //subscribe to required events
       Shown += Form1_Shown;
       timer.Tick += Timer_Tick;
       _lblOpacityVal.MouseWheel += _lblOpacityVal_MouseWheel;
       _lblXVal.MouseWheel += _lblXVal_MouseWheel;
       _lblYVal.MouseWheel += _lblYVal_MouseWheel;
-
+    }
+    private void Form1_Shown(object sender, EventArgs e)
+    {//sets location of main form and drawer window
+      this.Location = new Point(0, 0);
+      window.Position = new Point(this.Location.X + this.Width, this.Location.Y);
     }
 
     private void _lblYVal_MouseWheel(object sender, MouseEventArgs e)
-    {
+    {//sets Y velocity of last ball or all balls upon scrolling on label
       if(balls.Count==0) return;
       if (e.Delta > 0)
         yVel++;
@@ -63,7 +70,7 @@ namespace nandish_ica02
     }
 
     private void _lblXVal_MouseWheel(object sender, MouseEventArgs e)
-    {
+    {//sets X velocity of last ball or all balls upon scrolling on label
       if (balls.Count == 0) return;
       if (e.Delta > 0)
         xVel++;
@@ -85,7 +92,7 @@ namespace nandish_ica02
     }
 
     private void _lblOpacityVal_MouseWheel(object sender, MouseEventArgs e)
-    {
+    {//sets opacity of last ball or all balls upon scrolling on label
       if (balls.Count == 0) return;
       if (e.Delta > 0)
         opacity+=10;
@@ -107,39 +114,33 @@ namespace nandish_ica02
     }
 
     private void Timer_Tick(object sender, EventArgs e)
-    {
-      window.Clear();
+    {//iterate through balls list and move+show balls in window
+      window.Clear();//clear window then move and show balls
       foreach (Ball ball in balls)
       {
         ball.MoveBall(window);
         ball.ShowBall(window);
       }
       if (window.GetLastMouseLeftClick(out Point lClick))
-      {
+      { //create new ball and add to window upon left mouse click
         balls.Add(new Ball(lClick));
-        
+        balls.Last().ShowBall(window);
       }
       if (window.GetLastMouseRightClick(out Point rClick))
-      {
+      {//clear all balls from window upon right mouse click
         balls.Clear();
       }
       if (balls.Count > 0)
-      {
+      {//update ui with last ball info
         _lblBallData.Text = balls.Last().ToString();
       }
       else
         _lblBallData.Text = "";
+      //update UI with user controlled values (lbl scroll events)
       _lblXVal.Text = xVel.ToString();
       _lblYVal.Text = yVel.ToString();
       _lblOpacityVal.Text = opacity.ToString();
       window.Render();
     }
-
-    private void Form1_Shown(object sender, EventArgs e)
-    {
-      this.Location = new Point(0,0);
-      window.Position = new Point(this.Location.X + this.Width, this.Location.Y);
-    }
-    
   }
 }

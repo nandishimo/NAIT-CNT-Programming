@@ -64,31 +64,31 @@ namespace nandish_ica02
       tmp.X += _xVel;
       tmp.Y += Y;
       //check if out of bounds (4 sides of window) and move ball inbounds + reverse velocity(bounce)
-      if(tmp.X<_radius/2)
+      if(tmp.X<_radius)
       {
-        tmp.X = _radius/2;
+        tmp.X = _radius;
         _xVel *= -1;
       }
-      else if(tmp.X > window.ScaledWidth-_radius/2)
+      else if(tmp.X > window.ScaledWidth-_radius)
       {
-        tmp.X = window.ScaledWidth - _radius/2;
+        tmp.X = window.ScaledWidth - _radius;
         _xVel *= -1;
       }
-      if (tmp.Y < _radius / 2)
+      if (tmp.Y < _radius)
       {
-        tmp.Y = _radius/2;
+        tmp.Y = _radius;
         Y *= -1;
       }
-      else if (tmp.Y > window.ScaledHeight - _radius/2)
+      else if (tmp.Y > window.ScaledHeight - _radius)
       {
-        tmp.Y = window.ScaledHeight - _radius/2;
+        tmp.Y = window.ScaledHeight - _radius;
         Y *= -1;
       }
       _center = tmp;
     }
     public void ShowBall(CDrawer window)
     {//add circle to drawer window to represent ball
-      window.AddCenteredEllipse((int)_center.X, (int)_center.Y, _radius, _radius, Color.FromArgb(_opacity,_color));
+      window.AddCenteredEllipse((int)_center.X, (int)_center.Y, _radius*2, _radius*2, Color.FromArgb(_opacity,_color));
     }
 
     public override string ToString()

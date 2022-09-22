@@ -76,9 +76,9 @@
       this._lblXVal.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
       this._lblXVal.Location = new System.Drawing.Point(47, 9);
       this._lblXVal.Name = "_lblXVal";
-      this._lblXVal.Size = new System.Drawing.Size(29, 24);
+      this._lblXVal.Size = new System.Drawing.Size(20, 24);
       this._lblXVal.TabIndex = 5;
-      this._lblXVal.Text = "X:";
+      this._lblXVal.Text = "0";
       // 
       // _lblYVal
       // 
@@ -87,9 +87,9 @@
       this._lblYVal.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
       this._lblYVal.Location = new System.Drawing.Point(163, 9);
       this._lblYVal.Name = "_lblYVal";
-      this._lblYVal.Size = new System.Drawing.Size(27, 24);
+      this._lblYVal.Size = new System.Drawing.Size(20, 24);
       this._lblYVal.TabIndex = 6;
-      this._lblYVal.Text = "Y:";
+      this._lblYVal.Text = "0";
       // 
       // _lblBallData
       // 
@@ -109,9 +109,9 @@
       this._lblOpacityVal.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
       this._lblOpacityVal.Location = new System.Drawing.Point(319, 9);
       this._lblOpacityVal.Name = "_lblOpacityVal";
-      this._lblOpacityVal.Size = new System.Drawing.Size(78, 24);
+      this._lblOpacityVal.Size = new System.Drawing.Size(40, 24);
       this._lblOpacityVal.TabIndex = 9;
-      this._lblOpacityVal.Text = "Opacity:";
+      this._lblOpacityVal.Text = "128";
       // 
       // _lblOpacity
       // 

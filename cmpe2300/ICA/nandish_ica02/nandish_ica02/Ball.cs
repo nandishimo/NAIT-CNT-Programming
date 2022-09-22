@@ -18,11 +18,10 @@ namespace nandish_ica02
       set 
       { //bound xvelocity between -10 and 10
         if(value<-10)
-          _xVel = -10;
+          value = -10;
         else if (value > 10)
-          _xVel = 10;
-        else
-          _xVel = value;
+          value = 10;
+        _xVel = value;
       }
     }
     public float Y { get; set; }
@@ -35,16 +34,13 @@ namespace nandish_ica02
         value= Math.Abs(value);
         if(value<20)
         {
-          _opacity = 20;
+          value = 20;
         }
         else if (value > 255)
         {
-          _opacity = 255;
+          value = 255;
         }
-        else
-        {
-          _opacity = value;
-        }
+        _opacity = value;
       } 
     }
     public readonly int _radius;

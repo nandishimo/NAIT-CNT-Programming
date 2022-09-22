@@ -41,6 +41,7 @@ namespace nandish_ica02
       _lblXVal.MouseWheel += _lblXVal_MouseWheel;
       _lblYVal.MouseWheel += _lblYVal_MouseWheel;
     }
+
     private void Form1_Shown(object sender, EventArgs e)
     {//sets location of main form and drawer window
       this.Location = new Point(0, 0);
@@ -67,6 +68,7 @@ namespace nandish_ica02
       {
         balls.Last().Y = yVel;
       }
+      _lblYVal.Text = yVel.ToString();
     }
 
     private void _lblXVal_MouseWheel(object sender, MouseEventArgs e)
@@ -89,20 +91,22 @@ namespace nandish_ica02
       {
         balls.Last().X = xVel;
       }
+      _lblXVal.Text = xVel.ToString();
     }
 
     private void _lblOpacityVal_MouseWheel(object sender, MouseEventArgs e)
-    {//sets opacity of last ball or all balls upon scrolling on label
-      if (balls.Count == 0) return;
+    {//sets opacity of last ball or all balls upon scrolling on label 
       if (e.Delta > 0)
         opacity+=10;
       else
       {
         opacity-=10;
       }
-      if(_cBoxAll.Checked)
+      if (balls.Count == 0) return;
+      if (_cBoxAll.Checked)
       {
-        foreach(Ball ball in balls)
+        
+        foreach (Ball ball in balls)
         {
           ball.Opacity = opacity;
         }
@@ -111,6 +115,7 @@ namespace nandish_ica02
       {
         balls.Last().Opacity = opacity;
       }
+      _lblOpacityVal.Text = opacity.ToString();
     }
 
     private void Timer_Tick(object sender, EventArgs e)
@@ -137,9 +142,9 @@ namespace nandish_ica02
       else
         _lblBallData.Text = "";
       //update UI with user controlled values (lbl scroll events)
-      _lblXVal.Text = xVel.ToString();
-      _lblYVal.Text = yVel.ToString();
-      _lblOpacityVal.Text = opacity.ToString();
+      
+      
+      
       window.Render();
     }
   }

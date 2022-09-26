@@ -33,6 +33,62 @@ namespace nandish_ICA03
     static Ball()
     {
       window = new CDrawer(rand.Next(600,901),rand.Next(500,801),false);
+      Radius = rand.Next(10, 81);
+    }
+    public Ball()
+    {
+      _color = RandColor.GetKnownColor();
+      _velocity = new Vector2((float)(rand.NextDouble()-0.5)*20, (float)(rand.NextDouble() - 0.5) * 20);
+      double x = Radius / 2 +(window.ScaledWidth - Radius)*rand.NextDouble();
+      double y = Radius / 2 + (window.ScaledHeight - Radius) * rand.NextDouble();
+      _point = new PointF((float)x,(float)y);
+    }
+    public static Point DrawerLocation
+    {
+      set { window.Position=value; }
+    }
+
+    public void ShowBall()
+    {
+      window.AddCenteredEllipse((int)_point.X,(int)_point.Y, _radius / 2, _radius / 2, _color);
+    }
+
+    public void MoveBall()
+    {
+      _iAlive--;
+      if (_iAlive < 1)
+      {
+        double x = Radius / 2 + (window.ScaledWidth - Radius) * rand.NextDouble();
+        double y = Radius / 2 + (window.ScaledHeight - Radius) * rand.NextDouble();
+        _point = new PointF((float)x, (float)y);
+        _iAlive = rand.Next(50, 128);
+      }
+      PointF tmp = new PointF(_point.X+_velocity.X, _point.Y+_velocity.Y);
+      if (tmp.X < 0)
+      {
+        _velocity.X *= -1;
+        tmp.X = _radius / 2;
+      }
+      else if(tmp.X > window.ScaledWidth - _radius/2)
+      {
+        _velocity.X *= -1;
+        tmp.X = window.ScaledWidth-_radius/2;
+      }
+      if (tmp.Y < 0)
+      {
+        _velocity.Y *= -1;
+        tmp.Y = _radius / 2;
+      }
+      else if(tmp.Y > window.ScaledHeight - _radius / 2)
+      {
+        _velocity.Y *= -1;
+        tmp.Y = window.ScaledHeight-_radius/2;
+      }
+      _point = tmp;
+    }
+    public static bool Loading
+    {
+      set { Loading = value; }
     }
     
   }

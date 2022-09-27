@@ -45,7 +45,7 @@ namespace nandish_ICA03
 
     private void Form1_KeyDown(object sender, KeyEventArgs e)
     {
-      if (e.KeyCode == Keys.Add)
+      if (e.KeyCode == Keys.Add) //add 5 balls when pressing add key
       {
         lock (key)//lock when accessing ball list
         {
@@ -55,7 +55,7 @@ namespace nandish_ICA03
           }
         }
       }
-      if(e.KeyCode == Keys.Subtract)
+      if(e.KeyCode == Keys.Subtract) //clear all balls when pressing subtract key
       {
         balls.Clear();
       }
@@ -64,15 +64,15 @@ namespace nandish_ICA03
 
     private void Form1_MouseWheel(object sender, MouseEventArgs e)
     {
-      Ball.Radius += e.Delta / 10;
+      Ball.Radius += e.Delta / 10; //change ball radius when scrolling
     }
 
     public void Display()
-    {//Loading set value controls clearing and rendering drawer window. loop with 25ms sleep 
+    {//Loading set value controls clearing and rendering drawer window. iterate move and show ballsloop with 25ms sleep 
       while (true)
       {
-        Ball.Loading = true;
-        lock (key)
+        Ball.Loading = true;//clears drawerwindow
+        lock (key)//lock when accessing ball list
         {
           foreach (Ball b in balls)
           {
@@ -80,7 +80,7 @@ namespace nandish_ICA03
             b.ShowBall();
           }
         }
-        Ball.Loading = false;
+        Ball.Loading = false; //renders drawer window
         Thread.Sleep(25);
       }
 

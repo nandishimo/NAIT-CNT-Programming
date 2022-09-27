@@ -50,7 +50,8 @@ namespace nandish_ICA03
 
     public void ShowBall()
     {
-      window.AddCenteredEllipse((int)_point.X,(int)_point.Y, _radius / 2, _radius / 2, _color);
+      Color color = Color.FromArgb(_iAlive, _color);
+      window.AddCenteredEllipse((int)_point.X,(int)_point.Y, _radius, _radius, color);
     }
 
     public void MoveBall()
@@ -64,31 +65,39 @@ namespace nandish_ICA03
         _iAlive = rand.Next(50, 128);
       }
       PointF tmp = new PointF(_point.X+_velocity.X, _point.Y+_velocity.Y);
-      if (tmp.X < 0)
+      if (tmp.X < _radius / 2)
       {
         _velocity.X *= -1;
         tmp.X = _radius / 2;
       }
-      else if(tmp.X > window.ScaledWidth - _radius/2)
+      else if(tmp.X > (window.ScaledWidth - _radius/2))
       {
         _velocity.X *= -1;
-        tmp.X = window.ScaledWidth-_radius/2;
+        tmp.X = (window.ScaledWidth-_radius/2);
       }
-      if (tmp.Y < 0)
+      if (tmp.Y < _radius / 2)
       {
         _velocity.Y *= -1;
         tmp.Y = _radius / 2;
       }
-      else if(tmp.Y > window.ScaledHeight - _radius / 2)
+      else if(tmp.Y > (window.ScaledHeight - _radius / 2))
       {
         _velocity.Y *= -1;
-        tmp.Y = window.ScaledHeight-_radius/2;
+        tmp.Y = (window.ScaledHeight-_radius/2);
       }
       _point = tmp;
     }
     public static bool Loading
     {
-      set { Loading = value; }
+      set 
+      {
+        if (value)
+        {
+          window.Clear();
+        }
+        else
+          window.Render();
+      }
     }
     
   }

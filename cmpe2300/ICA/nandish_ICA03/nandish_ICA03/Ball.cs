@@ -30,12 +30,13 @@ namespace nandish_ICA03
     private Vector2 _velocity;
     private int _iAlive;
 
-    static Ball()
+    static Ball() //static constructor (all balls render to same drawer and same radius)
     {
       window = new CDrawer(rand.Next(600,901),rand.Next(500,801),false);
       Radius = rand.Next(10, 81);
     }
-    public Ball()
+    public Ball() //CTOR, random color, random velocity between -10 and 10, radius capped at smaller of width or height
+      // location at given point
     {
       _color = RandColor.GetKnownColor();
       _velocity = new Vector2((float)(rand.NextDouble()-0.5)*20, (float)(rand.NextDouble() - 0.5) * 20);
@@ -44,26 +45,27 @@ namespace nandish_ICA03
       _point = new PointF((float)x,(float)y);
     }
     public static Point DrawerLocation
-    {
+    { //set location of drawer window
       set { window.Position=value; }
     }
 
     public void ShowBall()
-    {
+    { //add ball to drawer. used iAlive as opacity so it fades out
       Color color = Color.FromArgb(_iAlive, _color);
       window.AddCenteredEllipse((int)_point.X,(int)_point.Y, _radius, _radius, color);
     }
 
-    public void MoveBall()
-    {
+    public void MoveBall() //adjust position of ball based on velocity and alive counter
+    { 
       _iAlive--;
       if (_iAlive < 1)
-      {
+      {// count down iAlive so ball fades out, then set new random position
         double x = Radius / 2 + (window.ScaledWidth - Radius) * rand.NextDouble();
         double y = Radius / 2 + (window.ScaledHeight - Radius) * rand.NextDouble();
         _point = new PointF((float)x, (float)y);
         _iAlive = rand.Next(50, 128);
       }
+      //move ball by added velocity to position, bound ball position to drawer size so it bounces
       PointF tmp = new PointF(_point.X+_velocity.X, _point.Y+_velocity.Y);
       if (tmp.X < _radius / 2)
       {
@@ -85,10 +87,10 @@ namespace nandish_ICA03
         _velocity.Y *= -1;
         tmp.Y = (window.ScaledHeight-_radius/2);
       }
-      _point = tmp;
+      _point = tmp; //set position to adjusted temp point
     }
     public static bool Loading
-    {
+    {//use this to clear and render drawer
       set 
       {
         if (value)

@@ -28,22 +28,21 @@ namespace nandish_ICA03
       KeyPreview = true;
       KeyDown += Form1_KeyDown;
       th1 = new Thread(Display);
-      th1.IsBackground = true;
+      //th1.IsBackground = true; dont need because we arent running multiple threads?
       th1.Start();
       
     }
     private void Form1_Shown(object sender, EventArgs e)
     {
-      Ball.DrawerLocation = new Point(Location.X+Width,Location.Y);
+      Ball.DrawerLocation = new Point(Location.X+Width,Location.Y);//set drawer location
       Activate();
     }
-
 
     private void Form1_KeyDown(object sender, KeyEventArgs e)
     {
       if (e.KeyCode == Keys.Add)
       {
-        lock (key)
+        lock (key)//lock when accessing ball list
         {
           for (int i = 0; i < 5; ++i)
           {
@@ -64,7 +63,7 @@ namespace nandish_ICA03
     }
 
     public void Display()
-    {
+    {//Loading set value controls clearing and rendering drawer window. loop with 25ms sleep 
       while (true)
       {
         Ball.Loading = true;

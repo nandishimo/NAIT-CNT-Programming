@@ -18,10 +18,10 @@ namespace nandish_ICA03
       get { return _radius; } 
       set 
       {
+        value = Math.Abs(value);
         if (value == 0) value = 1;
-        else if (value < 0) value *= -1;
-        if (value > Math.Min(window.ScaledWidth, window.ScaledHeight))
-          value = Math.Min(window.ScaledWidth, window.ScaledHeight);
+        else if (value > Math.Min(window.ScaledWidth/2, window.ScaledHeight/2))
+          value = Math.Min(window.ScaledWidth/2, window.ScaledHeight/2);
         _radius = value; 
       } 
     }

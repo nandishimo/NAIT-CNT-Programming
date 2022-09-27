@@ -33,7 +33,7 @@ namespace nandish_ICA03
       KeyPreview = true;
       KeyDown += Form1_KeyDown;
       th1 = new Thread(Display);
-      //th1.IsBackground = true; dont need because we arent running multiple threads?
+      th1.IsBackground = true; //dont need because we arent running multiple threads?
       th1.Start();
       
     }
@@ -57,14 +57,15 @@ namespace nandish_ICA03
       }
       if(e.KeyCode == Keys.Subtract) //clear all balls when pressing subtract key
       {
-        balls.Clear();
+        lock (key)
+          balls.Clear();
       }
     }
 
 
     private void Form1_MouseWheel(object sender, MouseEventArgs e)
     {
-      Ball.Radius += e.Delta / 10; //change ball radius when scrolling
+      Ball.Radius += e.Delta / 20; //change ball radius when scrolling
     }
 
     public void Display()

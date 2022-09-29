@@ -35,7 +35,9 @@
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.ClientSize = new System.Drawing.Size(183, 131);
+      this.ControlBox = false;
       this.Name = "Tile";
+      this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
       this.Text = "Tile";
       this.ResumeLayout(false);
 

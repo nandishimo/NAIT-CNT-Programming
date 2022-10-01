@@ -27,18 +27,17 @@ namespace Nandish_LAB01
     int tmpTileSet = 0;
     int matchCount = 3;
     int currentMatches = 0;
+    int clicks = 0;
     int captureYStart = 0;
 
     //delegates and event handlers
 
-    //public delegate void TurnHandler(object sender);
-    //public event TurnHandler turnTile = null;
+    public delegate void MainTurnHandler(bool b);
+    public event MainTurnHandler _mainTurn = null;
     public delegate void dGuessCallback(object sender, EventArgs e);
     public event dGuessCallback _GuessCallback = null;
     public delegate void dTurnCompleteCallback(object sender);
     public event dTurnCompleteCallback _TurnCompleteCallback = null;
-
-
 
 
 
@@ -54,6 +53,13 @@ namespace Nandish_LAB01
       _lblTileSets.MouseUp += _lblTileSets_MouseUp;
       _butStart.Click += _butStart_Click;
       _cbCheat.Click += _cbCheat_Click;
+      Shown += Form1_Shown;
+    }
+
+    private void Form1_Shown(object sender, EventArgs e)
+    {
+      StartPosition = FormStartPosition.Manual;
+      Location = new Point (0,0);
     }
 
     private void _cbCheat_Click(object sender, EventArgs e)
@@ -78,11 +84,21 @@ namespace Nandish_LAB01
           tileLetters.Add(Convert.ToChar('A'+i).ToString());
         }
       }
+      for(int i = tileLetters.Count()-1;i>0;i--)
+      {
+        int j = rand.Next(i + 1);
+        string temp = tileLetters[j];
+        tileLetters[j] = tileLetters[i];
+        tileLetters[i] = temp;
+      }
       return tileLetters;
     }
     
     private void _butStart_Click(object sender, EventArgs e)
     {
+      Text = "CMPE2300 - Lab01 - Concentration";
+      clicks = 0;
+      currentMatches = 0;
       List<string> shuffledLetters = GetShuffledTileLetters();
       Screen screen = Screen.FromControl(this); //get the screen the main form is on
       if (gameTiles == null)
@@ -105,13 +121,14 @@ namespace Nandish_LAB01
         _tileDialog.Cheat = _cbCheat.Checked;
         _tileDialog._turnComplete += TurnCompleteCallback;
         _tileDialog._guessClick += GuessCallback;
+        //_mainTurn += _tileDialog.MainTurnHandler;
 
-        if(gameTiles.Count ==0)
-          _tileDialog.Location = new Point(this.Left, this.Bottom + 2);
+        if (gameTiles.Count == 0)
+          _tileDialog.Set(new Point(this.Left, this.Bottom + 2));
         else
-          _tileDialog.Location = new Point(gameTiles.Last().Left+_tileDialog.Width+2, gameTiles.Last().Top);
+          _tileDialog.Set(new Point(gameTiles.Last().Left + _tileDialog.Width + 2, gameTiles.Last().Top));
         if (_tileDialog.Right > screen.WorkingArea.Right) //wrap tiles to next row if they go past end of screen
-          _tileDialog.Location = new Point(gameTiles.First().Left,gameTiles.Last().Bottom+2);
+          _tileDialog.Set(new Point(gameTiles.First().Left, gameTiles.Last().Bottom + 2));
         _tileDialog.Show();
         gameTiles.Add(_tileDialog);
       }
@@ -125,15 +142,22 @@ namespace Nandish_LAB01
       {
         if (selectedTiles.Contains(td))
           return;
+        if (selectedTiles.Count() == matchCount)
+          return;
         else
         {
+          clicks++;
           selectedTiles.Add(td);
           td._turntile += Td__turntile;
           td.ShowSecret = true;
-          if(selectedTiles.Count == matchCount)
+          if (selectedTiles.Count == matchCount)
           {
+            foreach(TileDialog tileD in gameTiles)
+            {
+              tileD.endingTurn = 1;
+            }
             List<string> tileString = new List<string>();
-            foreach(TileDialog tile in selectedTiles)
+            foreach (TileDialog tile in selectedTiles)
             {
               tileString.Add(tile.Secret);
             }
@@ -143,7 +167,9 @@ namespace Nandish_LAB01
             }
             else
             {
+              currentMatches++;
               Td__turntile(TileDialog.hideOrClose._close);
+
             }
           }
 
@@ -154,19 +180,30 @@ namespace Nandish_LAB01
 
     private void Td__turntile(TileDialog.hideOrClose hoc)
     {
-      foreach(TileDialog td in selectedTiles)
+      _mainTurn?.Invoke(true);
+      foreach (TileDialog td in selectedTiles)
       {
         td.TileTurnHandler(hoc);
         td._turntile -= Td__turntile;
       }
       selectedTiles.Clear();
-      //TurnCompleteCallback();
+      
     }
     public void TurnCompleteCallback(object sender, EventArgs e)
     {
-
+      if(currentMatches == tileSetCount)
+      {
+        Text = $"You Win in {clicks} clicks!";
+      }
+      else
+      {
+        foreach (TileDialog tileD in gameTiles)
+        {
+          tileD.endingTurn = 0;
+        }
+      }
+      
     }
-
     private void _lblTileSets_MouseUp(object sender, MouseEventArgs e)
     {
       _lblTileSets.Capture = false; //disabled capture

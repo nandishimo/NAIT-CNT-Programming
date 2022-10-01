@@ -22,6 +22,12 @@ namespace Nandish_LAB01
       _hide,
       _close
     }
+    public enum EndingTurn
+    {
+      wait,
+      done
+    }
+    public int endingTurn = 0;
     public delegate void TurnHandler(hideOrClose hoc);
     public event TurnHandler _turntile = null;
     public event EventHandler _guessClick = null;
@@ -76,7 +82,17 @@ namespace Nandish_LAB01
       _lblChar.MouseEnter += _lblChar_MouseEnter;
       _lblChar.MouseLeave += _lblChar_MouseLeave;
     }
-
+    //public void MainTurnHandler(bool inProgress)
+    //{
+    //  if(inProgress)
+    //  {
+    //    _lblChar.Click-= TileDialog_Click;
+    //  }
+    //  else
+    //  {
+    //    _lblChar.Click += TileDialog_Click;
+    //  }
+    //}
     public void Set(Point location)
     {
       Location = location;
@@ -96,13 +112,11 @@ namespace Nandish_LAB01
 
     private void _lblChar_MouseLeave(object sender, EventArgs e)
     {
-      if ((bool)Tag)
         ShowSecret = false;
     }
 
     private void _lblChar_MouseEnter(object sender, EventArgs e)
     {
-      if ((bool)Tag)
         ShowSecret = (bool)Tag;
     }
 
@@ -114,10 +128,11 @@ namespace Nandish_LAB01
       {
         timer.Enabled = false;
         _lblChar.Click += TileDialog_Click;
+        _lblChar.MouseLeave += _lblChar_MouseLeave;
         _lblChar.ForeColor = _lblChar.BackColor;
         fontSize = maxFontSize;
         _lblChar.Font = new Font(_lblChar.Font.FontFamily, fontSize, _lblChar.Font.Style);
-        Invoke(_turnComplete);
+        _turnComplete?.Invoke(this, EventArgs.Empty);
       }
       else
       {
@@ -127,6 +142,11 @@ namespace Nandish_LAB01
 
     private void TileDialog_Click(object sender, EventArgs e)
     {
+      if(endingTurn == 1)
+      {
+        return;
+      }
+      _lblChar.MouseLeave -= _lblChar_MouseLeave;
       _guessClick?.Invoke(this, e);
 
     }

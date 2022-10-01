@@ -18,22 +18,18 @@ namespace Nandish_LAB01
   public partial class TileDialog : Form
   {
     public enum hideOrClose
-    {
+    {//readable code to hide or close dialog
       _hide,
       _close
     }
-    public enum EndingTurn
-    {
-      wait,
-      done
-    }
-    public int endingTurn = 0;
+    public int endingTurn = 0;//so main form knows if end turn processing(animation) is done
+    // delegates/events
     public delegate void TurnHandler(hideOrClose hoc);
     public event TurnHandler _turntile = null;
     public event EventHandler _guessClick = null;
     public event EventHandler _turnComplete = null;
     public string Secret
-    {
+    {//get or set the secret letter for this tile
       get
       {
         return _lblChar.Text;
@@ -43,7 +39,8 @@ namespace Nandish_LAB01
         _lblChar.Text = value;
       }
     }
-    public bool ShowSecret { 
+    public bool ShowSecret 
+    { //determine if secrete letter is shown or not
       set
       {
         if(value)
@@ -57,7 +54,7 @@ namespace Nandish_LAB01
       } 
     }
     public bool Cheat
-    {
+    { //communicate with tile if cheat mode is enabled
       set
       {
         Tag = value;
@@ -70,33 +67,28 @@ namespace Nandish_LAB01
     public TileDialog()
     {
       InitializeComponent();
-      StartPosition = FormStartPosition.Manual;
       Text = "Tile";
-      Cheat = false;
-      _lblChar.Font = new Font("Sans Serif", fontSize);
+      _lblChar.Font = new Font(_lblChar.Font.FontFamily, fontSize);
       timer.Interval = 20;
-      _lblChar.BackColor = _lblChar.ForeColor = BackColor;
-      //Click += TileDialog_Click;
+      _lblChar.BackColor = _lblChar.ForeColor = BackColor; //Set background of label to match tile and secret letter 
+      //bind mouse/click and timer events
       _lblChar.Click += TileDialog_Click;
       timer.Tick += Timer_Tick;
       _lblChar.MouseEnter += _lblChar_MouseEnter;
       _lblChar.MouseLeave += _lblChar_MouseLeave;
     }
-    //public void MainTurnHandler(bool inProgress)
-    //{
-    //  if(inProgress)
-    //  {
-    //    _lblChar.Click-= TileDialog_Click;
-    //  }
-    //  else
-    //  {
-    //    _lblChar.Click += TileDialog_Click;
-    //  }
-    //}
+    /// <summary>
+    /// Allows location of tile dialog to be set
+    /// </summary>
+    /// <param name="location"></param>
     public void Set(Point location)
     {
       Location = location;
     }
+    /// <summary>
+    /// Choose to hide or close dialog. 'Hiding' enables timer to handle animation
+    /// </summary>
+    /// <param name="hoc"></param>
     public void TileTurnHandler(hideOrClose hoc)
     {
       if (hoc == hideOrClose._hide)
@@ -105,34 +97,40 @@ namespace Nandish_LAB01
       }
       else if(hoc == hideOrClose._close)
       {
-        _turnComplete?.Invoke(this, EventArgs.Empty);
+        _turnComplete?.Invoke(this, EventArgs.Empty);//bound to callback in main form
         Close();
       }
     }
 
     private void _lblChar_MouseLeave(object sender, EventArgs e)
     {
-        ShowSecret = false;
+      Text = "Tile"; //always keep dialog text "Tile" by default
     }
 
     private void _lblChar_MouseEnter(object sender, EventArgs e)
-    {
-        ShowSecret = (bool)Tag;
+    { //reveal secret letter if cheats(stored in Tag) enabled
+      if((bool)Tag)
+        Text = Secret;
     }
-
+    /// <summary>
+    /// Timer enabled upon complete selection but invalid matches.
+    /// Reduce font size every tick to animate letters disappearing
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void Timer_Tick(object sender, EventArgs e)
     {
-      _lblChar.Click -= TileDialog_Click;
-      fontSize--;
+      _lblChar.Click -= TileDialog_Click;//disable clicking on tile during animation
+      fontSize--;//reduce font size every tick
       if (fontSize < 1)
-      {
+      { //once font is small enough, hide by matching color to background,
+        //rebind click event and invoke turnComplete callback in main form
         timer.Enabled = false;
         _lblChar.Click += TileDialog_Click;
-        _lblChar.MouseLeave += _lblChar_MouseLeave;
         _lblChar.ForeColor = _lblChar.BackColor;
         fontSize = maxFontSize;
         _lblChar.Font = new Font(_lblChar.Font.FontFamily, fontSize, _lblChar.Font.Style);
-        _turnComplete?.Invoke(this, EventArgs.Empty);
+        _turnComplete?.Invoke(this, EventArgs.Empty);//bound to callback in main form
       }
       else
       {
@@ -143,11 +141,10 @@ namespace Nandish_LAB01
     private void TileDialog_Click(object sender, EventArgs e)
     {
       if(endingTurn == 1)
-      {
+      {//ignore if processing(animation)
         return;
       }
-      _lblChar.MouseLeave -= _lblChar_MouseLeave;
-      _guessClick?.Invoke(this, e);
+      _guessClick?.Invoke(this, e);//bound to callback in main form
 
     }
   }

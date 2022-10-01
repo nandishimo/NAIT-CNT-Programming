@@ -23,15 +23,24 @@ namespace Nandish_LAB01
     Timer timer = new Timer();
     List<TileDialog> gameTiles = null;
     List<TileDialog> selectedTiles = new List<TileDialog>();
-    public delegate void TurnHandler(object sender);
-    public event TurnHandler turnTile = null;
-    
-
     int tileSetCount = 5;
     int tmpTileSet = 0;
     int matchCount = 3;
     int currentMatches = 0;
     int captureYStart = 0;
+
+    //delegates and event handlers
+
+    //public delegate void TurnHandler(object sender);
+    //public event TurnHandler turnTile = null;
+    public delegate void dGuessCallback(object sender, EventArgs e);
+    public event dGuessCallback _GuessCallback = null;
+    public delegate void dTurnCompleteCallback(object sender);
+    public event dTurnCompleteCallback _TurnCompleteCallback = null;
+
+
+
+
 
     public Form1()
     {
@@ -39,7 +48,6 @@ namespace Nandish_LAB01
       Text = "CMPE2300 - Lab01 - Concentration";
       _lblTileSets.Text = $"Tile Sets: {tileSetCount}";
       _lblMatchCount.Text =  $"Matches: {matchCount}";
-      turnTile += Form1_turnTile;
       _lblMatchCount.MouseWheel += _lblMatchCount_MouseWheel;
       _lblTileSets.MouseDown += _lblTileSets_MouseDown;
       _lblTileSets.MouseMove += _lblTileSets_MouseMove;
@@ -83,8 +91,9 @@ namespace Nandish_LAB01
       {
         foreach (TileDialog tile in gameTiles)
         {
+          tile.Close();
           //tile.DialogResult = DialogResult.OK;
-          tile.TileTurnHandler(TileDialog.hideOrClose._close);
+          //tile.TileTurnHandler(TileDialog.hideOrClose._close);
         }
         gameTiles.Clear();
       }
@@ -94,7 +103,9 @@ namespace Nandish_LAB01
         _tileDialog.Secret = shuffledLetters[i];
         _tileDialog.StartPosition = FormStartPosition.Manual;
         _tileDialog.Cheat = _cbCheat.Checked;
-        //turnTile += _tileDialog
+        _tileDialog._turnComplete += TurnCompleteCallback;
+        _tileDialog._guessClick += GuessCallback;
+
         if(gameTiles.Count ==0)
           _tileDialog.Location = new Point(this.Left, this.Bottom + 2);
         else
@@ -104,6 +115,56 @@ namespace Nandish_LAB01
         _tileDialog.Show();
         gameTiles.Add(_tileDialog);
       }
+    }
+
+
+
+    public void GuessCallback(object sender, EventArgs e)
+    {
+      if (sender is TileDialog td)
+      {
+        if (selectedTiles.Contains(td))
+          return;
+        else
+        {
+          selectedTiles.Add(td);
+          td._turntile += Td__turntile;
+          td.ShowSecret = true;
+          if(selectedTiles.Count == matchCount)
+          {
+            List<string> tileString = new List<string>();
+            foreach(TileDialog tile in selectedTiles)
+            {
+              tileString.Add(tile.Secret);
+            }
+            if (tileString.Distinct().Count() > 1)
+            {
+              Td__turntile(TileDialog.hideOrClose._hide);
+            }
+            else
+            {
+              Td__turntile(TileDialog.hideOrClose._close);
+            }
+          }
+
+        }
+      }
+
+    }
+
+    private void Td__turntile(TileDialog.hideOrClose hoc)
+    {
+      foreach(TileDialog td in selectedTiles)
+      {
+        td.TileTurnHandler(hoc);
+        td._turntile -= Td__turntile;
+      }
+      selectedTiles.Clear();
+      //TurnCompleteCallback();
+    }
+    public void TurnCompleteCallback(object sender, EventArgs e)
+    {
+
     }
 
     private void _lblTileSets_MouseUp(object sender, MouseEventArgs e)
@@ -129,11 +190,6 @@ namespace Nandish_LAB01
       captureYStart = e.Y; //saves y position of mouse
     }
 
-    private void Form1_turnTile(object sender)
-    {
-      throw new NotImplementedException();
-    }
-
     private void _lblMatchCount_MouseWheel(object sender, MouseEventArgs e)
     {
       if (e.Delta > 0) //if mousewheel scrolled up, increase match count
@@ -141,14 +197,6 @@ namespace Nandish_LAB01
       else if(matchCount>2) //decrease match count if wheel scrolls down
         matchCount--;
       _lblMatchCount.Text = $"Matches: {matchCount}";
-    }
-  }
-  struct Tile
-  {
-    private int iNum;
-    public Tile(int iVal)
-    {
-      iNum = iVal;
     }
   }
 }

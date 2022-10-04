@@ -22,6 +22,15 @@ namespace Nandish_ICA04
       _btnAddBalls.MouseDown += _btnAddBalls_MouseDown;
       _tBarBallSize.Value = radius; //set track bar to starting radius
       _btnAddBalls.Text = $"Add Balls : Size {_tBarBallSize.Value}"; //update button text
+      Ball.Location = new Point(Location.X + Width, Location.Y);
+      Shown += Form1_Shown;
+    }
+
+    private void Form1_Shown(object sender, EventArgs e)
+    {
+      StartPosition = FormStartPosition.Manual;
+      Location = new Point(100, 100);
+      Ball.Location = new Point(Location.X + Width, Location.Y);
     }
 
     private void _btnAddBalls_MouseDown(object sender, MouseEventArgs e)

@@ -83,6 +83,10 @@ namespace Nandish_ICA05
       if (_sort == ESortType.eRadius)
       {
         value = _radius.CompareTo(ball._radius);
+        if(value == 0)
+        {
+          value = _color.ToArgb().CompareTo(ball._color.ToArgb());
+        }
       }
       else if (_sort == ESortType.eDistance)
       {
@@ -91,6 +95,10 @@ namespace Nandish_ICA05
       else
       {
         value = _color.ToArgb().CompareTo(ball._color.ToArgb()); 
+        if(value == 0)
+        {
+          value = -1*_radius.CompareTo(ball._radius);
+        }
       }
       return value;
     }

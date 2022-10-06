@@ -98,6 +98,7 @@
       // _pBar
       // 
       this._pBar.Location = new System.Drawing.Point(0, 121);
+      this._pBar.Maximum = 1000;
       this._pBar.Name = "_pBar";
       this._pBar.Size = new System.Drawing.Size(418, 51);
       this._pBar.TabIndex = 2;

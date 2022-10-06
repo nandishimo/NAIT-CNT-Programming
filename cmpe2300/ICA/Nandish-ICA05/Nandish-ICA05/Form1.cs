@@ -21,8 +21,12 @@ namespace Nandish_ICA05
       InitializeComponent();
       _lblSize.MouseClick += _lblSize_MouseClick;
       MouseWheel += Form1_MouseWheel;
-      thread = new Thread(ShowBalls);
+      //thread = new Thread(ShowBalls);
+      //thread.IsBackground = true;
       _lblSize.Text = $"{radius}px";
+      StartPosition = FormStartPosition.Manual; ;
+      
+      Ball.Location = new Point(Location.X + Width, Location.Y);
     }
 
     private void Form1_MouseWheel(object sender, MouseEventArgs e)
@@ -58,26 +62,27 @@ namespace Nandish_ICA05
               balls.Add(ball);
             success++;
           }
+          _pBar.Value = fail;
         } while (fail < 1000 && success < 50);
-        thread.Start();
+        ShowBalls();
+        
       }
       if(e.Button == MouseButtons.Right)
       {
         lock (balls)
           balls.RemoveRange(0,balls.Count/2);
-        thread.Start();
       }
     }
     void ShowBalls()
     {
-      Ball.Loading = true;
-      foreach(Ball ball in balls)
-      {
-        lock (balls)
-          ball.ShowBall();
-      }
-      Thread.Sleep(2);
-      Ball.Loading = false;
+        Ball.Loading = true;
+        foreach(Ball ball in balls)
+        {
+          lock (balls)
+            ball.ShowBall();
+          Thread.Sleep(2);
+          Ball.Loading = false;
+        }
     }
 
     private void _rbClick(object sender, EventArgs e)
@@ -87,29 +92,29 @@ namespace Nandish_ICA05
         foreach(Ball b in balls)
         {
           b._sort = Ball.ESortType.eRadius;
-          lock(balls)
-            balls.Sort();
-          
         }
-        
+        lock (balls)
+          balls.Sort();
+
       }
       else if (_rbDistance.Checked)
       {
         foreach (Ball b in balls)
         { 
           b._sort = Ball.ESortType.eDistance;
-          lock (balls)
-            balls.Sort();
         }
+        lock (balls)
+          balls.Sort();
       }
       else
       {
         foreach (Ball b in balls)
         {
           b._sort = Ball.ESortType.eColor;
-          lock (balls)
-            balls.Sort();
+
         }
+        lock (balls)
+          balls.Sort();
       }
       ShowBalls();
 

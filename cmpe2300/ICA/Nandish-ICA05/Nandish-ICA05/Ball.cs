@@ -10,36 +10,36 @@ namespace Nandish_ICA05
 {
   internal class Ball:IComparable
   {
-    private static CDrawer window = null;
-    private static Random rand = new Random();
-    private float _radius;
-    public float Radius
+    private static CDrawer window = null;//static drawer member
+    private static Random rand = new Random();//static Random member
+    private float _radius;//float member for radius
+    public float Radius//set only property for radius
     { set { _radius = Math.Abs(value); } }
-    private Color _color;
-    private PointF _center;
-    public enum ESortType
+    private Color _color;//color member
+    private PointF _center;//position of ball center
+    public enum ESortType//enumeration for sorting
     {
       eRadius,
       eDistance,
       eColor
     }
-    public ESortType _sort { get; set; }
+    public ESortType _sort { get; set; }//automatic property of our enum type
     
-    static Ball()
+    static Ball() //static contructor for creating drawer window with white background
     {
       window = new CDrawer();
-      window.ContinuousUpdate = false;
       window.BBColour = Color.White;
+      window.ContinuousUpdate = false;
     }
     public Ball(float radius)
-    {
+    { //instance contructor accepts radius, creates ball of speficifed size and random color and random position
       Radius = radius;
       _color = RandColor.GetColor();
       _center = new PointF((float)(_radius + (window.ScaledWidth - 2 * _radius) * rand.NextDouble()),
         (float)(_radius + (window.ScaledHeight - 2 * _radius) * rand.NextDouble()));
     }
     public static bool Loading
-    {
+    {//virtual property for clearing and rendering drawer
       set
       {
         if (value) window.Clear();
@@ -47,24 +47,24 @@ namespace Nandish_ICA05
       }
     }
     public static Point Location
-    {
+    {//manual property to set drawer window position
       set
       {
         window.Position = value;
       }
     }
     public void ShowBall()
-    {
+    {//method to add ball to drawer
       window.AddCenteredEllipse((int)_center.X, (int)_center.Y, (int)_radius * 2, (int)_radius * 2, _color);
     }
     public float DistanceFrom(PointF point)
-    {
+    {//method to calculate disance between two points
       double dx = this._center.X - point.X;
       double dy = this._center.Y - point.Y;
       return (float)Math.Sqrt(Math.Pow(dx, 2) + Math.Pow(dy, 2));
     }
     public override bool Equals(object obj)
-    {
+    {//check if balls overlap
       if(!(obj is Ball ball))
         return false;
       return (DistanceFrom(ball._center)-this._radius-ball._radius)<0;
@@ -74,7 +74,7 @@ namespace Nandish_ICA05
       return 1;
     }
     public int CompareTo(object obj)
-    {
+    {//compare 
       if(!(obj is Ball ball))
       {
         throw new ArgumentException($"Ball:CompareTo:{nameof(obj)} - Not a valid Ball");

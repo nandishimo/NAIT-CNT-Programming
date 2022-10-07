@@ -21,8 +21,9 @@ namespace Nandish_ICA05
       InitializeComponent();
       _lblSize.MouseClick += _lblSize_MouseClick;
       MouseWheel += Form1_MouseWheel;
-      //thread = new Thread(ShowBalls);
-      //thread.IsBackground = true;
+      thread = new Thread(ShowBalls);
+      thread.IsBackground = true;
+      //thread.Start();
       _lblSize.Text = $"{radius}px";
       StartPosition = FormStartPosition.Manual; ;
       
@@ -64,8 +65,13 @@ namespace Nandish_ICA05
           }
           _pBar.Value = fail;
         } while (fail < 1000 && success < 50);
-        ShowBalls();
-        
+        if (thread.IsAlive)
+        {
+          thread.Abort();
+          
+        }
+        Invoke(new ThreadStart(ShowBalls));
+
       }
       if(e.Button == MouseButtons.Right)
       {
@@ -116,7 +122,7 @@ namespace Nandish_ICA05
         lock (balls)
           balls.Sort();
       }
-      ShowBalls();
+      Invoke(new ThreadStart(ShowBalls));
 
     }
   }

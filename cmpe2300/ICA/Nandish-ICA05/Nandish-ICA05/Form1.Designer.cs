@@ -40,12 +40,15 @@
       // _lblSize
       // 
       this._lblSize.AutoSize = true;
+      this._lblSize.BackColor = System.Drawing.SystemColors.Info;
+      this._lblSize.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
       this._lblSize.Location = new System.Drawing.Point(9, 9);
       this._lblSize.MinimumSize = new System.Drawing.Size(400, 50);
       this._lblSize.Name = "_lblSize";
       this._lblSize.Size = new System.Drawing.Size(400, 50);
       this._lblSize.TabIndex = 0;
       this._lblSize.Text = "label1";
+      this._lblSize.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
       // 
       // groupBox1
       // 

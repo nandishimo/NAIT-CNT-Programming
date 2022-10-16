@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Threading;
 
-namespace Nandish_ICA05
+namespace Nandish_ICA06
 {
   public partial class Form1 : Form
   { 

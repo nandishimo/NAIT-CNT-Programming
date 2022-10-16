@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Drawing;
 using GDIDrawer;
 
-namespace Nandish_ICA05
+namespace Nandish_ICA06
 {
   internal class Ball:IComparable
   {

@@ -110,6 +110,7 @@ namespace Nandish_ICA06
         lock (balls)
           balls.Sort(Ball.CompareByColor);
       }
+      ShowBalls();
 
     }
   }

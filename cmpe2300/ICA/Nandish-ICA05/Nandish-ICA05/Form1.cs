@@ -66,12 +66,14 @@ namespace Nandish_ICA05
           _pBar.Value = fail;
         } while (fail < 1000 && success < 50);
         ShowBalls();
+        Text = $"Loaded {success} distinct balls with {fail} discards";//update form text
 
       }
       if(e.Button == MouseButtons.Right)
       {//remove half the balls
         balls.RemoveRange(0,balls.Count/2);
         ShowBalls();
+        Text = $"Removed half of the Balls!";//update form text
       }
     }
     void ShowBalls()
@@ -89,25 +91,17 @@ namespace Nandish_ICA05
     {//change sort type for all balls, sort collection and render balls
       if (_rbRadius.Checked)
       {
-        foreach(Ball b in balls)
-        {
-          b._sort = Ball.ESortType.eRadius;
-        }
+          Ball._sort = Ball.ESortType.eRadius;
 
       }
       else if (_rbDistance.Checked)
       {
-        foreach (Ball b in balls)
-        { 
-          b._sort = Ball.ESortType.eDistance;
-        }
+          Ball._sort = Ball.ESortType.eDistance;
       }
       else
       {
-        foreach (Ball b in balls)
-        {
-          b._sort = Ball.ESortType.eColor;
-        }
+        
+          Ball._sort = Ball.ESortType.eColor;
         
       }
       balls.Sort();

@@ -97,6 +97,10 @@ namespace Nandish_ICA06
     }
     public static int CompareByColor(Ball ball1, Ball ball2)
     {//compare color, sort ascending
+      if (ball1 == null)
+        throw new ArgumentNullException(nameof(ball1));
+      if (ball2 == null)
+        throw new ArgumentNullException(nameof(ball1));
       int value = ball1._color.ToArgb().CompareTo(ball2._color.ToArgb());
       if(value==0)//tiered sort, ascending radius within color
       {

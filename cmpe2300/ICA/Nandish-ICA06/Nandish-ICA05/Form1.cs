@@ -94,36 +94,22 @@ namespace Nandish_ICA06
 
     private void _rbClick(object sender, EventArgs e)
     {
-      if (_rbRadius.Checked)
+      if (sender==_rbRadius)
       {
-        foreach(Ball b in balls)
-        {
-          b._sort = Ball.ESortType.eRadius;
-        }
         lock (balls)
           balls.Sort();
 
       }
-      else if (_rbDistance.Checked)
+      else if (sender==_rbDistance)
       {
-        foreach (Ball b in balls)
-        { 
-          b._sort = Ball.ESortType.eDistance;
-        }
         lock (balls)
-          balls.Sort();
+          balls.Sort(Ball.CompareByDistance);
       }
       else
       {
-        foreach (Ball b in balls)
-        {
-          b._sort = Ball.ESortType.eColor;
-
-        }
         lock (balls)
-          balls.Sort();
+          balls.Sort(Ball.CompareByColor);
       }
-      Invoke(new ThreadStart(ShowBalls));
 
     }
   }

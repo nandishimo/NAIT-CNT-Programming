@@ -32,7 +32,7 @@ namespace Nandish_ICA06
     }
 
     private void Form1_MouseWheel(object sender, MouseEventArgs e)
-    {
+    {//increase or decrease radius based on scroll direction
       if(e.Delta > 0)
       {
         radius++;

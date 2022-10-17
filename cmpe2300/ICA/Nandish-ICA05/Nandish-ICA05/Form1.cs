@@ -1,4 +1,9 @@
-﻿using System;
+﻿/***********************************
+*Nandish Patel
+*CMPE2300
+*Submission Code : 1221_2300_A05
+***********************************/
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,23 +20,18 @@ namespace Nandish_ICA05
   { 
     List<Ball> balls = new List<Ball>();
     float radius = -50;
-    Thread thread = null;
     public Form1()
     {
       InitializeComponent();
       _lblSize.MouseClick += _lblSize_MouseClick;
       MouseWheel += Form1_MouseWheel;
-      thread = new Thread(ShowBalls);
-      thread.IsBackground = true;
-      //thread.Start();
       _lblSize.Text = $"{radius}px";
-      StartPosition = FormStartPosition.Manual; ;
-      
+      StartPosition = FormStartPosition.Manual;
       Ball.Location = new Point(Location.X + Width, Location.Y);
     }
 
     private void Form1_MouseWheel(object sender, MouseEventArgs e)
-    {
+    { //increase or decrease ball radius, controlled by scroll direction
       if(e.Delta > 0)
       {
         radius++;
@@ -45,7 +45,7 @@ namespace Nandish_ICA05
 
     private void _lblSize_MouseClick(object sender, MouseEventArgs e)
     {
-      
+      //add 50 distinct balls or stop if reaching 1000 fails
       int fail = 0;
       int success = 0;
       if(e.Button == MouseButtons.Left)
@@ -59,48 +59,39 @@ namespace Nandish_ICA05
           }
           else
           {
-            lock (balls)
-              balls.Add(ball);
+            balls.Add(ball);
             success++;
           }
           _pBar.Value = fail;
         } while (fail < 1000 && success < 50);
-        if (thread.IsAlive)
-        {
-          thread.Abort();
-          
-        }
-        Invoke(new ThreadStart(ShowBalls));
+        ShowBalls();
 
       }
       if(e.Button == MouseButtons.Right)
-      {
-        lock (balls)
-          balls.RemoveRange(0,balls.Count/2);
+      {//remove half the balls
+        balls.RemoveRange(0,balls.Count/2);
+        ShowBalls();
       }
     }
     void ShowBalls()
-    {
+    {//clear drawer, add balls from list, render drawer after adding each ball with delay
         Ball.Loading = true;
         foreach(Ball ball in balls)
         {
-          lock (balls)
-            ball.ShowBall();
+          ball.ShowBall();
           Thread.Sleep(2);
           Ball.Loading = false;
         }
     }
 
     private void _rbClick(object sender, EventArgs e)
-    {
+    {//change sort type for all balls, sort collection and render balls
       if (_rbRadius.Checked)
       {
         foreach(Ball b in balls)
         {
           b._sort = Ball.ESortType.eRadius;
         }
-        lock (balls)
-          balls.Sort();
 
       }
       else if (_rbDistance.Checked)
@@ -109,20 +100,17 @@ namespace Nandish_ICA05
         { 
           b._sort = Ball.ESortType.eDistance;
         }
-        lock (balls)
-          balls.Sort();
       }
       else
       {
         foreach (Ball b in balls)
         {
           b._sort = Ball.ESortType.eColor;
-
         }
-        lock (balls)
-          balls.Sort();
+        
       }
-      Invoke(new ThreadStart(ShowBalls));
+      balls.Sort();
+      ShowBalls();
 
     }
   }

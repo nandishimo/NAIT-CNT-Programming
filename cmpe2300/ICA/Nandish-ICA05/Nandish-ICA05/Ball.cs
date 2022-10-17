@@ -1,4 +1,9 @@
-﻿using System;
+﻿/***********************************
+*Nandish Patel
+*CMPE2300
+*Submission Code : 1221_2300_A05
+***********************************/
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -75,26 +80,26 @@ namespace Nandish_ICA05
     }
     public int CompareTo(object obj)
     {//compare 
-      if(!(obj is Ball ball))
+      if(!(obj is Ball ball))//check null
       {
         throw new ArgumentException($"Ball:CompareTo:{nameof(obj)} - Not a valid Ball");
       }
       int value;
       if (_sort == ESortType.eRadius)
       {
-        value = _radius.CompareTo(ball._radius);
+        value = _radius.CompareTo(ball._radius);//compare radius, sort ascending colors within
         if(value == 0)
         {
           value = _color.ToArgb().CompareTo(ball._color.ToArgb());
         }
       }
-      else if (_sort == ESortType.eDistance)
+      else if (_sort == ESortType.eDistance)//compare distance to origin
       {
         value = (int)DistanceFrom(new PointF(0, 0)).CompareTo(ball.DistanceFrom(new PointF(0, 0)));
       }
       else
       {
-        value = _color.ToArgb().CompareTo(ball._color.ToArgb()); 
+        value = -1*_color.ToArgb().CompareTo(ball._color.ToArgb()); //compare colors, sort decending radius within
         if(value == 0)
         {
           value = -1*_radius.CompareTo(ball._radius);

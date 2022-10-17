@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32630.192
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nandish-ICA05", "Nandish-ICA05\Nandish-ICA05.csproj", "{3D644E3F-31EC-4FAC-81B9-78902D51CFEE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nandish-ICA06", "Nandish-ICA05\Nandish-ICA06.csproj", "{3D644E3F-31EC-4FAC-81B9-78902D51CFEE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -8,7 +8,7 @@ using GDIDrawer;
 
 namespace Nandish_ICA06
 {
-  internal class Ball:IComparable
+  internal class Ball : IComparable
   {
     private static CDrawer window = null;//static drawer member
     private static Random rand = new Random();//static Random member
@@ -17,14 +17,7 @@ namespace Nandish_ICA06
     { set { _radius = Math.Abs(value); } }
     private Color _color;//color member
     private PointF _center;//position of ball center
-    public enum ESortType//enumeration for sorting
-    {
-      eRadius,
-      eDistance,
-      eColor
-    }
-    public ESortType _sort { get; set; }//automatic property of our enum type
-    
+
     static Ball() //static contructor for creating drawer window with white background
     {
       window = new CDrawer();
@@ -65,9 +58,9 @@ namespace Nandish_ICA06
     }
     public override bool Equals(object obj)
     {//check if balls overlap
-      if(!(obj is Ball ball))
+      if (!(obj is Ball ball))
         return false;
-      return (DistanceFrom(ball._center)-this._radius-ball._radius)<0;
+      return (DistanceFrom(ball._center) - this._radius - ball._radius) < 0;
     }
     public override int GetHashCode()
     {
@@ -75,32 +68,30 @@ namespace Nandish_ICA06
     }
     public int CompareTo(object obj)
     {//compare 
-      if(!(obj is Ball ball))
+      if (!(obj is Ball ball))
       {
         throw new ArgumentException($"Ball:CompareTo:{nameof(obj)} - Not a valid Ball");
       }
       int value;
-      if (_sort == ESortType.eRadius)
+      value = -1 * _radius.CompareTo(ball._radius);
+      if (value == 0)
       {
-        value = _radius.CompareTo(ball._radius);
-        if(value == 0)
-        {
-          value = _color.ToArgb().CompareTo(ball._color.ToArgb());
-        }
-      }
-      else if (_sort == ESortType.eDistance)
-      {
-        value = (int)DistanceFrom(new PointF(0, 0)).CompareTo(ball.DistanceFrom(new PointF(0, 0)));
-      }
-      else
-      {
-        value = _color.ToArgb().CompareTo(ball._color.ToArgb()); 
-        if(value == 0)
-        {
-          value = -1*_radius.CompareTo(ball._radius);
-        }
+        value = _color.ToArgb().CompareTo(ball._color.ToArgb());
       }
       return value;
+    }
+    public static int CompareByDistance(Ball ball1, Ball ball2)
+    {
+      if (ball1 == null)
+        throw new ArgumentNullException(nameof(ball1));
+      if (ball2 == null)
+        throw new ArgumentNullException(nameof(ball1));
+
+      return -1 * ball1.DistanceFrom(new PointF(0, 0)).CompareTo(ball2.DistanceFrom(new PointF(0, 0)));
+    }
+    public static int CompareByColor(Ball ball1, Ball ball2)
+    {
+      return -1 * ball1._color.ToArgb().CompareTo(ball2._color.ToArgb());
     }
   }
 }

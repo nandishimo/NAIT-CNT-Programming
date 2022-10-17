@@ -68,12 +68,13 @@ namespace Nandish_ICA06
           _pBar.Value = fail;
         } while (fail < 1000 && success < 50);
         ShowBalls();
-
+        Text = $"Loaded {success} distinct balls with {fail} discards";//update form text
       }
       if(e.Button == MouseButtons.Right)
       {//remove upper half of collection
         balls.RemoveRange(0,balls.Count/2);
         ShowBalls();
+        Text = $"Removed half of the Balls!";//update form text
       }
     }
     void ShowBalls()
@@ -89,11 +90,12 @@ namespace Nandish_ICA06
 
     private void _rbClick(object sender, EventArgs e)
     {//check with radio button was clicked and sort accordingly
-      if (sender.Equals(_rbRadius))
+      //ReferenceEquals
+      if (ReferenceEquals(sender,_rbRadius))
       {
         balls.Sort();
       }
-      else if (sender.Equals(_rbDistance))
+      else if (ReferenceEquals(sender,_rbDistance))
       {
         balls.Sort(Ball.CompareByDistance);
       }

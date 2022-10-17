@@ -91,7 +91,7 @@ namespace Nandish_ICA06
       if (ball1 == null)
         throw new ArgumentNullException(nameof(ball1));
       if (ball2 == null)
-        throw new ArgumentNullException(nameof(ball1));
+        throw new ArgumentNullException(nameof(ball2));
 
       return -1 * ball1.DistanceFrom(new PointF(0, 0)).CompareTo(ball2.DistanceFrom(new PointF(0, 0)));
     }
@@ -100,7 +100,7 @@ namespace Nandish_ICA06
       if (ball1 == null)
         throw new ArgumentNullException(nameof(ball1));
       if (ball2 == null)
-        throw new ArgumentNullException(nameof(ball1));
+        throw new ArgumentNullException(nameof(ball2));
       int value = ball1._color.ToArgb().CompareTo(ball2._color.ToArgb());
       if(value==0)//tiered sort, ascending radius within color
       {

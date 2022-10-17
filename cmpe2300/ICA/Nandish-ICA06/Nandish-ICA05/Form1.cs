@@ -20,19 +20,14 @@ namespace Nandish_ICA06
   { 
     List<Ball> balls = new List<Ball>();
     float radius = -50;
-    Thread thread = null;
     public Form1()
     {
       InitializeComponent();
       Text = "ICA06";
       _lblSize.MouseClick += _lblSize_MouseClick;
       MouseWheel += Form1_MouseWheel;
-      thread = new Thread(ShowBalls);
-      thread.IsBackground = true;
-      //thread.Start();
       _lblSize.Text = $"{radius}px";
       StartPosition = FormStartPosition.Manual;
-      
       Ball.Location = new Point(Location.X + Width, Location.Y);
     }
 
@@ -56,6 +51,7 @@ namespace Nandish_ICA06
       int success = 0;
       if(e.Button == MouseButtons.Left)
       {
+        //add up to 50 distinct balls
         do
         {
           Ball ball = new Ball(radius);
@@ -71,18 +67,13 @@ namespace Nandish_ICA06
           }
           _pBar.Value = fail;
         } while (fail < 1000 && success < 50);
-        if (thread.IsAlive)
-        {
-          thread.Abort();
-          
-        }
-        Invoke(new ThreadStart(ShowBalls));
+        ShowBalls();
 
       }
       if(e.Button == MouseButtons.Right)
-      {
-        lock (balls)
-          balls.RemoveRange(0,balls.Count/2);
+      {//remove upper half of collection
+        balls.RemoveRange(0,balls.Count/2);
+        ShowBalls();
       }
     }
     void ShowBalls()
@@ -90,30 +81,25 @@ namespace Nandish_ICA06
         Ball.Loading = true;
         foreach(Ball ball in balls)
         {
-          lock (balls)
-            ball.ShowBall();
+          ball.ShowBall();
           Thread.Sleep(2);
           Ball.Loading = false;
         }
     }
 
     private void _rbClick(object sender, EventArgs e)
-    {
-      if (sender==_rbRadius)
+    {//check with radio button was clicked and sort accordingly
+      if (sender.Equals(_rbRadius))
       {
-        lock (balls)
-          balls.Sort();
-
+        balls.Sort();
       }
-      else if (sender==_rbDistance)
+      else if (sender.Equals(_rbDistance))
       {
-        lock (balls)
-          balls.Sort(Ball.CompareByDistance);
+        balls.Sort(Ball.CompareByDistance);
       }
       else
       {
-        lock (balls)
-          balls.Sort(Ball.CompareByColor);
+        balls.Sort(Ball.CompareByColor);
       }
       ShowBalls();
 

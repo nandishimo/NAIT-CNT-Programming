@@ -28,7 +28,7 @@ namespace Nandish_ICA05
       eDistance,
       eColor
     }
-    public ESortType _sort { get; set; }//automatic property of our enum type
+    public static ESortType _sort { get; set; }//automatic property of our enum type
     
     static Ball() //static contructor for creating drawer window with white background
     {

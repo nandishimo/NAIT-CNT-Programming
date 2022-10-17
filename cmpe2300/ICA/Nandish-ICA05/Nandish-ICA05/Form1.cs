@@ -23,6 +23,7 @@ namespace Nandish_ICA05
     public Form1()
     {
       InitializeComponent();
+      Text = "ICA05";
       _lblSize.MouseClick += _lblSize_MouseClick;
       MouseWheel += Form1_MouseWheel;
       _lblSize.Text = $"{radius}px";

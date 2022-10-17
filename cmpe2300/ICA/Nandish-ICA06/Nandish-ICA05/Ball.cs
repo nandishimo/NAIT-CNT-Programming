@@ -1,4 +1,9 @@
-﻿using System;
+﻿/***********************************
+*Nandish Patel
+*CMPE2300
+*Submission Code : 1221_2300_A06
+***********************************/
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -67,21 +72,22 @@ namespace Nandish_ICA06
       return 1;
     }
     public int CompareTo(object obj)
-    {//compare 
-      if (!(obj is Ball ball))
+    {//compare radius sort descending
+      if (!(obj is Ball ball))//null check
       {
         throw new ArgumentException($"Ball:CompareTo:{nameof(obj)} - Not a valid Ball");
       }
       int value;
       value = -1 * _radius.CompareTo(ball._radius);
-      if (value == 0)
+      if (value == 0)//tiered sort, color within radius
       {
-        value = _color.ToArgb().CompareTo(ball._color.ToArgb());
+        value = CompareByColor(this, ball);
       }
       return value;
     }
     public static int CompareByDistance(Ball ball1, Ball ball2)
-    {
+    {//compare distance to origin, sort descending
+      //null checks
       if (ball1 == null)
         throw new ArgumentNullException(nameof(ball1));
       if (ball2 == null)
@@ -90,8 +96,13 @@ namespace Nandish_ICA06
       return -1 * ball1.DistanceFrom(new PointF(0, 0)).CompareTo(ball2.DistanceFrom(new PointF(0, 0)));
     }
     public static int CompareByColor(Ball ball1, Ball ball2)
-    {
-      return -1 * ball1._color.ToArgb().CompareTo(ball2._color.ToArgb());
+    {//compare color, sort ascending
+      int value = ball1._color.ToArgb().CompareTo(ball2._color.ToArgb());
+      if(value==0)//tiered sort, ascending radius within color
+      {
+        value = ball1._radius.CompareTo(ball2._radius);
+      }
+      return value;
     }
   }
 }

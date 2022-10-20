@@ -24,7 +24,8 @@ namespace Nandish_ICA07
     {
       InitializeComponent();
       Text = "ICA07";
-      _btnLong.Text = $"Longer than {_tBar.Value}";
+      _btnLong.Text = $"Longer than {_tBar.Value}";//set initial filter button text
+      //set start position for form and window
       StartPosition = FormStartPosition.Manual;
       Location = new Point(0, 0);
       Block.Drawer.Position = new Point(Location.X + Width,Location.Y);
@@ -33,7 +34,7 @@ namespace Nandish_ICA07
 
     private void Drawer_MouseMove(Point pos, GDIDrawer.CDrawer dr)
     {
-      int HighLightWidth = pos.X;
+      int HighLightWidth = pos.X/4;
       blocks.ForEach(block => block.HighLight = false);
       blocks.FindAll(block => Math.Abs(HighLightWidth-block.Width)<=10).ForEach(block => block.HighLight = true);
       ShowBlocks();
@@ -63,16 +64,20 @@ namespace Nandish_ICA07
 
     private void _btnLong_Click(object sender, EventArgs e)
     {
+      int initialCount = blocks.Count;
       blocks.RemoveAll(block=>block.Width>_tBar.Value);
       ShowBlocks();
       UpdateTrackBar();
+      Text = $"Removed {initialCount-blocks.Count} blocks";
     }
 
     private void _btnBright_Click(object sender, EventArgs e)
     {
+      int initialCount = blocks.Count;
       blocks.RemoveAll(Block.IsBright);
       ShowBlocks();
       UpdateTrackBar();
+      Text = $"Removed {initialCount - blocks.Count} blocks";
     }
 
     private void _btnWColor_Click(object sender, EventArgs e)

@@ -27,16 +27,27 @@ namespace Nandish_ICA07
       StartPosition = FormStartPosition.Manual;
       Location = new Point(0, 0);
       Block.Drawer.Position = new Point(Location.X + Width,Location.Y);
-      Block.Drawer.MouseMove += Drawer_MouseMove;
+      //Block.Drawer.MouseMove += Drawer_MouseMove;
+      MouseMove += Form1_MouseMove;
     }
 
-    private void Drawer_MouseMove(Point pos, GDIDrawer.CDrawer dr)
+    private void Form1_MouseMove(object sender, MouseEventArgs e)
     { //choose width of blocks to highlight based on horiontal mouse position
-      int HighLightWidth = pos.X/4-5; 
+      int HighLightWidth = e.X;
       blocks.ForEach(block => block.HighLight = false);
-      blocks.FindAll(block => Math.Abs(HighLightWidth-block.Width)<=10).ForEach(block => block.HighLight = true);
+      blocks.FindAll(block => Math.Abs(HighLightWidth - block.Width) <= 10).ForEach(block => block.HighLight = true);
       ShowBlocks();
     }
+
+    /*
+    private void Drawer_MouseMove(Point pos, GDIDrawer.CDrawer dr)
+    { //choose width of blocks to highlight based on horiontal mouse position
+     int HighLightWidth = pos.X/4-5;
+     blocks.ForEach(block => block.HighLight = false);
+     blocks.FindAll(block => Math.Abs(HighLightWidth-block.Width)<=10).ForEach(block => block.HighLight = true);
+     ShowBlocks();
+    }
+    */
 
     public void ShowBlocks()
     { //render blocks in a row until the reach the end, then go to beginning of next line
@@ -123,6 +134,8 @@ namespace Nandish_ICA07
     { //update minimum and maximum trackbar values to match min and max widths of blocks in list
       _tBar.Minimum = blocks.Min(block => block.Width);
       _tBar.Maximum = blocks.Max(block => block.Width);
+      _tBar.Value = (_tBar.Minimum+_tBar.Maximum)/2;
+      trackBar1_Scroll(_tBar, EventArgs.Empty);
     }
   }
 }

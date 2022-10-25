@@ -32,7 +32,7 @@ namespace Nandish_ICA07
 
     private void Drawer_MouseMove(Point pos, GDIDrawer.CDrawer dr)
     { //choose width of blocks to highlight based on horiontal mouse position
-      int HighLightWidth = pos.X/4; 
+      int HighLightWidth = pos.X/4-5; 
       blocks.ForEach(block => block.HighLight = false);
       blocks.FindAll(block => Math.Abs(HighLightWidth-block.Width)<=10).ForEach(block => block.HighLight = true);
       ShowBlocks();

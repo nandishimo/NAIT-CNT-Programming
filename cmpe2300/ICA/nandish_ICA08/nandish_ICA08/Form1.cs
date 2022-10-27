@@ -23,13 +23,15 @@ namespace nandish_ICA08
     public Form1()
     {
       InitializeComponent();
+      //create a timer 
       Timer timer = new Timer();
       timer.Interval = 50;
       timer.Enabled = true;
-      
       timer.Tick += Timer_Tick;
-      upperDrawer = new CDrawer();
-      lowerDrawer = new CDrawer();
+      
+      //create drawers of size 600x300 with continuos update = false
+      upperDrawer = new CDrawer(600,300);
+      lowerDrawer = new CDrawer(600,300);
       upperDrawer.ContinuousUpdate = lowerDrawer.ContinuousUpdate = false;
       Shown += Form1_Shown;
       timer.Start();
@@ -37,11 +39,11 @@ namespace nandish_ICA08
 
     private void Form1_Shown(object sender, EventArgs e)
     {
+      //position main form and drawer windows
       StartPosition = FormStartPosition.Manual;
       Location = new Point(0, 0);
       upperDrawer.Position = new Point(Width, 0);
       lowerDrawer.Position = new Point(Width, upperDrawer.ScaledHeight);
-      
     }
 
     private void Timer_Tick(object sender, EventArgs e)

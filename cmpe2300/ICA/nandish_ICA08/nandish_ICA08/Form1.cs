@@ -17,7 +17,7 @@ namespace nandish_ICA08
   {
     List<Ball> redBalls = new List<Ball>();
     List<Ball> greenBalls = new List<Ball>();
-    List<Ball> blueBalls = new List<Ball>();
+    List<Ball> yellowBalls = new List<Ball>();
     CDrawer upperDrawer = null;
     CDrawer lowerDrawer = null;
     public Form1()
@@ -25,13 +25,13 @@ namespace nandish_ICA08
       InitializeComponent();
       //create a timer 
       Timer timer = new Timer();
-      timer.Interval = 50;
+      timer.Interval = 20;
       timer.Enabled = true;
       timer.Tick += Timer_Tick;
-      
+
       //create drawers of size 600x300 with continuos update = false
-      upperDrawer = new CDrawer(600,300);
-      lowerDrawer = new CDrawer(600,300);
+      upperDrawer = new CDrawer(600, 300);
+      lowerDrawer = new CDrawer(600, 300);
       upperDrawer.ContinuousUpdate = lowerDrawer.ContinuousUpdate = false;
       Shown += Form1_Shown;
       timer.Start();
@@ -43,14 +43,14 @@ namespace nandish_ICA08
       StartPosition = FormStartPosition.Manual;
       Location = new Point(0, 0);
       upperDrawer.Position = new Point(Width, 0);
-      lowerDrawer.Position = new Point(Width, upperDrawer.ScaledHeight);
+      lowerDrawer.Position = new Point(Width, upperDrawer.DrawerWindowSize.Height);
     }
 
     private void Timer_Tick(object sender, EventArgs e)
     {
-      if(upperDrawer.GetLastMouseLeftClick(out Point leftClick))
+      if (upperDrawer.GetLastMouseLeftClick(out Point leftClick))
       {
-        Ball redball = new Ball(new PointF((float)leftClick.X, (float)leftClick.Y), RandColor.GetColor());
+        Ball redball = new Ball(new PointF((float)leftClick.X, (float)leftClick.Y), Color.Red);
         if (redBalls.IndexOf(redball) == -1)
         {
           redBalls.Add(redball);
@@ -58,10 +58,10 @@ namespace nandish_ICA08
       }
       if (upperDrawer.GetLastMouseRightClick(out Point rightClick))
       {
-        Ball greenball = new Ball(new PointF((float)leftClick.X, (float)leftClick.Y), RandColor.GetColor());
+        Ball greenball = new Ball(new PointF((float)rightClick.X, (float)rightClick.Y), Color.Green);
         if (!greenBalls.Contains(greenball))
         {
-          greenBalls.Insert(0,greenball);
+          greenBalls.Insert(0, greenball);
         }
       }
       foreach (Ball ball in redBalls)
@@ -72,25 +72,39 @@ namespace nandish_ICA08
       {
         ball.Move(upperDrawer);
       }
-      foreach(Ball ball in blueBalls)
+      yellowBalls.ForEach(ball => { ball.Move(lowerDrawer); });//foreach lambda
+
+      //tmp list of collided balls
+      List<Ball> tmp = redBalls.Intersect(greenBalls).ToList();
+
+      foreach(Ball ball in tmp)
       {
-        ball.Move(lowerDrawer);
+        while (redBalls.Remove(ball)) ;
+        while (greenBalls.Remove(ball)) ;
+        ball._color = Color.Yellow;
       }
-      List<Ball> tmp = new List<Ball>(redBalls.Intersect(greenBalls));
-      redBalls.RemoveAll(ball => tmp.Contains(ball));
-      greenBalls.RemoveAll(ball => tmp.Contains(ball));
-      blueBalls = new List<Ball>(redBalls.Union(blueBalls));
+      //combine tmp list with yellow balls without duplicates
+      yellowBalls = new List<Ball>(yellowBalls.Union(tmp));
+
       upperDrawer.Clear();
-      upperDrawer.AddText($"Red : {redBalls.Count} Green : {greenBalls.Count}",50,Color.Cyan);
-      for(int i=0;i<redBalls.Count&&i<greenBalls.Count&&i<blueBalls.Count;i++)
+      lowerDrawer.Clear();
+      upperDrawer.AddText($"Red : {redBalls.Count} Green : {greenBalls.Count}", 50, Color.Cyan);
+      lowerDrawer.AddText($"{yellowBalls.Count}", 50, Color.Cyan);
+
+      for (int i = 0; i < redBalls.Count; i++)
       {
-        if (redBalls[i] != null)
-          redBalls[i].Show(upperDrawer, i);
-        if (greenBalls[i] != null)
-          greenBalls[i].Show(upperDrawer, i);
-        if (blueBalls[i] != null)
-          blueBalls[i].Show(lowerDrawer, i);
+        redBalls[i].Show(upperDrawer, i);
       }
+      for (int i = 0; i < greenBalls.Count; i++)
+      {
+        greenBalls[i].Show(upperDrawer, i);
+      }
+      for (int i = 0; i < yellowBalls.Count; i++)
+      {
+        yellowBalls[i].Show(lowerDrawer, i);
+      }
+
+      //render drawers
       upperDrawer.Render();
       lowerDrawer.Render();
     }

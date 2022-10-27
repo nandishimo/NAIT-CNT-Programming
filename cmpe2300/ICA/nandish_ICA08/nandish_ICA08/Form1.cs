@@ -46,6 +46,10 @@ namespace nandish_ICA08
       lowerDrawer.Position = new Point(Width, upperDrawer.DrawerWindowSize.Height);
     }
 
+    //on timer tick:
+    //add red/green balls from clicks, move balls, check for collisions
+    //remove collided balls from red/green lists and add to yellow
+    //clear drawer and render all balls
     private void Timer_Tick(object sender, EventArgs e)
     {
       if (upperDrawer.GetLastMouseLeftClick(out Point leftClick))
@@ -77,6 +81,7 @@ namespace nandish_ICA08
       //tmp list of collided balls
       List<Ball> tmp = redBalls.Intersect(greenBalls).ToList();
 
+      //remove balls from red/green lists if they collided
       foreach(Ball ball in tmp)
       {
         while (redBalls.Remove(ball)) ;
@@ -91,6 +96,7 @@ namespace nandish_ICA08
       upperDrawer.AddText($"Red : {redBalls.Count} Green : {greenBalls.Count}", 50, Color.Cyan);
       lowerDrawer.AddText($"{yellowBalls.Count}", 50, Color.Cyan);
 
+      //show all balls
       for (int i = 0; i < redBalls.Count; i++)
       {
         redBalls[i].Show(upperDrawer, i);

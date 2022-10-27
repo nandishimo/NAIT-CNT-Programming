@@ -41,7 +41,8 @@ namespace nandish_ICA08
       {
         throw new ArgumentException($"Ball:Equals - {nameof(obj)} is not a ball");
       }
-      return bRadius + ball.bRadius > Math.Sqrt(Math.Pow(bCenter.X - ball.bCenter.X, 2) - Math.Pow(ball.bCenter.Y - ball.bCenter.Y, 2));
+      //balls are 'Equal' if touching (i.e. sum of ball radius > distance between ball locations) z = sqrt((x1-x2)^2
+      return (bRadius + ball.bRadius) > Math.Sqrt(Math.Pow(bCenter.X - ball.bCenter.X, 2) + Math.Pow(bCenter.Y - ball.bCenter.Y, 2));
     }
     public override int GetHashCode()
     {
@@ -74,7 +75,7 @@ namespace nandish_ICA08
       }
 
       //check bottom bound
-      if (bCenter.X + bRadius > drawer.ScaledWidth)
+      if (bCenter.Y + bRadius > drawer.ScaledHeight)
       {
         velocity.Y *= -1;
         bCenter = new PointF(bCenter.X, drawer.ScaledHeight-bRadius);
@@ -85,7 +86,7 @@ namespace nandish_ICA08
     public void Show(CDrawer drawer, int index)
     {
       drawer.AddCenteredEllipse((int)bCenter.X, (int)bCenter.Y, bRadius * 2, bRadius * 2, _color);
-      drawer.AddText(index.ToString(), 15, (int)bCenter.X - bRadius, (int)bCenter.Y - bRadius, bRadius * 2, bRadius * 2);
+      drawer.AddText(index.ToString(), 15, (int)bCenter.X - bRadius, (int)bCenter.Y - bRadius, bRadius * 2, bRadius * 2,Color.FromArgb(_color.ToArgb() ^ 0x00FFFFFF));
     }
   }
 }

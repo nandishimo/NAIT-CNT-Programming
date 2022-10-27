@@ -1,4 +1,9 @@
-﻿using GDIDrawer;
+﻿/***********************************
+*Nandish Patel
+*CMPE2300
+*Submission Code : 1221_2300_A08
+***********************************/
+using GDIDrawer;
 using System;
 using System.Collections;
 using System.Collections.Generic;

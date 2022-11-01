@@ -15,6 +15,7 @@ namespace nandish_Lab02
     public Form1()
     {
       InitializeComponent();
+      Text = "Lab02 - Pool";
     }
   }
 }

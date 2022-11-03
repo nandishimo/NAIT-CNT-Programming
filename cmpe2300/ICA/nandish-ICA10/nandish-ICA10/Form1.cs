@@ -19,6 +19,7 @@ namespace nandish_ICA10
     public Form1()
     {
       InitializeComponent();
+      Text = "ICA10 - Dictionaries";
       _dgv.DataSource = null;// _bSource.DataSource;
       _lbl_FileName.AllowDrop = true;
       _lbl_FileName.DragEnter += _lbl_FileName_DragEnter;
@@ -26,11 +27,11 @@ namespace nandish_ICA10
       _btn_Average.Click += _btn_Average_Click;
       _dgv.ColumnHeaderMouseClick += _dgv_ColumnHeaderMouseClick;
       _dgv.CellFormatting += _dgv_CellFormatting;
+      _dgv.RowHeadersVisible = false;
     }
 
     private void _lbl_FileName_DragEnter(object sender, DragEventArgs e)
     {
-      Text = "DragEnter";
       e.Effect = e.Data.GetDataPresent(DataFormats.FileDrop) ? DragDropEffects.All : DragDropEffects.None;  
     }
 
@@ -51,12 +52,31 @@ namespace nandish_ICA10
 
     private void _dgv_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
     {
-      throw new NotImplementedException();
+      if(e.ColumnIndex == 0)
+      { //byte ordering
+        values = values.OrderBy(x => x.Key).ToDictionary(x=>x.Key,x=>x.Value);
+      }
+      else
+      { //int ordering
+        List<KeyValuePair<byte, int>> kvp = values.ToList();
+        kvp.Sort((left, right) => 
+        {
+          int result = left.Value.CompareTo(right.Value); 
+          if(result == 0)
+          {
+            result = left.Key.CompareTo(right.Key);
+          }
+          return result;
+        });
+        values = kvp.ToDictionary(x => x.Key, x => x.Value);
+      }
+      ShowDictionary();
     }
 
     private void _btn_Average_Click(object sender, EventArgs e)
     {
-      throw new NotImplementedException();
+      values = values.Where(x => x.Value > avgFrequency).ToDictionary(x=>x.Key,x=>x.Value);
+      ShowDictionary();
     }
 
     private void _lbl_FileName_DragDrop(object sender, DragEventArgs e)
@@ -87,8 +107,16 @@ namespace nandish_ICA10
     {
       _lbl_FileName.Text = file.Name;
       values.Clear();
-      byte[] contents = File.ReadAllBytes(file.ToString());
-      WriteLine(file.ToString());
+      byte[] contents = null;
+      try
+      {
+        contents = File.ReadAllBytes(file.ToString());
+      }
+      catch (Exception ex)
+      {
+        WriteLine(ex.ToString());
+      }
+      
       foreach(byte b in contents)
       {
         if (values.ContainsKey(b))

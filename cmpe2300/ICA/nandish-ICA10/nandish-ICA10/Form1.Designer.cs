@@ -45,7 +45,7 @@
       this._btn_Average.Name = "_btn_Average";
       this._btn_Average.Size = new System.Drawing.Size(228, 26);
       this._btn_Average.TabIndex = 0;
-      this._btn_Average.Text = "button1";
+      this._btn_Average.Text = "Remove Low Frequencies";
       this._btn_Average.UseVisualStyleBackColor = true;
       // 
       // _lbl_FileName
@@ -56,7 +56,7 @@
       this._lbl_FileName.Name = "_lbl_FileName";
       this._lbl_FileName.Size = new System.Drawing.Size(228, 30);
       this._lbl_FileName.TabIndex = 1;
-      this._lbl_FileName.Text = "label1";
+      this._lbl_FileName.Text = "Drag File Here";
       this._lbl_FileName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
       // 
       // _dgv

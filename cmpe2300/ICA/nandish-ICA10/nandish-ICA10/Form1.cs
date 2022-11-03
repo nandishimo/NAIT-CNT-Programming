@@ -53,11 +53,11 @@ namespace nandish_ICA10
     private void _dgv_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
     {
       if(e.ColumnIndex == 0)
-      { //byte ordering
+      { //sort by byte key
         values = values.OrderBy(x => x.Key).ToDictionary(x=>x.Key,x=>x.Value);
       }
       else
-      { //int ordering
+      { //sort keys within freq values
         List<KeyValuePair<byte, int>> kvp = values.ToList();
         kvp.Sort((left, right) => 
         {
@@ -74,7 +74,7 @@ namespace nandish_ICA10
     }
 
     private void _btn_Average_Click(object sender, EventArgs e)
-    {
+    { //filter dictionay. keep only values greater than average
       values = values.Where(x => x.Value > avgFrequency).ToDictionary(x=>x.Key,x=>x.Value);
       ShowDictionary();
     }

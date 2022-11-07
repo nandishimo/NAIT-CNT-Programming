@@ -95,13 +95,12 @@ namespace nandish_ICA10
     }
     private void ShowDictionary()
     {
+      avgFrequency = 0;
       //if(values.Count==0) return;
       if (values.Count != 0)
       {
         avgFrequency=(int)values.Average(x => x.Value);
       }
-      else
-        avgFrequency=0;
       
       _btn_Average.Text = "Average : " + avgFrequency.ToString();
       //_bSource.DataSource = values.ToList();

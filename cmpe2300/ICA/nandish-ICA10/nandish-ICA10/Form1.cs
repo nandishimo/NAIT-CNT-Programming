@@ -76,7 +76,7 @@ namespace nandish_ICA10
 
     private void _btn_Average_Click(object sender, EventArgs e)
     { //filter dictionay. keep only values greater than average
-      values = values.Where(x => x.Value > avgFrequency).ToDictionary(x=>x.Key,x=>x.Value);
+      values = values.Where(x => x.Value >= avgFrequency).ToDictionary(x=>x.Key,x=>x.Value);
       ShowDictionary();
     }
 
@@ -95,7 +95,7 @@ namespace nandish_ICA10
     }
     private void ShowDictionary()
     {
-      if(values.Count==0) return;
+      //if(values.Count==0) return;
       if (values.Count != 0)
       {
         avgFrequency=(int)values.Average(x => x.Value);
@@ -122,6 +122,7 @@ namespace nandish_ICA10
       catch (Exception ex)
       {
         WriteLine(ex.ToString());
+        return; //return if exception
       }
       
       foreach(byte b in contents)

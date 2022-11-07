@@ -37,15 +37,16 @@ namespace nandish_ICA10
 
     private void _dgv_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
     {
+      
       if(e.ColumnIndex == 1)
       {
         if ((int)e.Value < avgFrequency)
         {
-          e.CellStyle.BackColor = Color.LightSalmon;
+          e.CellStyle.BackColor = Color.LightSalmon; //low fequency cells are salmon
         }
         else
         {
-          e.CellStyle.BackColor = Color.LightGreen;
+          e.CellStyle.BackColor = Color.LightGreen; //high frequency cells are green
         }
       }
     }
@@ -58,7 +59,7 @@ namespace nandish_ICA10
       }
       else
       { //sort keys within freq values
-        List<KeyValuePair<byte, int>> kvp = values.ToList();
+        List<KeyValuePair<byte, int>> kvp = values.ToList(); //create list and do 2-tier sort
         kvp.Sort((left, right) => 
         {
           int result = left.Value.CompareTo(right.Value); 
@@ -105,12 +106,12 @@ namespace nandish_ICA10
     }
     private void LoadFile(FileInfo file)
     {
-      _lbl_FileName.Text = file.Name;
-      values.Clear();
+      _lbl_FileName.Text = file.Name; //display filename
+      values.Clear(); //clear dictionary
       byte[] contents = null;
       try
       {
-        contents = File.ReadAllBytes(file.ToString());
+        contents = File.ReadAllBytes(file.ToString()); //new byte contents
       }
       catch (Exception ex)
       {
@@ -118,7 +119,7 @@ namespace nandish_ICA10
       }
       
       foreach(byte b in contents)
-      {
+      { //construct dictionary (shows frequency of byte values from file)
         if (values.ContainsKey(b))
         {
           values[b]++;

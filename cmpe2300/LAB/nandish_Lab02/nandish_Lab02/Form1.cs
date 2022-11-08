@@ -21,8 +21,10 @@ namespace nandish_Lab02
       InitializeComponent();
       Text = "Lab02 - Pool";
       pool = new CDrawer();
+      _dgv.DataSource = null;
       Timer _timer = new Timer();
       _timer.Start();
+      _timer.Interval = 10;
       _timer.Tick += _timer_Tick;
       balls.Add(new Ball(pool));
       balls.Add(new Ball(pool,Color.Red));
@@ -30,12 +32,16 @@ namespace nandish_Lab02
 
     private void _timer_Tick(object sender, EventArgs e)
     {
+      pool.Clear();
       foreach (Ball ball in balls)
       {
-        ball.Set_velocity(new Vector2(5, 5));
-        ball.Show(pool);
         ball.Move(pool, balls);
-
+        ball.Show(pool);
+        if (ball.Velocity.X == 0)
+        {
+          ball.Set_velocity(new Vector2(10, 10));
+        }
+        
       }
     }
   }

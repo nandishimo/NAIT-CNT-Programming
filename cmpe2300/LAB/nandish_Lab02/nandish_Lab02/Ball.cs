@@ -97,16 +97,30 @@ namespace nandish_Lab02
     }
     public void Show(CDrawer drawer)
     {
-      drawer.Clear();
-      drawer.AddCenteredEllipse((int)_center.X, +(int)_center.Y, 2 * Radius, 2 * Radius, BallColor);
+      if (BallColor == Color.White)
+      {
+        drawer.AddCenteredEllipse((int)_center.X, +(int)_center.Y, 2 * Radius, 2 * Radius, BallColor, 2, Color.Yellow);
+      }
+      else
+      {
+        drawer.AddCenteredEllipse((int)_center.X, +(int)_center.Y, 2 * Radius, 2 * Radius, BallColor);
+      }
+      drawer.AddText(ToString(), 10, (int)_center.X-Radius, (int)_center.Y-Radius, 2*Radius,2*Radius, Color.Black);
+      
     }
     public void Move(CDrawer drawer, List<Ball> balls)
     {
-      //_velocity = Vector2.Multiply(Friction, _velocity);
+      //adjust velocity based on friction
+      _velocity = Vector2.Multiply(Friction, _velocity);
       if (_velocity.LengthSquared() < 0.1f)
       {
-        _velocity = new Vector2(0);
+        _velocity = Vector2.Zero;
+        return;
       }
+      // move the ball
+      _center = Vector2.Add(_center, _velocity);
+
+      //check boundary conditions
       //check left bound
       if (_center.X - Radius < 0)
       {
@@ -134,8 +148,8 @@ namespace nandish_Lab02
         _velocity.Y *= -1;
         _center = new Vector2(_center.X, drawer.ScaledHeight - Radius);
       }
-      _center = Vector2.Add(_center, _velocity);
-      /*
+      
+      //check for collisions
       foreach(Ball ball in balls)
       {
         if (!ReferenceEquals(this,ball))
@@ -145,7 +159,7 @@ namespace nandish_Lab02
             ProcessCollision(ball);
           }
         }
-      }*/
+      }
     }
     private void ProcessCollision(Ball tar)
     {

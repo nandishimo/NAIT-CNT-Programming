@@ -32,12 +32,12 @@
       this._lbl_Friction = new System.Windows.Forms.Label();
       this._lbl_FrictionValue = new System.Windows.Forms.Label();
       this.groupBox1 = new System.Windows.Forms.GroupBox();
-      this._rb_Radius = new System.Windows.Forms.RadioButton();
-      this._rb_Hits = new System.Windows.Forms.RadioButton();
       this._rb_TotalHits = new System.Windows.Forms.RadioButton();
-      this.dataGridView1 = new System.Windows.Forms.DataGridView();
+      this._rb_Hits = new System.Windows.Forms.RadioButton();
+      this._rb_Radius = new System.Windows.Forms.RadioButton();
+      this._dgv = new System.Windows.Forms.DataGridView();
       this.groupBox1.SuspendLayout();
-      ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+      ((System.ComponentModel.ISupportInitialize)(this._dgv)).BeginInit();
       this.SuspendLayout();
       // 
       // _btn_Table
@@ -83,17 +83,16 @@
       this.groupBox1.TabStop = false;
       this.groupBox1.Text = "groupBox1";
       // 
-      // _rb_Radius
+      // _rb_TotalHits
       // 
-      this._rb_Radius.AutoSize = true;
-      this._rb_Radius.Checked = true;
-      this._rb_Radius.Location = new System.Drawing.Point(6, 19);
-      this._rb_Radius.Name = "_rb_Radius";
-      this._rb_Radius.Size = new System.Drawing.Size(58, 17);
-      this._rb_Radius.TabIndex = 0;
-      this._rb_Radius.TabStop = true;
-      this._rb_Radius.Text = "Radius";
-      this._rb_Radius.UseVisualStyleBackColor = true;
+      this._rb_TotalHits.AutoSize = true;
+      this._rb_TotalHits.Location = new System.Drawing.Point(188, 19);
+      this._rb_TotalHits.Name = "_rb_TotalHits";
+      this._rb_TotalHits.Size = new System.Drawing.Size(70, 17);
+      this._rb_TotalHits.TabIndex = 2;
+      this._rb_TotalHits.TabStop = true;
+      this._rb_TotalHits.Text = "Total Hits";
+      this._rb_TotalHits.UseVisualStyleBackColor = true;
       // 
       // _rb_Hits
       // 
@@ -106,31 +105,32 @@
       this._rb_Hits.Text = "Hits";
       this._rb_Hits.UseVisualStyleBackColor = true;
       // 
-      // _rb_TotalHits
+      // _rb_Radius
       // 
-      this._rb_TotalHits.AutoSize = true;
-      this._rb_TotalHits.Location = new System.Drawing.Point(188, 19);
-      this._rb_TotalHits.Name = "_rb_TotalHits";
-      this._rb_TotalHits.Size = new System.Drawing.Size(70, 17);
-      this._rb_TotalHits.TabIndex = 2;
-      this._rb_TotalHits.TabStop = true;
-      this._rb_TotalHits.Text = "Total Hits";
-      this._rb_TotalHits.UseVisualStyleBackColor = true;
+      this._rb_Radius.AutoSize = true;
+      this._rb_Radius.Checked = true;
+      this._rb_Radius.Location = new System.Drawing.Point(6, 19);
+      this._rb_Radius.Name = "_rb_Radius";
+      this._rb_Radius.Size = new System.Drawing.Size(58, 17);
+      this._rb_Radius.TabIndex = 0;
+      this._rb_Radius.TabStop = true;
+      this._rb_Radius.Text = "Radius";
+      this._rb_Radius.UseVisualStyleBackColor = true;
       // 
-      // dataGridView1
+      // _dgv
       // 
-      this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-      this.dataGridView1.Location = new System.Drawing.Point(12, 90);
-      this.dataGridView1.Name = "dataGridView1";
-      this.dataGridView1.Size = new System.Drawing.Size(284, 348);
-      this.dataGridView1.TabIndex = 4;
+      this._dgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+      this._dgv.Location = new System.Drawing.Point(12, 90);
+      this._dgv.Name = "_dgv";
+      this._dgv.Size = new System.Drawing.Size(284, 348);
+      this._dgv.TabIndex = 4;
       // 
       // Form1
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.ClientSize = new System.Drawing.Size(308, 450);
-      this.Controls.Add(this.dataGridView1);
+      this.Controls.Add(this._dgv);
       this.Controls.Add(this.groupBox1);
       this.Controls.Add(this._lbl_FrictionValue);
       this.Controls.Add(this._lbl_Friction);
@@ -139,7 +139,7 @@
       this.Text = "Form1";
       this.groupBox1.ResumeLayout(false);
       this.groupBox1.PerformLayout();
-      ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+      ((System.ComponentModel.ISupportInitialize)(this._dgv)).EndInit();
       this.ResumeLayout(false);
       this.PerformLayout();
 
@@ -154,7 +154,7 @@
     private System.Windows.Forms.RadioButton _rb_TotalHits;
     private System.Windows.Forms.RadioButton _rb_Hits;
     private System.Windows.Forms.RadioButton _rb_Radius;
-    private System.Windows.Forms.DataGridView dataGridView1;
+    private System.Windows.Forms.DataGridView _dgv;
   }
 }
 

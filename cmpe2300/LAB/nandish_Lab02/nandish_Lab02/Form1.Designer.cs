@@ -73,12 +73,14 @@
       // 
       // groupBox1
       // 
+      this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
       this.groupBox1.Controls.Add(this._rb_TotalHits);
       this.groupBox1.Controls.Add(this._rb_Hits);
       this.groupBox1.Controls.Add(this._rb_Radius);
       this.groupBox1.Location = new System.Drawing.Point(12, 41);
       this.groupBox1.Name = "groupBox1";
-      this.groupBox1.Size = new System.Drawing.Size(284, 43);
+      this.groupBox1.Size = new System.Drawing.Size(360, 43);
       this.groupBox1.TabIndex = 3;
       this.groupBox1.TabStop = false;
       this.groupBox1.Text = "Sort Mode:";
@@ -115,17 +117,20 @@
       // 
       // _dgv
       // 
+      this._dgv.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
       this._dgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
       this._dgv.Location = new System.Drawing.Point(12, 90);
       this._dgv.Name = "_dgv";
-      this._dgv.Size = new System.Drawing.Size(284, 348);
+      this._dgv.Size = new System.Drawing.Size(360, 348);
       this._dgv.TabIndex = 4;
       // 
       // Form1
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-      this.ClientSize = new System.Drawing.Size(308, 450);
+      this.ClientSize = new System.Drawing.Size(384, 450);
       this.Controls.Add(this._dgv);
       this.Controls.Add(this.groupBox1);
       this.Controls.Add(this._lbl_FrictionValue);

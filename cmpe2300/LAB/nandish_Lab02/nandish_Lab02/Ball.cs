@@ -32,6 +32,11 @@ namespace nandish_Lab02
     //property for ball color public get, private set
     public Color BallColor { get; private set; }
 
+    /// <summary>
+    /// 'regular' Ball contructor accepting a CDrawer and Color
+    /// </summary>
+    /// <param name="drawer">CDrawer representing pool table</param>
+    /// <param name="color">Color of Ball</param>
     public Ball(CDrawer drawer, Color color)
     {
       BallColor = color;
@@ -39,6 +44,10 @@ namespace nandish_Lab02
       _center = new Vector2((float)(_rand.NextDouble() * (drawer.ScaledWidth - 2 * Radius) + Radius), (float)(_rand.NextDouble() * (drawer.ScaledHeight - 2 * Radius) + Radius));
     }
 
+    /// <summary>
+    /// Cue Ball constructor accepting a CDrawer
+    /// </summary>
+    /// <param name="drawer">CDrawer representing pool table</param>
     public Ball(CDrawer drawer)
     {
       Radius = 30;

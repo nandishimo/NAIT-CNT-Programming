@@ -17,7 +17,7 @@ namespace nandish_Lab02
     //Form members
     Table poolTable = null;
     Timer _timer = new Timer();
-    bool _running;
+    bool _running = false;
     int numBalls = 10;
 
     public Form1()
@@ -30,7 +30,7 @@ namespace nandish_Lab02
       _rb_Hits.Click += _rb_Click;
       _rb_Radius.Click+= _rb_Click;
       _rb_TotalHits.Click += _rb_Click;
-      _rb_Hits.Checked = true;
+      _rb_Radius.Checked = true;
       
       _dgv.DataSource = null;
       _timer.Enabled = true;
@@ -68,6 +68,15 @@ namespace nandish_Lab02
       _dgv.Columns["BallColor"].Visible = false;
       _dgv.Columns["Center"].Visible = false;
       _dgv.Columns["Velocity"].Visible = false;
+      int ballsHit = 0;
+      foreach(Ball b in balls)
+      {
+        if (b.Hits > 0)
+        {
+          ballsHit++;
+        }
+      }
+      Text = $"Lab02 - Pool - {ballsHit/balls.Count*100}% of Balls Hit";
 
     }
 
@@ -76,12 +85,20 @@ namespace nandish_Lab02
       if (e.Delta < 0)
       {
         Ball.Friction -= 0.001f;
+        if (Ball.Friction < 0)
+        {
+          Ball.Friction = 0;
+        }
       }
       if (e.Delta > 0)
       {
         Ball.Friction += 0.001f;
+        if(Ball.Friction>1)
+        {
+          Ball.Friction = 1;
+        }
       }
-      _lbl_FrictionValue.Text = Ball.Friction.ToString();
+      _lbl_FrictionValue.Text = Ball.Friction.ToString("F3");
     }
 
     private void _btn_Table_Click(object sender, EventArgs e)
@@ -94,6 +111,7 @@ namespace nandish_Lab02
       poolTable.MakeTable(800, 600, numBalls);
       poolTable.drawer.Position = new Point(Location.X + Width, Location.Y);
       _timer.Start();
+      _running = true;
       
     }
 
@@ -118,7 +136,11 @@ namespace nandish_Lab02
       if (poolTable == null)
         return;
       poolTable.ShowTable();
-      
+      if(_running)
+        if (!poolTable.Running)
+        {
+          UpdateGridView();
+        }
     }
   }
 }

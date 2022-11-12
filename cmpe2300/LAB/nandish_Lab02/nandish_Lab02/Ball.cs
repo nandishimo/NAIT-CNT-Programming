@@ -56,17 +56,25 @@ namespace nandish_Lab02
       BallColor = CueColor;
       _center = new Vector2((float)(_rand.NextDouble() * (drawer.ScaledWidth - 2 * Radius) + Radius), (float)(_rand.NextDouble() * (drawer.ScaledHeight - 2 * Radius) + Radius));
     }
-
+    /// <summary>
+    /// Reset hit coutner to 0
+    /// </summary>
     public void ResetHits()
     {
       Hits = 0;
     }
+    /// <summary>
+    /// Set Velocity of Ball
+    /// </summary>
+    /// <param name="vector"></param>
     public void Set_velocity(Vector2 vector)
     {
       _velocity = vector;
     }
+
     public override bool Equals(object obj)
     {
+      //check if object is a valid ball or throw exception
       if (!(obj is Ball ball))
       {
         throw new ArgumentException($"Ball:Equals - {nameof(obj)} is not a ball");
@@ -79,33 +87,58 @@ namespace nandish_Lab02
       return 1;
     }
     public override string ToString()
-    {
+    { //string to display on ball
       return $"{Radius} : {Hits}";
     }
+    /// <summary>
+    /// Default Compare method to sort by Radius descending
+    /// </summary>
+    /// <param name="obj"></param>
+    /// <returns>Signed value indicating relative value of Radius. Negative if argument is Larger than Ball. Positive if argument is smaller</returns>
+    /// <exception cref="ArgumentException"></exception>
     public int CompareTo(object obj)
-    {
+    { 
       if (!(obj is Ball ball))
       {
+        //throw if obj is not a valid ball
         throw new ArgumentException($"Ball:Equals - {nameof(obj)} is not a ball");
       }
-      return Radius.CompareTo(ball.Radius);
+      return -1*Radius.CompareTo(ball.Radius);
     }
+    /// <summary>
+    /// IComparable compatible method to sort by Hits descending
+    /// </summary>
+    /// <param name="left"></param>
+    /// <param name="right"></param>
+    /// <returns>Signed value indicating relative value of Hits. Negative if left arg is has more hits. Positive if right argument is has more hits</returns>
+    /// <exception cref="ArgumentNullException"></exception>
     public static int SortDescHits(Ball left, Ball right)
     {
       if (left == null)
         throw new ArgumentNullException($"Ball : Sort by Hits desc : {nameof(left)} - is null");
       if (right == null)
         throw new ArgumentNullException($"Ball : Sort by Hits desc : {nameof(right)} - is null");
-      return left.Hits.CompareTo(right.Hits);
+      return right.Hits.CompareTo(left.Hits);
     }
+    /// <summary>
+    /// IComparable compatible method to sort by Total Hits descending
+    /// </summary>
+    /// <param name="left"></param>
+    /// <param name="right"></param>
+    /// <returns>Signed value indicating relative value of Total Hits. Negative if left arg is has more hits. Positive if right argument is has more hits</returns>
+    /// <exception cref="ArgumentNullException"></exception>
     public static int SortDescTotalHits(Ball left, Ball right)
     {
       if (left == null)
         throw new ArgumentNullException($"Ball : Sort by Total Hits desc : {nameof(left)} - is null");
       if (right == null)
         throw new ArgumentNullException($"Ball : Sort by Total Hits desc : {nameof(right)} - is null");
-      return left.TotalHits.CompareTo(right.TotalHits);
+      return right.TotalHits.CompareTo(left.TotalHits);
     }
+    /// <summary>
+    /// Renders Ball to supplied CDrawer
+    /// </summary>
+    /// <param name="drawer">CDrawer representing the pool table</param>
     public void Show(CDrawer drawer)
     {
       if (BallColor == CueColor)
@@ -119,6 +152,12 @@ namespace nandish_Lab02
       drawer.AddText(ToString(), 10, (int)_center.X-Radius, (int)_center.Y-Radius, 2*Radius,2*Radius, Color.Black);
       
     }
+    /// <summary>
+    /// Accepts CDrawer and list of Balls. Adjusts velocty of balls based on friction. Checks CDrawer boundaries and bounces balls.
+    /// Iterate through Ball collection and process collisions
+    /// </summary>
+    /// <param name="drawer">CDrawer representing the pool table</param>
+    /// <param name="balls">List of Balls on pool table</param>
     public void Move(CDrawer drawer, List<Ball> balls)
     {
       //adjust velocity based on friction
@@ -172,6 +211,10 @@ namespace nandish_Lab02
         }
       }
     }
+    /// <summary>
+    /// Supplied method to process collisions
+    /// </summary>
+    /// <param name="tar"></param>
     private void ProcessCollision(Ball tar)
     {
       Vector2 dist = tar._center - _center; // Get Collision Vector

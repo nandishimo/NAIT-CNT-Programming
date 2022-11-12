@@ -54,6 +54,8 @@ namespace nandish_Lab02
       drawer = new CDrawer(width, height, false, true); //create new drawer with continuous update = false and redundamouse = true
       drawer.MouseMoveScaled += Drawer_MouseMoveScaled; //bind mouse move event
       drawer.MouseLeftClickScaled += Drawer_MouseLeftClickScaled; //bind mosue click event
+      MakeBalls(numBalls);
+      ShowTable();
       
     }
 
@@ -64,11 +66,17 @@ namespace nandish_Lab02
     {
       if (drawer == null)
         return;
+      drawer.Clear();
       foreach(Ball ball in balls)
       {
         ball.Move(drawer,balls);
         ball.Show(drawer);
       }
+      if (!Running)
+      {
+        drawer.AddLine((int)cueBall.Center.X, (int)cueBall.Center.Y, (int)mousePos.X, (int)mousePos.Y, Color.Yellow);
+      }
+      drawer.Render();
     }
 
     /// <summary>
@@ -77,9 +85,9 @@ namespace nandish_Lab02
     /// <param name="numBalls">Int representing number of regular balls to add</param>
     public void MakeBalls(int numBalls)
     {
-      Ball tmp;
       balls.Clear();
-      while(balls.Count < numBalls)
+      Ball tmp;
+      while (balls.Count < numBalls)
       {
         tmp = new Ball(drawer, RandColor.GetColor());
         if (!balls.Contains(tmp))
@@ -98,12 +106,23 @@ namespace nandish_Lab02
 
     private void Drawer_MouseLeftClickScaled(System.Drawing.Point pos, CDrawer dr)
     {
-      throw new NotImplementedException();
+      foreach(Ball ball in balls)
+      {
+        ball.ResetHits();
+      }
+      
+      Vector2 shot = mousePos - cueBall.Center;
+      shot = Vector2.Normalize(shot)*40f;
+      cueBall.Set_velocity(shot);
     }
 
     private void Drawer_MouseMoveScaled(System.Drawing.Point pos, CDrawer dr)
     {
-      throw new NotImplementedException();
+      mousePos = new Vector2(pos.X, pos.Y);
+      if (!Running)
+      {
+        ShowTable();
+      }
     }
   }
 }

@@ -31,6 +31,8 @@ namespace nandish_Lab02
     public int TotalHits { get; private set; }
     //property for ball color public get, private set
     public Color BallColor { get; private set; }
+    private Color CueColor { get; } = Color.White;
+
 
     /// <summary>
     /// 'regular' Ball contructor accepting a CDrawer and Color
@@ -51,7 +53,7 @@ namespace nandish_Lab02
     public Ball(CDrawer drawer)
     {
       Radius = 30;
-      BallColor = Color.White;
+      BallColor = CueColor;
       _center = new Vector2((float)(_rand.NextDouble() * (drawer.ScaledWidth - 2 * Radius) + Radius), (float)(_rand.NextDouble() * (drawer.ScaledHeight - 2 * Radius) + Radius));
     }
 
@@ -88,7 +90,7 @@ namespace nandish_Lab02
       }
       return Radius.CompareTo(ball.Radius);
     }
-    public int SortDescHits(Ball left, Ball right)
+    public static int SortDescHits(Ball left, Ball right)
     {
       if (left == null)
         throw new ArgumentNullException($"Ball : Sort by Hits desc : {nameof(left)} - is null");
@@ -96,7 +98,7 @@ namespace nandish_Lab02
         throw new ArgumentNullException($"Ball : Sort by Hits desc : {nameof(right)} - is null");
       return left.Hits.CompareTo(right.Hits);
     }
-    public int SortDescTotalHits(Ball left, Ball right)
+    public static int SortDescTotalHits(Ball left, Ball right)
     {
       if (left == null)
         throw new ArgumentNullException($"Ball : Sort by Total Hits desc : {nameof(left)} - is null");
@@ -106,7 +108,7 @@ namespace nandish_Lab02
     }
     public void Show(CDrawer drawer)
     {
-      if (BallColor == Color.White)
+      if (BallColor == CueColor)
       {
         drawer.AddCenteredEllipse((int)_center.X, +(int)_center.Y, 2 * Radius, 2 * Radius, BallColor, 2, Color.Yellow);
       }

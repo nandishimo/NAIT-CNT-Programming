@@ -67,9 +67,9 @@
       this._lbl_FrictionValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
       this._lbl_FrictionValue.Location = new System.Drawing.Point(255, 17);
       this._lbl_FrictionValue.Name = "_lbl_FrictionValue";
-      this._lbl_FrictionValue.Size = new System.Drawing.Size(41, 13);
+      this._lbl_FrictionValue.Size = new System.Drawing.Size(39, 13);
       this._lbl_FrictionValue.TabIndex = 2;
-      this._lbl_FrictionValue.Text = "label2";
+      this._lbl_FrictionValue.Text = "0.991";
       // 
       // groupBox1
       // 
@@ -90,7 +90,6 @@
       this._rb_TotalHits.Name = "_rb_TotalHits";
       this._rb_TotalHits.Size = new System.Drawing.Size(70, 17);
       this._rb_TotalHits.TabIndex = 2;
-      this._rb_TotalHits.TabStop = true;
       this._rb_TotalHits.Text = "Total Hits";
       this._rb_TotalHits.UseVisualStyleBackColor = true;
       // 
@@ -101,19 +100,16 @@
       this._rb_Hits.Name = "_rb_Hits";
       this._rb_Hits.Size = new System.Drawing.Size(43, 17);
       this._rb_Hits.TabIndex = 1;
-      this._rb_Hits.TabStop = true;
       this._rb_Hits.Text = "Hits";
       this._rb_Hits.UseVisualStyleBackColor = true;
       // 
       // _rb_Radius
       // 
       this._rb_Radius.AutoSize = true;
-      this._rb_Radius.Checked = true;
       this._rb_Radius.Location = new System.Drawing.Point(6, 19);
       this._rb_Radius.Name = "_rb_Radius";
       this._rb_Radius.Size = new System.Drawing.Size(58, 17);
       this._rb_Radius.TabIndex = 0;
-      this._rb_Radius.TabStop = true;
       this._rb_Radius.Text = "Radius";
       this._rb_Radius.UseVisualStyleBackColor = true;
       // 

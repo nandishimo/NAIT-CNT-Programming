@@ -49,7 +49,7 @@ namespace nandish_Lab02
       StartPosition = FormStartPosition.Manual;
       Location = new Point(0, 0);
     }
-
+    
     private void _rb_Click(object sender, EventArgs e)
     {
       UpdateGridView(); //invoke helper method whenever radio button is clicked

@@ -35,7 +35,7 @@ namespace nandish_Lab02
         return value;
       } 
     }
-    public Table()
+    public Table() //default constructor accepts no arguments
     {
       //do nothing
     }
@@ -64,19 +64,19 @@ namespace nandish_Lab02
     /// </summary>
     public void ShowTable()
     {
-      if (drawer == null)
+      if (drawer == null) //check if drawer is initialized
         return;
-      drawer.Clear();
-      foreach(Ball ball in balls)
+      drawer.Clear(); //clear drawer
+      foreach(Ball ball in balls) //iterate through collection and move/show all balls
       {
         ball.Move(drawer,balls);
         ball.Show(drawer);
       }
-      if (!Running)
+      if (!Running) //if balls have stopped moving, show line from cue ball to mouse cursor to aim next shot
       {
         drawer.AddLine((int)cueBall.Center.X, (int)cueBall.Center.Y, (int)mousePos.X, (int)mousePos.Y, Color.Yellow);
       }
-      drawer.Render();
+      drawer.Render(); //render balls and shot line
     }
 
     /// <summary>
@@ -85,9 +85,9 @@ namespace nandish_Lab02
     /// <param name="numBalls">Int representing number of regular balls to add</param>
     public void MakeBalls(int numBalls)
     {
-      balls.Clear();
+      balls.Clear(); //clear collection
       Ball tmp;
-      while (balls.Count < numBalls)
+      while (balls.Count < numBalls) //create specified number of balls. Only add to collection if balls dont overlap
       {
         tmp = new Ball(drawer, RandColor.GetColor());
         if (!balls.Contains(tmp))
@@ -96,28 +96,35 @@ namespace nandish_Lab02
         }
       }
       tmp = new Ball(drawer);
-      while (balls.Contains(tmp))
+      while (balls.Contains(tmp)) //attempt to create cueball that doesnt overlap
       {
         tmp = new Ball(drawer);
       }
-      cueBall = tmp;
-      balls.Add(tmp);
+      cueBall = tmp; //assign to cueball member
+      balls.Add(tmp); //add cueball to collection
     }
 
+    //Shoot cueball in specified direction with velocity proportional to length of shot vector
     private void Drawer_MouseLeftClickScaled(System.Drawing.Point pos, CDrawer dr)
     {
+      if (Running) //dont hit cueball if simulation is running
+        return;
       foreach(Ball ball in balls)
       {
-        ball.ResetHits();
+        ball.ResetHits(); //reset hit count for all balls for each new shot
       }
       
       Vector2 shot = mousePos - cueBall.Center;
-      shot = Vector2.Normalize(shot)*40f;
+      float length = shot.Length();
+      //shot = Vector2.Normalize(shot)*40f;
+      //ENHANCEMENT set veolcity to length of vector divided by 15
+      shot = Vector2.Normalize(shot) * length/15;
       cueBall.Set_velocity(shot);
     }
 
     private void Drawer_MouseMoveScaled(System.Drawing.Point pos, CDrawer dr)
     {
+      //track mouse position and invoke ShowTable to update shot line vector
       mousePos = new Vector2(pos.X, pos.Y);
       if (!Running)
       {

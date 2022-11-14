@@ -18,14 +18,7 @@ namespace nandish_ICA09
 {
   public partial class Form1 : Form
   {
-<<<<<<< .mine
-    const int totalShoppers = 20;
-||||||| .r386
-    Timer timer = new Timer();
     const int totalShoppers = 200;
-=======
-    const int totalShoppers = 200;
->>>>>>> .r387
     const int minStuff = 5;
     const int maxStuff = 15;
     const int scale = 20;
@@ -40,7 +33,6 @@ namespace nandish_ICA09
     public Form1()
     {
       InitializeComponent();
-<<<<<<< .mine
       Text = "ICA09 - Costco Cashier Simulation";
       _btn_Simulate.MouseWheel += _btn_Simulate_MouseWheel;
       _btn_Simulate.Text = $"Simulate [{cashiers}]";
@@ -48,21 +40,8 @@ namespace nandish_ICA09
       _btn_Simulate.Click += _btn_Simulate_Click;
       _timer.Interval = 20;
       _timer.Tick += _timer_Tick;
-      _timer.Start();
       FormClosed += Form1_FormClosed;
-||||||| .r386
-=======
-      Text = "ICA09 - Costco Cashier Simulation";
-      _btn_Simulate.MouseWheel += _btn_Simulate_MouseWheel;
-      _btn_Simulate.Text = $"Simulate [{cashiers}]";
-      _lbl_Remaining.Text = "Items to be Processed";
-      _btn_Simulate.Click += _btn_Simulate_Click;
-      _timer.Interval = 20;
-      _timer.Tick += _timer_Tick;
-      _timer.Start();
->>>>>>> .r387
     }
-<<<<<<< .mine
 
     private void Form1_FormClosed(object sender, FormClosedEventArgs e)
     {
@@ -127,7 +106,7 @@ namespace nandish_ICA09
       if(sumThreadID == 0)
       {
         drawer.Close();
-        Text = $"{totalProducts} items process in {sw.Elapsed.TotalSeconds:F2} seconds";
+        Text = $"{totalProducts} items processed in {sw.Elapsed.TotalSeconds:F2} seconds";
         _timer.Stop();
       }
     }
@@ -136,8 +115,11 @@ namespace nandish_ICA09
     {
       foreach(ConcurrentQueue<Cart> queue in queues) //for each queue in list
       {
-        while (queue.TryDequeue(out Cart cart)) ; //empty out queue
-        queue.Enqueue(null); //inject a null to terminate thread
+        lock(queues)
+        {
+          while (queue.TryDequeue(out Cart cart)) ; //empty out queue
+          queue.Enqueue(null); //inject a null to terminate thread
+        }
       }
       while (sumThreadID > 0)
         Thread.Sleep(10); //wait for threads to terminate
@@ -180,102 +162,7 @@ namespace nandish_ICA09
       _btn_Simulate.Text = $"Simulate [{cashiers}]";
     }
 
-||||||| .r386
-=======
-
-    private void _timer_Tick(object sender, EventArgs e)
-    {
-      if (drawer == null)
-        return;
-      if(requiredShoppers>0)
-      {
-        foreach (ConcurrentQueue<Cart> queue in queues)
-        {
-          if (queue.Count < 6)
-          {
-            queue.Enqueue(new Cart(GetProducts()));
-            requiredShoppers--;
-            break;
-          }
-        }
-      }
-      foreach(ConcurrentQueue<Cart> queue in queues)
-      {
-        int i = 0;
-        lock(queues)
-        {
-          foreach (Cart cart in queue)
-          {
-            cart.ShowCart(drawer, queues.IndexOf(queue), i, 1);
-            i++;
-          }
-        }
-      }
-      Text = $"Items Processed : {totalProducts}";
-      _lbl_Remaining.Text = $"{requiredShoppers} carts remaining";
-      if(requiredShoppers == 0)
-      {
-        foreach(ConcurrentQueue<Cart> queue in queues)
-        {
-          queue.Enqueue(null);
-        }
-      }
-      if(sumThreadID == 0)
-      {
-        drawer.Close();
-        Text = $"{totalProducts} items process in {sw.Elapsed.TotalSeconds}.{sw.Elapsed.Milliseconds:F2} seconds";
-      }
-    }
-
-    private void _btn_Simulate_Click(object sender, EventArgs e)
-    {
-      foreach(ConcurrentQueue<Cart> queue in queues) //for each queue in list
-      {
-        while (queue.TryDequeue(out Cart cart)) ; //empty out queue
-        queue.Enqueue(null); //inject a null to terminate thread
-      }
-      while (sumThreadID > 0)
-        Thread.Sleep(10); //wait for threads to terminate
-      queues.Clear(); //clear queues from list
-      totalProducts = 0; //reset total products stat
-      sw.Restart();
-      if (drawer != null)
-        drawer.Close();
-      drawer = new CDrawer(1500,cashiers*scale);
-      drawer.Scale = scale;
-      drawer.Position = new Point(Location.X, Location.Y + Height);
-      requiredShoppers = totalShoppers;
-      for(int i = 0; i < cashiers; i++)
-      {
-        queues.Add(new ConcurrentQueue<Cart>());
-        Thread newThread = new Thread(Cashier);
-        newThread.Start(queues.Last());
-      }
-
-    }
-
-    private void _btn_Simulate_MouseWheel(object sender, MouseEventArgs e)
-    {
-      if (e.Delta > 0)
-      {
-        cashiers++;
-        if(cashiers > 25)
-        {
-          cashiers = 25;
-        }
-      }
-      if (e.Delta < 0)
-      {
-        cashiers--;
-        if (cashiers < 1)
-        {
-          cashiers = 1;
-        }
-      }
-      _btn_Simulate.Text = $"Simulate [{cashiers}]";
-    }
-
->>>>>>> .r387
+    
     string GetProducts()
     {
       string val="";
@@ -288,71 +175,36 @@ namespace nandish_ICA09
     }
     void Cashier(object obj)
     {
-      if (obj == null)
+      if (obj == null) //sanity nul check
         return;
-      if(!(obj is ConcurrentQueue<Cart> queue))
+      if(!(obj is ConcurrentQueue<Cart> queue)) //check if obj is valid queue
       {
         throw new ArgumentException($"{nameof(obj)} is not a valid queue");
       }
-      int sum = 0;
       lock (queues)
       {
-<<<<<<< .mine
         sumThreadID += Thread.CurrentThread.ManagedThreadId;
+        //add threadID to sum
       }
-        
+      int sum = 0; //cart product sum
       while (true)
       {
         Thread.Sleep(Cart.Next(200, 400));
-        if (queue.IsEmpty)
+        if (queue.IsEmpty)//see if cart is available, if not go back to start of loop
           continue;
-        queue.TryPeek(out Cart cart);
-        if (cart == null)
+        queue.TryPeek(out Cart cart); //get the next cart
+        if (cart == null) //if null, queue is done, exit loop, thread can close
           break;
-        cart.Process();
-        sum++;
-        if(cart.Done)
-||||||| .r386
-        int sum = 0;
-        while (queue.TryPeek(out Cart cart))
-=======
-        int sum = 0;
-        lock (queues)
->>>>>>> .r387
-        {
-<<<<<<< .mine
-          queue.TryDequeue(out Cart result);
+        cart.Process(); //process cart item
+        sum++; // add to products sum
+        if (cart.Done) //if cart is done, remove cart from queue and add cart sum to total
+        { 
           lock (queues)
           {
+            queue.TryDequeue(out Cart result);
             totalProducts += sum;
           }
           sum = 0;
-||||||| .r386
-          Thread.Sleep(Cart.Next(200, 400));
-          cart.Process();
-
-=======
-          sumThreadID += Thread.CurrentThread.ManagedThreadId;
-        }
-        
-        while (true)
-        {
-          Thread.Sleep(Cart.Next(200, 400));
-          if (queue.IsEmpty)
-            continue;
-          queue.TryPeek(out Cart cart);
-          if (cart == null)
-            break;
-          if(cart.Done)
-          {
-            queue.TryDequeue(out Cart result);
-            lock (queues)
-            {
-              totalProducts += sum;
-            }
-            sum = 0;
-          }
->>>>>>> .r387
         }
       }
       lock (queues)

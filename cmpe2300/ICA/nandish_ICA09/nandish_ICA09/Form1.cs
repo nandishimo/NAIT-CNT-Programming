@@ -56,15 +56,17 @@ namespace nandish_ICA09
         return;
       //if there are shoppers remaining
       if (requiredShoppers > 0)
-      {
+      { //brave implementation
+        List<ConcurrentQueue<Cart>> orderedqueues = queues.OrderBy((queue) => queue.Sum((cart) => { return cart.maxProducts; })).ToList();
+        if (orderedqueues.First().Sum((cart) => { return cart.maxProducts; }) <= drawer.ScaledWidth - maxStuff)
+        {
+          orderedqueues.First().Enqueue(new Cart(GetProducts()));
+          requiredShoppers--;
+        }
+        /* 
+        //not so brave implementation
         int[] qlengths = new int[queues.Count];
         int i = 0;
-        List<ConcurrentQueue<Cart>> orderedqueues = queues.OrderBy((queue)=>queue.Sum((cart) => { return cart.maxProducts; })).ToList();
-        //if((orderedqueues.First((queue) => queue.Sum((cart) => { return cart.maxProducts; }))) <=drawer.ScaledWidth-maxStuff)
-        //  {
-
-        //  }
-
         foreach (ConcurrentQueue<Cart> queue in queues)
         { //get length of each queue)
           queue.Sum((cart) => { return cart.maxProducts; });
@@ -82,7 +84,7 @@ namespace nandish_ICA09
           queues[j].Enqueue(new Cart(GetProducts()));
           requiredShoppers--;
         };
-
+        */
       }
       //show all carts
       drawer.Clear();

@@ -26,10 +26,10 @@ namespace nandish_ICA09
     int requiredShoppers = totalShoppers;
     List<ConcurrentQueue<Cart>> queues = new List<ConcurrentQueue<Cart>>();
     CDrawer drawer = null;
-    int totalProducts=0;
+    int totalProducts = 0;
     Stopwatch sw = new Stopwatch();
-    int sumThreadID=0;
-    
+    int sumThreadID = 0;
+
     public Form1()
     {
       InitializeComponent();
@@ -52,15 +52,22 @@ namespace nandish_ICA09
     private void _timer_Tick(object sender, EventArgs e)
     {
       //if drawer doesnt exists, nothing to do, return;
-      if (drawer == null) 
+      if (drawer == null)
         return;
       //if there are shoppers remaining
-      if(requiredShoppers>0)
+      if (requiredShoppers > 0)
       {
         int[] qlengths = new int[queues.Count];
         int i = 0;
+        List<ConcurrentQueue<Cart>> orderedqueues = queues.OrderBy((queue)=>queue.Sum((cart) => { return cart.maxProducts; })).ToList();
+        //if((orderedqueues.First((queue) => queue.Sum((cart) => { return cart.maxProducts; }))) <=drawer.ScaledWidth-maxStuff)
+        //  {
+
+        //  }
+
         foreach (ConcurrentQueue<Cart> queue in queues)
         { //get length of each queue)
+          queue.Sum((cart) => { return cart.maxProducts; });
           qlengths[i] = 0;
           foreach (Cart c in queue)
           {
@@ -79,31 +86,29 @@ namespace nandish_ICA09
       }
       //show all carts
       drawer.Clear();
-      foreach(ConcurrentQueue<Cart> queue in queues)
+      foreach (ConcurrentQueue<Cart> queue in queues)
       {
-        int i = 0;
         int qlength = 0;
-        lock(queues)
+        lock (queues)
         {
           foreach (Cart cart in queue)
           {
-            if(cart==null) continue;
+            if (cart == null) continue;
             cart.ShowCart(drawer, queues.IndexOf(queue), qlength, 1);
             qlength += cart.maxProducts;
-            i++;
           }
         }
       }
       Text = $"Items Processed : {totalProducts}";
       _lbl_Remaining.Text = $"{requiredShoppers} carts remaining";
-      if(requiredShoppers == 0)
+      if (requiredShoppers == 0)
       {
-        foreach(ConcurrentQueue<Cart> queue in queues)
+        foreach (ConcurrentQueue<Cart> queue in queues)
         {
           queue.Enqueue(null);
         }
       }
-      if(sumThreadID == 0)
+      if (sumThreadID == 0)
       {
         drawer.Close();
         Text = $"{totalProducts} items processed in {sw.Elapsed.TotalSeconds:F2} seconds";
@@ -113,13 +118,10 @@ namespace nandish_ICA09
 
     private void _btn_Simulate_Click(object sender, EventArgs e)
     {
-      foreach(ConcurrentQueue<Cart> queue in queues) //for each queue in list
+      foreach (ConcurrentQueue<Cart> queue in queues) //for each queue in list
       {
-        lock(queues)
-        {
           while (queue.TryDequeue(out Cart cart)) ; //empty out queue
           queue.Enqueue(null); //inject a null to terminate thread
-        }
       }
       while (sumThreadID > 0)
         Thread.Sleep(10); //wait for threads to terminate
@@ -128,14 +130,15 @@ namespace nandish_ICA09
       sw.Restart();
       if (drawer != null)
         drawer.Close();
-      drawer = new CDrawer(1500,cashiers*scale);
+      drawer = new CDrawer(1500, cashiers * scale);
       drawer.Scale = scale;
       drawer.Position = new Point(Location.X, Location.Y + Height);
       requiredShoppers = totalShoppers;
-      for(int i = 0; i < cashiers; i++)
+      for (int i = 0; i < cashiers; i++)
       {
         queues.Add(new ConcurrentQueue<Cart>());
         Thread newThread = new Thread(Cashier);
+        newThread.IsBackground = true;
         newThread.Start(queues.Last());
       }
       _timer.Start();
@@ -146,7 +149,7 @@ namespace nandish_ICA09
       if (e.Delta > 0)
       {
         cashiers++;
-        if(cashiers > 25)
+        if (cashiers > 25)
         {
           cashiers = 25;
         }
@@ -162,14 +165,14 @@ namespace nandish_ICA09
       _btn_Simulate.Text = $"Simulate [{cashiers}]";
     }
 
-    
+
     string GetProducts()
     {
-      string val="";
+      string val = "";
       int length = Cart.Next(minStuff, maxStuff);
-      for(int i = 0; i < length; i++)
+      for (int i = 0; i < length; i++)
       {
-        val+=(char)('A' + Cart.Next(0,26));
+        val += (char)('A' + Cart.Next(0, 26));
       }
       return val;
     }
@@ -177,15 +180,12 @@ namespace nandish_ICA09
     {
       if (obj == null) //sanity nul check
         return;
-      if(!(obj is ConcurrentQueue<Cart> queue)) //check if obj is valid queue
+      if (!(obj is ConcurrentQueue<Cart> queue)) //check if obj is valid queue
       {
         throw new ArgumentException($"{nameof(obj)} is not a valid queue");
       }
-      lock (queues)
-      {
-        sumThreadID += Thread.CurrentThread.ManagedThreadId;
-        //add threadID to sum
-      }
+      Interlocked.Add(ref sumThreadID, Thread.CurrentThread.ManagedThreadId);
+      //add threadID to sum
       int sum = 0; //cart product sum
       while (true)
       {
@@ -195,22 +195,16 @@ namespace nandish_ICA09
         queue.TryPeek(out Cart cart); //get the next cart
         if (cart == null) //if null, queue is done, exit loop, thread can close
           break;
-        cart.Process(); //process cart item
-        sum++; // add to products sum
+        ; //process cart item
+        sum += cart.Process(); // add to products sum
         if (cart.Done) //if cart is done, remove cart from queue and add cart sum to total
-        { 
-          lock (queues)
-          {
-            queue.TryDequeue(out Cart result);
-            totalProducts += sum;
-          }
+        {
+          queue.TryDequeue(out Cart result);
+          Interlocked.Add(ref totalProducts, sum);
           sum = 0;
         }
       }
-      lock (queues)
-      {
-        sumThreadID -= Thread.CurrentThread.ManagedThreadId;
-      }
+      Interlocked.Add(ref sumThreadID, -1 * Thread.CurrentThread.ManagedThreadId);
       WriteLine($"Thread [{Thread.CurrentThread.ManagedThreadId}] done : ThreadID Sum : {sumThreadID}");
       return;
     }

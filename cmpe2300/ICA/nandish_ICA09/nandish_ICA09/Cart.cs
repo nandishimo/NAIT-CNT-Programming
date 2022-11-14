@@ -67,7 +67,7 @@ namespace nandish_ICA09
       drawer.AddRectangle(cart,_color,1,Color.White);
       if (position == 0)
       {
-        drawer.AddText(ToString(), 5, cart, Color.Black);
+        drawer.AddText(ToString(), 10, cart, Color.Black);
       }
     }
 

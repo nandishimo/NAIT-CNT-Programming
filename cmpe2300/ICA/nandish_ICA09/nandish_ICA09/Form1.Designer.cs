@@ -28,8 +28,10 @@
     /// </summary>
     private void InitializeComponent()
     {
+      this.components = new System.ComponentModel.Container();
       this._btn_Simulate = new System.Windows.Forms.Button();
       this._lbl_Remaining = new System.Windows.Forms.Label();
+      this._timer = new System.Windows.Forms.Timer(this.components);
       this.SuspendLayout();
       // 
       // _btn_Simulate
@@ -73,6 +75,7 @@
 
         private System.Windows.Forms.Button _btn_Simulate;
         private System.Windows.Forms.Label _lbl_Remaining;
+        private System.Windows.Forms.Timer _timer;
     }
 }
 

@@ -14,12 +14,12 @@ namespace nandish_ICA11
   {
     private RectDrawer _rectcan = null; // Rectangle derived CDrawer
     private PosDrawer _poscan = null; // Positionable derived CDrawer
-    //private PicDrawer _piccan = null; // Grayscale Picture double derived CDrawer
+    private PicDrawer _piccan = null; // Grayscale Picture double derived CDrawer
     public Form1()
     {
       InitializeComponent();
       StartPosition = FormStartPosition.Manual;
-
+      Location = new Point(0, 0);
       KeyDown += Form1_KeyDown;
     }
 
@@ -27,10 +27,10 @@ namespace nandish_ICA11
     {
       _poscan?.Close();
       _rectcan?.Close();
-      //_piccan?.Close();
+      _piccan?.Close();
       _poscan = null;
       _rectcan = null;
-      //_piccan = null;
+      _piccan = null;
       switch (e.KeyCode)
       {
         case Keys.E:
@@ -46,9 +46,9 @@ namespace nandish_ICA11
           _rectcan = new RectDrawer();
           Activate(); // Steal focus back so keys continue to work
           break;
-        //case Keys.P:
-        //  _piccan = new PicDrawer(this);
-        //  break;
+        case Keys.P:
+          _piccan = new PicDrawer(this);
+          break;
       }
     }
   }

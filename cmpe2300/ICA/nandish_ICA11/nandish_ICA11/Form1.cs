@@ -12,6 +12,7 @@ namespace nandish_ICA11
 {
   public partial class Form1 : Form
   {
+    RectDrawer drawer = new RectDrawer();
     public Form1()
     {
       InitializeComponent();

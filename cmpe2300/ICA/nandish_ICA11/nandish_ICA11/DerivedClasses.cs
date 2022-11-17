@@ -33,7 +33,11 @@ namespace nandish_ICA11
     public RectDrawer()
     {
       CDrawer drawer = new CDrawer(400,800);
-      _drand = new DrawerRandom((int)0.2 * Math.Max(drawer.ScaledWidth, drawer.ScaledHeight));
+      _drand = new DrawerRandom((int) Math.Max(drawer.ScaledWidth, drawer.ScaledHeight)/5);
+      drawer.BBColour = Color.White;
+      for(int i=0;i<100;i++)
+        drawer.AddRectangle(_drand.NextDrawerRect(drawer), RandColor.GetKnownColor());
+
     }
   }
 }

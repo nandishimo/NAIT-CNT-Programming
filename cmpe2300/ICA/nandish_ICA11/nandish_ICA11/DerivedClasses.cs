@@ -34,10 +34,86 @@ namespace nandish_ICA11
     {
       CDrawer drawer = new CDrawer(400,800);
       _drand = new DrawerRandom((int) Math.Max(drawer.ScaledWidth, drawer.ScaledHeight)/5);
-      drawer.BBColour = Color.White;
+      BBColour = Color.White;
       for(int i=0;i<100;i++)
-        drawer.AddRectangle(_drand.NextDrawerRect(drawer), RandColor.GetKnownColor());
+        AddRectangle(_drand.NextDrawerRect(drawer), RandColor.GetKnownColor());
 
     }
+  }
+  internal class PosDrawer : GDIDrawer.CDrawer
+  {
+    public enum EPosition
+    {
+      eRight,
+      eBelow,
+      eBelowRight,
+      eNone
+    };
+    public void SetPosition (Form1 form, EPosition position)
+    {
+      int x;
+      int y;
+      if(position == EPosition.eRight)
+      {
+        x = form.Location.X + form.Width;
+        y = form.Location.Y;
+      }
+      else if(position == EPosition.eBelow)
+      {
+        x=form.Location.X;
+        y=form.Location.Y+form.Height;
+      }
+      else if(position == EPosition.eBelowRight)
+      {
+        x = form.Location.X + form.Width;
+        y = form.Location.Y + form.Height;
+      }
+      else
+      {
+        return;
+      }
+      this.Position = new Point(x, y);
+
+    }
+    public void SetPosition (CDrawer drawer, EPosition position)
+    {
+      int x;
+      int y;
+      if (position == EPosition.eRight)
+      {
+        x = drawer.Position.X + drawer.ScaledWidth;
+        y = drawer.Position.Y;
+      }
+      else if (position == EPosition.eBelow)
+      {
+        x = drawer.Position.X;
+        y = drawer.Position.Y + drawer.ScaledHeight;
+      }
+      else if (position == EPosition.eBelowRight)
+      {
+        x = drawer.Position.X + drawer.ScaledWidth;
+        y = drawer.Position.Y + drawer.ScaledHeight;
+      }
+      else
+      {
+        return;
+      }
+      this.Position = new Point(x, y);
+    }
+
+    public PosDrawer(int width=600, int height=400, Form1 form=null, EPosition position=EPosition.eNone)
+    {
+      CDrawer drawer = new CDrawer(width, height, false);
+      drawer.BBColour = Color.LemonChiffon;
+      if (form == null)
+        return;
+      SetPosition(drawer, position);
+      form.Activate();
+    }
+
+  }
+  internal class PicDrawer : PosDrawer
+  {
+
   }
 }

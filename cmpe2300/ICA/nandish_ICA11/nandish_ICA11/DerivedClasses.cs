@@ -30,13 +30,12 @@ namespace nandish_ICA11
   internal class RectDrawer : GDIDrawer.CDrawer
   {
     private DrawerRandom _drand = null;
-    public RectDrawer()
+    public RectDrawer() : base(400,800)
     {
-      CDrawer drawer = new CDrawer(400,800);
-      _drand = new DrawerRandom((int) Math.Max(drawer.ScaledWidth, drawer.ScaledHeight)/5);
+      _drand = new DrawerRandom(Math.Max(ScaledWidth, ScaledHeight)/5);
       BBColour = Color.White;
       for(int i=0;i<100;i++)
-        AddRectangle(_drand.NextDrawerRect(drawer), RandColor.GetKnownColor());
+        AddRectangle(_drand.NextDrawerRect(this), RandColor.GetKnownColor());
 
     }
   }
@@ -101,19 +100,43 @@ namespace nandish_ICA11
       this.Position = new Point(x, y);
     }
 
-    public PosDrawer(int width=600, int height=400, Form1 form=null, EPosition position=EPosition.eNone)
+    public PosDrawer(int width=600, int height=400, Form1 form=null, EPosition position=EPosition.eNone) : base(width, height, false)
     {
-      CDrawer drawer = new CDrawer(width, height, false);
-      drawer.BBColour = Color.LemonChiffon;
+      BBColour = Color.LemonChiffon;
       if (form == null)
         return;
-      SetPosition(drawer, position);
+      SetPosition(form, position);
+      Render();
       form.Activate();
     }
 
   }
   internal class PicDrawer : PosDrawer
   {
+    public PicDrawer(Form1 form=null) : base(Properties.Resources.Yoshi.Width, Properties.Resources.Yoshi.Height, form, EPosition.eRight)
+    {
+      Bitmap pic = new Bitmap(Properties.Resources.Yoshi);
+      int picW = pic.Width;
+      int picH = pic.Height;
 
+      for(int x = 0; x < picW; x++)
+      {
+        for(int y = 0; y < picH; y++)
+        {
+          Color color = pic.GetPixel(x, y);
+          if (x < picW / 2)
+          {
+            int R = color.R;
+            int G = color.G;
+            int B = color.B;
+            R = G = B = (R + G + B) / 3;
+            color = Color.FromArgb(R, G, B);
+          }
+          SetBBScaledPixel(x, y, color );
+        }
+      }
+      Render();
+      
+    }
   }
 }

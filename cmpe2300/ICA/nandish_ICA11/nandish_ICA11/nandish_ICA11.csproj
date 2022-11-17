@@ -84,6 +84,7 @@
   <ItemGroup />
   <ItemGroup>
     <Content Include="GDIDrawer\GDIDrawer.dll" />
+    <Content Include="Properties\yoshi.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

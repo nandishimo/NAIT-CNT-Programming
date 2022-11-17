@@ -8,6 +8,9 @@ using GDIDrawer;
 
 namespace nandish_ICA11
 {
+  // DrawerRandom class derived from Random.
+  // Supplies rectangles of random size (max 20% of greatest(width or height))
+  // rectangles are positioned to be fully contained within provided CDrawer
   internal class DrawerRandom : Random
   {
     private int maxSize;
@@ -27,6 +30,8 @@ namespace nandish_ICA11
     }
   }
 
+  // RectDrawer CDrawer derived class
+  // Uses DrawerRandom class to draw 100 random rectangles in 400x800 CDrawer
   internal class RectDrawer : GDIDrawer.CDrawer
   {
     private DrawerRandom _drand = null;
@@ -36,9 +41,11 @@ namespace nandish_ICA11
       BBColour = Color.White;
       for(int i=0;i<100;i++)
         AddRectangle(_drand.NextDrawerRect(this), RandColor.GetKnownColor());
-
     }
   }
+
+  //PosDrawer class derived from CDrawer
+  //Creates a drawer whose position can be specified relative to another drawer or form
   internal class PosDrawer : GDIDrawer.CDrawer
   {
     public enum EPosition
@@ -111,6 +118,9 @@ namespace nandish_ICA11
     }
 
   }
+
+  // Derived from Posdrawer, can specify position of drawer relative to form
+  // Creates a appropriately sized drawer with half grayscale background image
   internal class PicDrawer : PosDrawer
   {
     public PicDrawer(Form1 form=null) : base(Properties.Resources.Yoshi.Width, Properties.Resources.Yoshi.Height, form, EPosition.eRight)
@@ -119,12 +129,13 @@ namespace nandish_ICA11
       int picW = pic.Width;
       int picH = pic.Height;
 
+      //iterate through each pixel of picture
       for(int x = 0; x < picW; x++)
       {
         for(int y = 0; y < picH; y++)
         {
           Color color = pic.GetPixel(x, y);
-          if (x < picW / 2)
+          if (x < picW / 2) //change pixels in left half of image to be grayscale
           {
             int R = color.R;
             int G = color.G;
@@ -136,7 +147,6 @@ namespace nandish_ICA11
         }
       }
       Render();
-      
     }
   }
 }

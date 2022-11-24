@@ -11,7 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace nandish_ICA08
+namespace nandish_ICA12
 {
   internal class Ball
   {
@@ -19,16 +19,16 @@ namespace nandish_ICA08
     public static Random rand { get; set; } = new Random();
 
     //PointF field to hold ball location
-    private PointF bCenter;
+    protected PointF bCenter;
 
     //System.Windows.Vector for velocity
     private System.Windows.Vector velocity;
 
     //int field for ball radius
-    private int bRadius;
+    protected int bRadius;
 
     //automatic color property
-    private Color _color { get; set; }
+    protected Color _color { get; set; }
 
     //constructor, accepting point for ball location and ball color
     public Ball(PointF ballCenter, Color ballColor)
@@ -89,19 +89,52 @@ namespace nandish_ICA08
     }
 
     //show function to render balls with int num(index of ball in list)
-    public void Show(CDrawer drawer, int index)
+    public void Show(CDrawer drawer)
     {
       drawer.AddCenteredEllipse((int)bCenter.X, (int)bCenter.Y, bRadius * 2, bRadius * 2, _color);
-      drawer.AddText(index.ToString(), 15, (int)bCenter.X - bRadius, (int)bCenter.Y - bRadius, bRadius * 2, bRadius * 2, Color.FromArgb(_color.ToArgb() ^ 0x00FFFFFF));
+      drawer.AddText(this.GetType().Name.ToString(), 15, (int)bCenter.X - bRadius, (int)bCenter.Y - bRadius, bRadius * 2, bRadius * 2, Color.FromArgb(_color.ToArgb() ^ 0x00FFFFFF));
     }
   }
 
   internal class CBall : Ball
   {
-    int ShowCount = 0;
-    public CBall():base(PointF bc, Color color)
+    int ShowCount = 1;
+    public CBall(PointF location, Color color ) : base(location, color)
     {
 
+    }
+    new public void Show(CDrawer drawer)
+    { //add black border, invoke base show and increment base show
+      drawer.AddCenteredEllipse((int)bCenter.X, (int)bCenter.Y, (bRadius+3) * 2, (bRadius + 3) * 2, Color.Black);
+      base.Show(drawer);
+      ShowCount++;
+    }
+
+    new public void Move(CDrawer drawer)
+    { //change color of ball every 50 show counts
+      if (ShowCount % 50 == 0)
+        _color = RandColor.GetColor();
+      base.Move(drawer);
+    }
+  }
+
+  internal class SBall : Ball
+  {
+    int ShowCount = 1;
+    public SBall(PointF location, Color color) : base(location, color)
+    {
+
+    }
+    new public void Show(CDrawer drawer)
+    { //invoke base show and increment showcount
+      base.Show(drawer);
+      ShowCount++;
+    }
+    new public void Move(CDrawer drawer)
+    {
+      if (ShowCount % 50 == 0 && bRadius < 200)
+        bRadius += 5;
+      base.Move(drawer);
     }
   }
 }

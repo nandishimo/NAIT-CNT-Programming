@@ -51,4 +51,35 @@ namespace nandish_ICA13
       base.Draw(drawer);
     }
   }
+  internal class SpinLight : Light
+  {
+    double rotation = 2*Math.PI;
+    public SpinLight(Point Center):base(Center)
+    {
+
+    }
+    public override bool bKillMe { get { return rotation < 0.1; } }
+    public override void Animate()
+    {
+      rotation *= 0.95;
+    }
+    public override void Draw(CDrawer drawer)
+    {
+      drawer.AddPolygon(lCenter.X-40, lCenter.Y-40, 40,3,rotation,color);
+      base.Draw(drawer);
+    }
+  }
+  internal class ShrinkLight : FadeLight
+  {
+    public ShrinkLight(Point Center, int Radius):base(Center, Radius)
+    {
+
+    }
+    public override bool bKillMe { get { return (radius<10||base.bKillMe); } }
+    public override void Animate()
+    {
+      base.Animate();
+      radius *= 0.95;
+    }
+  }
 }

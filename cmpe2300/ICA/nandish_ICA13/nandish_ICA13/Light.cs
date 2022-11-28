@@ -47,7 +47,7 @@ namespace nandish_ICA13
     }
     public override void Draw(CDrawer drawer)
     {
-      drawer.AddPolygon(lCenter.X, lCenter.Y, (int)radius, 5, 0, Color.FromArgb(opacity, color));
+      drawer.AddPolygon(lCenter.X-(int)radius, lCenter.Y-(int)radius, (int)radius, 5, 0, Color.FromArgb(opacity, color));
       base.Draw(drawer);
     }
   }

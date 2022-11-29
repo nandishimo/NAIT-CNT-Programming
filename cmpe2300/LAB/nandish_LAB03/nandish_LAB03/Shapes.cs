@@ -22,13 +22,23 @@ namespace nandish_LAB03
     protected PointF _position { get; set; }
     protected Color _fill { get; set; }
     protected int _radius { get; set; }
-    public Shape(PointF Position, Color Fill, int Radius=5)
+    protected Shape(PointF Position, Color Fill, int Radius=5)
     {
       _position = Position;
       _fill = Fill;
       if(Radius < 1)
-        throw new ArgumentOutOfRangeException(nameof(Radius), $"Radius cannot be less than 1");
+        throw new ArgumentOutOfRangeException(nameof(Radius), "Radius cannot be less than 1");
       _radius = Radius;
+    }
+  }
+  internal class Polygon:Shape
+  {
+    private int _sides { get; set; }
+    public Polygon(PointF p, Color c, int r, int Sides) : base(p, c, r)
+    {
+      if (Sides < 3)
+        throw new ArgumentOutOfRangeException(nameof(Sides), "Need a minimum of 3 sides");
+      _sides = Sides;
     }
   }
 }

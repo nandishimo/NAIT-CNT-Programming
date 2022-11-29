@@ -4,14 +4,31 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using GDIDrawer;
+using System.Drawing;
 
 namespace nandish_LAB03
 {
   public interface IRenderable
   {
-
+    //render instance to supplied drawer
+    void Render(CDrawer dr);
   }
-  internal class Shape
+  public interface IAnimate
   {
+    //cause per tick changes to instance (movement, animation, etc.)
+  }
+  internal abstract class Shape
+  {
+    protected PointF _position { get; set; }
+    protected Color _fill { get; set; }
+    protected int _radius { get; set; }
+    public Shape(PointF Position, Color Fill, int Radius=5)
+    {
+      _position = Position;
+      _fill = Fill;
+      if(Radius < 1)
+        throw new ArgumentOutOfRangeException(nameof(Radius), $"Radius cannot be less than 1");
+      _radius = Radius;
+    }
   }
 }

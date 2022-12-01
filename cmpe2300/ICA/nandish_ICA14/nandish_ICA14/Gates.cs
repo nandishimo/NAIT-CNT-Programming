@@ -24,7 +24,12 @@ namespace nandish_ICA14
       _IN1 = A;
       _IN2 = B;
     }
-    public abstract void Latch();
+    
+    public void Latch()
+    {
+      ALatch();
+    }
+    public abstract void ALatch();
 
     public abstract string AName { get; }
     public string Name
@@ -35,7 +40,7 @@ namespace nandish_ICA14
   }
   class NandGate : Gate
   {
-    public override void Latch()
+    public override void ALatch()
     {
       _OUT = !(_IN1 && _IN2);
     }
@@ -43,7 +48,7 @@ namespace nandish_ICA14
   }
   class OrGate : Gate
   {
-    public override void Latch()
+    public override void ALatch()
     {
       _OUT = _IN1 || _IN2;
     }
@@ -51,7 +56,7 @@ namespace nandish_ICA14
   }
   class XorGate : Gate
   {
-    public override void Latch()
+    public override void ALatch()
     {
       _OUT = (_IN1 && !_IN2) || (_IN2 && !_IN1);
     }
@@ -59,9 +64,9 @@ namespace nandish_ICA14
   }
   class AndGate : NandGate
   {
-    public override void Latch()
+    public override void ALatch()
     {
-      base.Latch();
+      base.ALatch();
       _OUT = !_OUT;
     }
     public override string AName { get; } = "AND";

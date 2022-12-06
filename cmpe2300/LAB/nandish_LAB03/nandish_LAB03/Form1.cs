@@ -13,11 +13,22 @@ namespace nandish_LAB03
 {
   public partial class Form1 : Form
   {
-    List<Shape> _shapes;
+    List<Shape> _shapes = new List<Shape>();
+
     public Form1()
     {
       InitializeComponent();
+      Timer timer = new Timer();
+      timer.Interval = 50;
+
+      timer.Tick += Timer_Tick;
+
     }
+
+    private void Timer_Tick(object sender, EventArgs e)
+    {
+    }
+
     private void Test()
     {
       // This code assumes you have a List<Shape> called _shapes
@@ -32,7 +43,7 @@ namespace nandish_LAB03
       //public Fader(Color c, int r, int sides, Shape parent, double dDistToParent, PointF ratio, double dAniIncrement = 0, double dAniValue = 0)
       //public Grower(Color c, int r, int sides, Shape parent, double dDistToParent, PointF ratio, double dAniIncrement = 0, double dAniValue = 0)
 
-      int DebugLevel = 9;
+      int DebugLevel = 0;
       // Polygon
       if (DebugLevel > 0)
       { // Bottoms Up

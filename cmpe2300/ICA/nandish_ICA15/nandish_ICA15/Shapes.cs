@@ -35,6 +35,7 @@ namespace nandish_ICA15
     public void Paint() // NVI - public Paint()
     {
       VirtualPaint(); // invokes VirtualPaint()
+      _canvas.AddCenteredEllipse(_pt, 4, 4, Color.Yellow);
     }
     protected virtual Point VirtualMove()
     {
@@ -69,7 +70,7 @@ namespace nandish_ICA15
   }
   public class Snake : BaseShape, IMortal
   {
-    private LinkedList<Point> _points;
+    private LinkedList<Point> _points = new LinkedList<Point>();
     private int Length;
     private int Lives;
     public Snake(Point point, int length) : base(point, Color.Red)
@@ -90,22 +91,25 @@ namespace nandish_ICA15
     protected override void VirtualPaint()
     {
       LinkedListNode<Point> pt = _points.First;
-      _canvas.AddCenteredEllipse(pt.Value, 3, 3, Color.Red);
-      for (int CountDown = Length; CountDown > 0; --CountDown)
+      if(pt!= null)
       {
-        if (pt.Next != null)
-          pt = pt.Next;
-        _canvas.AddCenteredEllipse(pt.Value, 3, 3, Color.FromArgb(255 * CountDown / Length, _color));
-        
+        _canvas.AddCenteredEllipse(pt.Value, 6, 6, Color.Red);
+        for (int CountDown = Length; CountDown > 0 && pt != null && pt.Next != null; --CountDown)
+        {
+         
+            //_canvas.AddCenteredEllipse(pt.Value, 6, 6, Color.FromArgb(255 * CountDown / Length, _color));
+            _canvas.AddLine(pt.Value.X, pt.Value.Y, pt.Next.Value.X, pt.Next.Value.Y, Color.FromArgb(255 * CountDown / Length, _color));
+            pt = pt.Next;
+         
+        }
       }
+      
+
     }
     public bool Step()
     {
-      bool alive = true;
       Lives--;
-      if (Lives <= 0)
-        alive = false;
-      return alive;
+      return Lives > 0;
     }
   }
   public class Blob : BaseShape, IAnimatable
@@ -127,7 +131,7 @@ namespace nandish_ICA15
     protected override void VirtualPaint()
     {
       int cRadius = Radius + (int)(0.5 * Radius * Math.Cos(_Animate));
-      _canvas.AddCenteredEllipse(LastLocation, cRadius, cRadius, _color);
+      _canvas.AddCenteredEllipse(LastLocation, cRadius*2, cRadius*2, Color.FromArgb(127,_color));
     }
     public void Animate(CDrawer drawer)
     {

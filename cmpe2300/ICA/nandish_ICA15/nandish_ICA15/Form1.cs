@@ -20,6 +20,9 @@ namespace nandish_ICA15
       InitializeComponent();
       drawer = new PicDrawer();
       drawer.ContinuousUpdate = false;
+      StartPosition = FormStartPosition.Manual;
+      drawer.Position = new Point(Location.X+Width, Location.Y);
+      BaseShape._canvas = drawer;
       Timer timer = new Timer();
       timer.Interval = 50;
       timer.Enabled = true;
@@ -50,15 +53,18 @@ namespace nandish_ICA15
       drawer.Clear();
       shapes.RemoveAll(shape =>
       {
-        Snake s = shape as Snake;
-        bool? val = s.Step();
-        if(val== null)
-          return false;
-        else
-          return val.Value;
+        return (shape as IMortal)?.Step() == false;
+      });
+      foreach( IAnimatable b in shapes.Where(shape=>shape is IAnimatable))
+      {
+        b.Animate(drawer);
       }
-      );
-      shapes.Where(shape => shape is Blob).ToList().ForEach(blob => blob.Animate);
+      foreach (BaseShape shape in shapes)
+      {
+        shape.Move();
+        shape.Paint();
+      }
+      
       drawer.Render();
     }
   }

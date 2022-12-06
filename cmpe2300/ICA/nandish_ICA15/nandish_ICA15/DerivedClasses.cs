@@ -123,9 +123,9 @@ namespace nandish_ICA15
   // Creates a appropriately sized drawer with half grayscale background image
   public class PicDrawer : PosDrawer
   {
-    public PicDrawer(Form1 form=null) : base(Properties.Resources.Yoshi.Width, Properties.Resources.Yoshi.Height, form, EPosition.eRight)
+    public PicDrawer(Form1 form=null) : base(Properties.Resources.Planet.Width, Properties.Resources.Planet.Height, form, EPosition.eRight)
     {
-      Bitmap pic = new Bitmap(Properties.Resources.Yoshi);
+      Bitmap pic = new Bitmap(Properties.Resources.Planet);
       int picW = pic.Width;
       int picH = pic.Height;
 

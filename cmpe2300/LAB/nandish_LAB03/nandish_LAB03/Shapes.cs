@@ -31,15 +31,25 @@ namespace nandish_LAB03
         throw new ArgumentOutOfRangeException(nameof(Radius), "Radius cannot be less than 1");
       _radius = Radius;
     }
+    public void Render(CDrawer dr)
+    {
+      ARender(dr);
+    }
+    public abstract void ARender(CDrawer dr);
+
   }
   public class Polygon:Shape
   {
-    private int _sides { get; set; }
+    protected int _sides { get; set; }
     public Polygon(PointF p, Color c, int r, int Sides) : base(p, c, r)
     {
       if (Sides < 3)
         throw new ArgumentOutOfRangeException(nameof(Sides), "Need a minimum of 3 sides");
       _sides = Sides;
+    }
+    public override void ARender(CDrawer dr)
+    {
+      dr.AddPolygon((int)_position.X, (int)_position.Y, _radius, _sides,0,_fill);
     }
   }
   public class Shadow : Polygon
@@ -59,12 +69,25 @@ namespace nandish_LAB03
       _sequence = dAniIncrement;
       _delta = dAniValue;
     }
+    public void Tick()
+    {
+      ATick();
+    }
+    public abstract void ATick();
   }
   public class Spinner:AniGon
   {
     public Spinner(PointF p, Color c, int r, int sides, double dAniIncrement = 0, double dAniValue = 0) : base(p,c,r,sides,dAniIncrement,dAniValue)
     {
 
+    }
+    public override void ATick()
+    {
+      _sequence += _delta;
+    }
+    public override void ARender(CDrawer dr)
+    {
+      dr.AddPolygon((int)_position.X, (int)_position.Y, _radius, _sides, Math.Sin(_sequence), _fill);
     }
   }
   public abstract class AniChild : AniGon
@@ -81,6 +104,10 @@ namespace nandish_LAB03
     public Orbiter(Color c, int r, int sides, Shape parent, double dDistToParent, PointF ratio, double dAniIncrement = 0, double dAniValue = 0):base(parent._position,c,r,sides,dDistToParent,dAniIncrement,dAniValue)
     {
       _ratio = ratio;
+    }
+    public override void ATick()
+    {
+      
     }
   }
   public class Fader:Orbiter

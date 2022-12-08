@@ -14,19 +14,32 @@ namespace nandish_LAB03
   public partial class Form1 : Form
   {
     List<Shape> _shapes = new List<Shape>();
+    CDrawer drawer = new CDrawer();
 
     public Form1()
     {
       InitializeComponent();
+      drawer.ContinuousUpdate = false;
+
       Timer timer = new Timer();
       timer.Interval = 50;
 
       timer.Tick += Timer_Tick;
+      timer.Enabled = true;
+      Test();
 
     }
 
     private void Timer_Tick(object sender, EventArgs e)
     {
+      drawer.Clear();
+      foreach (Shape shape in _shapes)
+      {
+        if (shape is AniGon aShape)
+          aShape.Tick();
+        shape.Render(drawer);
+      }
+      drawer.Render();
     }
 
     private void Test()
@@ -43,7 +56,7 @@ namespace nandish_LAB03
       //public Fader(Color c, int r, int sides, Shape parent, double dDistToParent, PointF ratio, double dAniIncrement = 0, double dAniValue = 0)
       //public Grower(Color c, int r, int sides, Shape parent, double dDistToParent, PointF ratio, double dAniIncrement = 0, double dAniValue = 0)
 
-      int DebugLevel = 0;
+      int DebugLevel = 8;
       // Polygon
       if (DebugLevel > 0)
       { // Bottoms Up

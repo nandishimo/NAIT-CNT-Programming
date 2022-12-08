@@ -20,12 +20,12 @@ namespace nandish_LAB03
   }
   public abstract class Shape
   {
-    public PointF _position { get; set; }
+    protected internal PointF _position { get; protected set; }
     protected Color _fill { get; set; }
     protected int _radius { get; set; }
     protected Shape(PointF Position, Color? Fill=null, int Radius=5)
     {
-      _position = Position;
+      _position = new PointF(Position.X-Radius,Position.Y-Radius);
       _fill = Fill.HasValue ? Fill.Value : Color.LightGray;
       if(Radius < 1)
         throw new ArgumentOutOfRangeException(nameof(Radius), "Radius cannot be less than 1");
@@ -59,21 +59,29 @@ namespace nandish_LAB03
     {
       _sizeIncrease = delta;
     }
+    public override void ARender(CDrawer dr)
+    {
+      dr.AddPolygon((int)(_position.X-_radius * _sizeIncrease), (int)(_position.Y - _radius * _sizeIncrease), (int)(_radius + _radius * _sizeIncrease), _sides, 0, Color.FromArgb(127,_fill));
+      base.ARender(dr);
+    }
   }
   public abstract class AniGon:Polygon
   {
-    public double _sequence { get; set; }
-    public double _delta { get; set; }
+    protected double _sequence { get; set; }
+    protected double _delta { get; set; }
     public AniGon(PointF p, Color c, int r, int Sides, double dAniIncrement, double dAniValue) :base(p,c,r,Sides)
     {
-      _sequence = dAniIncrement;
-      _delta = dAniValue;
+      _sequence = dAniValue;
+      _delta = dAniIncrement;
     }
     public void Tick()
     {
-      ATick();
+      VTick();
     }
-    public abstract void ATick();
+    public virtual void VTick()
+    {
+      _sequence += _delta;
+    }
   }
   public class Spinner:AniGon
   {
@@ -81,17 +89,14 @@ namespace nandish_LAB03
     {
 
     }
-    public override void ATick()
-    {
-      _sequence += _delta;
-    }
     public override void ARender(CDrawer dr)
     {
-      dr.AddPolygon((int)_position.X, (int)_position.Y, _radius, _sides, Math.Sin(_sequence), _fill);
+      dr.AddPolygon((int)_position.X, (int)_position.Y, _radius, _sides, _sequence, _fill);
     }
   }
   public abstract class AniChild : AniGon
   {
+    protected Shape _parent { get; set; }
     protected double _dDistToParent { get; set; }
     protected AniChild(PointF p, Color c, int r, int Sides, double dDistToParent, double dAniIncrement = 0, double dAniValue = 0) :base(p,c,r,Sides, dAniIncrement, dAniValue)
     {
@@ -105,7 +110,7 @@ namespace nandish_LAB03
     {
       _ratio = ratio;
     }
-    public override void ATick()
+    public new void VTick()
     {
       
     }

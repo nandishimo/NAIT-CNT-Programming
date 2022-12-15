@@ -66,7 +66,6 @@ namespace nandish_LAB03
 
         shape.Render(drawer);
       }
-      
       drawer.Render();
     }
 

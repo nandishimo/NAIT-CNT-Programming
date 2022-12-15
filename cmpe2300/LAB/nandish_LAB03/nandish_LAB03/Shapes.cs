@@ -165,8 +165,8 @@ namespace nandish_LAB03
     /// </summary>
     protected override void VTick()
     {
-      _position = new PointF((float)(_parent._position.X + _dDistToParent * Math.Sin(_sequence) * _ratio.X), (float)(_parent._position.Y + _dDistToParent * Math.Cos(_sequence) * _ratio.Y));
       base.VTick();
+      _position = new PointF((float)(_parent._position.X + _dDistToParent * Math.Sin(_sequence) * _ratio.X), (float)(_parent._position.Y + _dDistToParent * Math.Cos(_sequence) * _ratio.Y));
     }
   }
   //Derived from Orbiter. Fades color between 50% and 100% opacity.
@@ -181,10 +181,10 @@ namespace nandish_LAB03
     /// </summary>
     protected override void VTick()
     {
+      base.VTick();
       Color baseColor = _fill;
       int opac = (int)((127) + Math.Abs(127 * Math.Cos(_sequence))); //opacity controlled by sequence value
       _fill = Color.FromArgb(opac, baseColor); //set color to be base color with opacity
-      base.VTick();
     }
   }
   //Derived from Orbiter. This shape will grow and shrink between 50% to 150% radius

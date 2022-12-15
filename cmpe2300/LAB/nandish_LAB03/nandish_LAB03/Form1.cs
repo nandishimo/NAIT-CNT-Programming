@@ -106,9 +106,9 @@ namespace nandish_LAB03
       if (DebugLevel > 2)
       {
         List<Shape> local = new List<Shape>();
-        local.Add(new Spinner(new Point(450, 50), Color.Orange, 20, 3, 0.1));
+        local.Add(new Spinner(new Point(450, 50), Color.Orange, 20, 3, -0.1));
         local.Add(new Spinner(new Point(450, 150), Color.Green, 30, 4, 0.15));
-        local.Add(new Spinner(new Point(550, 50), Color.LightCoral, 40, 5, 0.2));
+        local.Add(new Spinner(new Point(550, 50), Color.LightCoral, 40, 5, -0.2));
         local.Add(new Spinner(new Point(550, 150), Color.Violet, 50, 6, 0.3));
         _shapes.AddRange(local);
       }

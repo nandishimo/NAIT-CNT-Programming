@@ -1,4 +1,9 @@
-﻿using System;
+﻿/***********************************
+*Nandish Patel
+*CMPE2300
+*Submission Code : 1221_2300_L03
+***********************************/
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -13,31 +18,40 @@ namespace nandish_LAB03
 {
   public partial class Form1 : Form
   {
-    List<Shape> _shapes = new List<Shape>();
-    CDrawer drawer = new CDrawer(1200,1200,false);
+    List<Shape> _shapes = new List<Shape>(); //list of class objects derived from Shape class
+    CDrawer drawer = new CDrawer(1200,1200,false); //CDdrawer with continuous render disabled
 
     public Form1()
     {
       InitializeComponent();
       Text = "Lab 03 - Carnival";
+      //move main form and drawer window
       StartPosition = FormStartPosition.Manual;
       Location = new Point(0, 0);
       drawer.Position = new Point(Location.X+Width, Location.Y);  
 
+      //create timer and run at 50ms interval
       Timer timer = new Timer();
       timer.Interval = 50;
-
       timer.Tick += Timer_Tick;
       timer.Enabled = true;
+
+      //invoke test code
       Test();
 
     }
 
+    /// <summary>
+    /// Runs every timer tick. Clear drawer, animate IAnimate objects in _shapes.
+    /// Render all Shapes to drawer
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void Timer_Tick(object sender, EventArgs e)
     {
       drawer.Clear();
       foreach (IAnimate ani in _shapes.Where(shape => shape is IAnimate))
-      {
+      { //check Shape in _shapes and invoke Tick to animate if Shape supports IAnimate interface
         ani.Tick();
       }
       foreach (Shape shape in _shapes)

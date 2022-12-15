@@ -1,4 +1,9 @@
-﻿using System;
+﻿/***********************************
+*Nandish Patel
+*CMPE2300
+*Submission Code : 1221_2300_L03
+***********************************/
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,9 +27,9 @@ namespace nandish_LAB03
   //base abstract shape class. Takes arguments to specify position, Color and size. supports IRenderable
   public abstract class Shape:IRenderable
   {
-    protected internal PointF _position { get; protected set; }
-    protected Color _fill { get; set; }
-    protected int _radius { get; set; }
+    protected internal PointF _position { get; protected set; } //center point of shape
+    protected Color _fill { get; set; } //color of shape
+    protected int _radius { get; set; } //size of shape
     protected Shape(PointF Position, Color? Fill = null, int Radius = 5)
     {
       _position = new PointF(Position.X, Position.Y);
@@ -33,6 +38,10 @@ namespace nandish_LAB03
         throw new ArgumentOutOfRangeException(nameof(Radius), "Radius cannot be less than 1");
       _radius = Radius;
     }
+    /// <summary>
+    /// Method to render shape to a given drawer. Invokes abstract method that is replaced in derived classes.
+    /// </summary>
+    /// <param name="dr">CDrawer object</param>
     public void Render(CDrawer dr)
     {
       ARender(dr);
@@ -43,7 +52,7 @@ namespace nandish_LAB03
   //Derived from Shape. Takes arguments to specify number of sides and overrides ARender
   public class Polygon : Shape
   {
-    protected int _sides { get; set; }
+    protected int _sides { get; set; } //number of sides of polygon
     public Polygon(PointF p, Color c, int r, int Sides) : base(p, c, r)
     {
       if (Sides < 3)
@@ -62,7 +71,7 @@ namespace nandish_LAB03
   //Derived from polygon, adds a "shadow" when rendering the polygon
   public class Shadow : Polygon
   {
-    private double _sizeIncrease { get; set; }
+    private double _sizeIncrease { get; set; } //multiplier to increase shadow size from base size
     public Shadow(PointF p, Color c, int r, int Sides, double delta = 0.5) : base(p, c, r, Sides)
     {
       _sizeIncrease = delta;
@@ -83,13 +92,16 @@ namespace nandish_LAB03
   /// </summary>
   public abstract class AniGon : Polygon,IAnimate
   {
-    protected double _sequence { get; set; }
-    protected double _delta { get; set; }
+    protected double _sequence { get; set; } //to control animation state(animation state)
+    protected double _delta { get; set; } //how much in increment sequence value
     public AniGon(PointF p, Color c, int r, int Sides, double dAniIncrement, double dAniValue) : base(p, c, r, Sides)
     {
       _sequence = dAniValue;
       _delta = dAniIncrement;
     }
+    /// <summary>
+    /// Method to handle animation sequence. Invokes Virtual method that is replaced by derived classes
+    /// </summary>
     public void Tick()
     {
       VTick();
@@ -99,7 +111,7 @@ namespace nandish_LAB03
     /// </summary>
     protected virtual void VTick()
     {
-      _sequence += _delta;
+      _sequence += _delta; 
     }
   }
   //Derived from Anigon. Overridees ARender to render a spinning polygon
@@ -121,8 +133,8 @@ namespace nandish_LAB03
   //Derived from Anigon. This abstract class is to add child shapes to a parent 
   public abstract class AniChild : AniGon
   {
-    protected Shape _parent { get; set; }
-    protected double _dDistToParent { get; set; }
+    protected Shape _parent { get; set; } //shape instance that is a parent to this
+    protected double _dDistToParent { get; set; } //distance to parent object
     protected AniChild(PointF p, Color c, int r, int Sides, Shape parent, double dDistToParent, double dAniIncrement = 0, double dAniValue = 0) : base(p, c, r, Sides, dAniIncrement, dAniValue)
     {
       _parent = parent; //the parent shape to this object
@@ -135,7 +147,6 @@ namespace nandish_LAB03
     /// <param name="dr">CDrawer object</param>
     public override void ARender(CDrawer dr)
     {
-
       dr.AddLine((int)_parent._position.X, (int)_parent._position.Y, (int)_position.X, (int)_position.Y, Color.White);
       base.ARender(dr);
     }
@@ -171,8 +182,8 @@ namespace nandish_LAB03
     protected override void VTick()
     {
       Color baseColor = _fill;
-      int opac = (int)((127) + Math.Abs(127 * Math.Cos(_sequence)));
-      _fill = Color.FromArgb(opac, baseColor);
+      int opac = (int)((127) + Math.Abs(127 * Math.Cos(_sequence))); //opacity controlled by sequence value
+      _fill = Color.FromArgb(opac, baseColor); //set color to be base color with opacity
       base.VTick();
     }
   }
@@ -189,10 +200,10 @@ namespace nandish_LAB03
     /// <param name="dr">CDrawer object</param>
     public override void ARender(CDrawer dr)
     {
-      int baseRadius = _radius;
-      _radius += (int)(0.5 * _radius * Math.Sin(_sequence));
+      int baseRadius = _radius; //save base radius
+      _radius += (int)(0.5 * _radius * Math.Sin(_sequence)); //size modulation controlled by sequence value
       base.ARender(dr);
-      _radius = baseRadius;
+      _radius = baseRadius; //reset to original after render
     }
 
   }

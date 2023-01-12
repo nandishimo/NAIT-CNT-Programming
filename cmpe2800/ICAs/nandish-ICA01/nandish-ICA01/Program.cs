@@ -1,4 +1,11 @@
-﻿using System;
+﻿/*************************************
+ * Submission Code: 1222_2800_A02_A01
+ * Nandish Patel
+ * 2023/01/12
+ * 
+ *************************************/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,8 +23,14 @@ namespace nandish_ICA01
 
     }
 
+
+  }
+
+  internal static class ExtentionMethods
+  {
     public static Dictionary<int, int> Categorize(this List<int> sourcelist)
     {
+      Dictionary<int, int> result = new Dictionary<int, int>();
 
     }
   }

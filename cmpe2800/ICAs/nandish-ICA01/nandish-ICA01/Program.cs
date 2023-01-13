@@ -61,16 +61,51 @@ namespace nandish_ICA01
 
     public static T Rando<T>(this IEnumerable<T> source)
     {
+      if (source.Count() == 0)
+        throw new ArgumentException($"{nameof(source)} is empty");
       return source.ElementAt(rand.Next(0, source.Count()));
     }
 
     public static (key,val) Rando<key,val>(this Dictionary<key,val> source)
     {
+      if (source.Count() == 0)
+        throw new ArgumentException($"{nameof(source)} is empty");
       KeyValuePair<key, val> kvp = source.ElementAt(rand.Next(0, source.Count()));
       return (kvp.Key, kvp.Value);
     }
 
+    public static T AdjacentDuplicate<T>(this IEnumerable<T> source)
+    {
+      if (source.Count() == 0)
+        throw new ArgumentException($"{nameof(source)} is empty");
+      for (int i = 0; i < source.Count()-1; i++)
+      {
+        if (source.ElementAt(i).Equals(source.ElementAt(i++)))
+        {
+          return source.ElementAt(i);
+        }
+      }
+      return default(T);
+    }
 
+    public static LinkedList<T> ToOrderedLinkedList<T>(this IEnumerable<IComparable<T>> source)
+    {
+      LinkedList<T> list = new LinkedList<T>();
+      foreach(T item in source)
+      {
+        if (list.Count == 0)
+        {
+          list.AddFirst(item);
+        }
+        else
+        {
+
+        }
+
+
+      }
+      
+    }
 
   }
 }

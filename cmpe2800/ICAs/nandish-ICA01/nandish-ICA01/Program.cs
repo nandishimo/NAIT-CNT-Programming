@@ -150,6 +150,8 @@ namespace nandish_ICA01
             {
               list.AddBefore(current, item); break;
             }
+            else
+            { current = current.Next; }
             current = current.Next;
           }
         }

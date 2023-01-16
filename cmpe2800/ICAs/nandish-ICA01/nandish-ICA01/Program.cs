@@ -72,18 +72,49 @@ namespace nandish_ICA01
       foreach (float f in testdataC.ToOrderedLinkedList())
         Console.WriteLine($"OrderedLL from List : {f}");
 
-      //CatStack<string> myStack = new CatStack<string>();
-      //myStack.Push("this");
-      //myStack.Push("is");
-      //myStack.Push("what");
-      //myStack.Push("this");
-      //myStack.Push("is");
-      //Console.WriteLine($"Cat element 1 : {myStack[1]}");
-      //Console.WriteLine($"Cat count 'is' : {myStack["is"]}");
+      CatStack<string> myStack = new CatStack<string>();
+      myStack.Push("this");
+      myStack.Push("is");
+      myStack.Push("what");
+      myStack.Push("this");
+      myStack.Push("is");
+      Console.WriteLine($"Cat element 1 : {myStack[1]}");
+      Console.WriteLine($"Cat count 'is' : {myStack["is"]}");
     }
 
   }
 
+  /*  Create a generic class derived from stack. Provide two indexer overloads:
+         Take an int, return the key that is the nth categorized element (throw an
+        IndexOutOfRangeException if the index is invalid with respect to the Categorize return count)
+         Take a key, return the count for that categorized element (throw an ArgumentException if the
+        key does not exist in the Categorize return collection) 
+   */
+  internal class CatStack<T>:Stack<T>
+  {
+    public T this[int iIndex]
+    {
+      get 
+      {
+        if (iIndex >= this.Count) 
+          throw new IndexOutOfRangeException("Index out of range!");
+        else
+          return this[iIndex];
+      }
+    }
+
+    public T this[string key ]
+    {
+      get 
+      {
+        for(int i=0; i< Count; i++)
+          if (this[i].ToString() == key)
+            return this[i];
+
+        throw new ArgumentException("Key does not exist!");
+      }
+    }
+  }
   internal static class ExtentionMethods
   {
     static Random rand = new Random();

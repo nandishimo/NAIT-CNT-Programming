@@ -106,7 +106,7 @@ namespace nandish_ICA01
 
       //test code for AdjacentDuplicate
       Console.WriteLine("Test for AdjacentDuplicate on collection: 0,1,2,3,4,5,6,7 ");
-      testdataA = new List<int>(new int[] { 0, 1, 2, 3, 4, 5});
+      testdataA = new List<int>(new int[] { 0, 1, 2, 3, 4, 5 });
       Console.WriteLine($"AdjacentDuplicate with no duplicate :{testdataA.AdjacentDuplicate()}");
       testdataA.Add(5);
       testdataA.Add(7);
@@ -140,6 +140,17 @@ namespace nandish_ICA01
       myStack.Push("is");
       Console.WriteLine($"Cat element 1 : {myStack[1]}");
       Console.WriteLine($"Cat count 'is' : {myStack["is"]}");
+
+      //test code for non existent key in Catstack
+      Console.WriteLine("Test code for empty CatStack");
+      Console.WriteLine($"Cat count 'where' : {myStack["where"]}");
+
+      //test code for empty CatStack
+      Console.WriteLine("Test code for empty CatStack");
+      myStack = new CatStack<string>();
+      Console.WriteLine($"Cat element 1 : {myStack[1]}");
+
+
     }
 
   }
@@ -156,20 +167,22 @@ namespace nandish_ICA01
     {
       get
       {
-        if (iIndex >= this.Count)
+        Dictionary<T, int> dic = this.Categorize();
+        if (iIndex >= dic.Count)
           throw new IndexOutOfRangeException("Index out of range!");
         else
-          return this.ElementAt(iIndex);
+          return dic.ElementAt(iIndex).Key;
       }
     }
 
-    public T this[string key]
+    public int this[string key]
     {
       get
       {
-        for (int i = 0; i < Count; i++)
-          if (this[i].ToString() == key)
-            return this[i];
+        Dictionary<T, int> dic = this.Categorize();
+        for (int i = 0; i < dic.Count; i++)
+          if (dic.ElementAt(i).Key.Equals(key))
+            return dic.ElementAt(i).Value;
 
         throw new ArgumentException("Key does not exist!");
       }

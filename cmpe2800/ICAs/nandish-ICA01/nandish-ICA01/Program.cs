@@ -159,7 +159,7 @@ namespace nandish_ICA01
         if (iIndex >= this.Count)
           throw new IndexOutOfRangeException("Index out of range!");
         else
-          return this[iIndex];
+          return this.ElementAt(iIndex);
       }
     }
 
@@ -220,7 +220,7 @@ namespace nandish_ICA01
           return sourceCollection.ElementAt(i);
         }
       }
-      return default(T);
+      return default;
     }
 
     public static LinkedList<T> ToOrderedLinkedList<T>(this IEnumerable<T> source) where T : IComparable<T>

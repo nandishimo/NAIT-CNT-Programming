@@ -21,9 +21,24 @@ namespace nandish_ICA01
       Random _rnd = new Random();
 
       //test code for Categorize on List<int>
+      //test for regular list
       Console.WriteLine("Test code for Categorize on ints");
       Console.WriteLine("Original List: \n4, 12, 4, 3, 5, 6, 7, 6, 12 \n");
       List<int> iNums = new List<int>(new int[] { 4, 12, 4, 3, 5, 6, 7, 6, 12 });
+      Console.WriteLine("Categorized List:");
+      foreach (KeyValuePair<int, int> scan in iNums.Categorize())
+        Console.WriteLine($"{scan.Key:d3} x {scan.Value:d5}");
+      Console.WriteLine();
+      //test on empty list
+      Console.WriteLine("Empty List:\n");
+      iNums = new List<int>();
+      Console.WriteLine("Categorized List:");
+      foreach (KeyValuePair<int, int> scan in iNums.Categorize())
+        Console.WriteLine($"{scan.Key:d3} x {scan.Value:d5}");
+      Console.WriteLine();
+      //test on list with one element
+      Console.WriteLine("One Element List: \n4\n");
+      iNums = new List<int>(new int[] { 4 });
       Console.WriteLine("Categorized List:");
       foreach (KeyValuePair<int, int> scan in iNums.Categorize())
         Console.WriteLine($"{scan.Key:d3} x {scan.Value:d5}");
@@ -51,9 +66,24 @@ namespace nandish_ICA01
       foreach (KeyValuePair<char, int> scan in TestString.Categorize())
         Console.WriteLine($"{scan.Key} x {scan.Value:d5}");
 
+      //test code for Rando
+      Console.WriteLine("Test code for Rando on List of int");
       List<int> testdataA = new List<int>(new int[] { 0, 1, 2, 3, 4, 5 });
       for (int i = 0; i < 10; ++i)
         Console.WriteLine($"Rando from list : {testdataA.Rando()}");
+
+      //test code for Rando on empty list
+      //Console.WriteLine("Test code for Rando on empty list");
+      //testdataA = new List<int>();
+      //Console.WriteLine($"Rando from list : {testdataA.Rando()}");
+
+      //test code for Rando on single element list
+      Console.WriteLine("Test code for Rando on single element list: 1");
+      testdataA = new List<int>(new int[] { 1 });
+      Console.WriteLine($"Rando from list : {testdataA.Rando()}");
+
+      //test code for Rando on Dic
+      Console.WriteLine("Test code for Rando on Dictionary<string,int>");
       Dictionary<string, int> testdataB = new Dictionary<string, int>();
       testdataB.Add("First", 1);
       testdataB.Add("Second", 2);
@@ -62,16 +92,45 @@ namespace nandish_ICA01
       testdataB.Add("Fifth", 5);
       for (int i = 0; i < 10; ++i)
         Console.WriteLine($"Rando from dictionary : {testdataB.Rando()}");
-      Console.WriteLine($"AdjacentDuplicate with no duplicate :{ testdataA.AdjacentDuplicate()}");
+
+      //test code for Rando on empty dic
+      //Console.WriteLine("Test code for Rando on empty Dictionary");
+      //testdataB = new Dictionary<string, int>();
+      //Console.WriteLine($"Rando from list : {testdataB.Rando()}");
+
+      //test code for Rando on single element list
+      Console.WriteLine("Test code for Rando on single element Dictionary");
+      testdataB = new Dictionary<string, int>();
+      testdataB.Add("First", 1);
+      Console.WriteLine($"Rando from list : {testdataA.Rando()}");
+
+      //test code for AdjacentDuplicate
+      Console.WriteLine("Test for AdjacentDuplicate on collection: 0,1,2,3,4,5,6,7 ");
+      testdataA = new List<int>(new int[] { 0, 1, 2, 3, 4, 5});
+      Console.WriteLine($"AdjacentDuplicate with no duplicate :{testdataA.AdjacentDuplicate()}");
       testdataA.Add(5);
-            testdataA.Add(7);
-            Console.WriteLine($"AdjacentDuplicate with duplicate (5):{ testdataA.AdjacentDuplicate()}");
+      testdataA.Add(7);
+      testdataA.Add(7);
+      Console.WriteLine("Test for AdjacentDuplicate on collection: 0,1,2,3,4,5,5,7,7 ");
+      Console.WriteLine($"AdjacentDuplicate with duplicate (5):{testdataA.AdjacentDuplicate()}");
+
+      //test code for AdjacentDuplicate on empty collection
+      //testdataA = new List<int>();
+      //Console.WriteLine($"AdjacentDuplicate on empty collection :{testdataD.AdjacentDuplicate()}");
+
+      //test code for AdjacentDuplicate on single element collection
+      testdataA = new List<int>(new int[] { 1 });
+      Console.WriteLine($"AdjacentDuplicate on single element collection :{testdataA.AdjacentDuplicate()}");
+
+      //test code for ToOrderedLinkedList
       List<float> testdataC = new List<float>();
       while (testdataC.Count < 10)
         testdataC.Add((float)(_rnd.NextDouble() * 10));
       foreach (float f in testdataC.ToOrderedLinkedList())
         Console.WriteLine($"OrderedLL from List : {f}");
 
+
+      //test code for CatStack
       Console.WriteLine("Test Code for CatStack");
       CatStack<string> myStack = new CatStack<string>();
       myStack.Push("this");
@@ -91,24 +150,24 @@ namespace nandish_ICA01
          Take a key, return the count for that categorized element (throw an ArgumentException if the
         key does not exist in the Categorize return collection) 
    */
-  internal class CatStack<T>:Stack<T>
+  internal class CatStack<T> : Stack<T>
   {
     public T this[int iIndex]
     {
-      get 
+      get
       {
-        if (iIndex >= this.Count) 
+        if (iIndex >= this.Count)
           throw new IndexOutOfRangeException("Index out of range!");
         else
           return this[iIndex];
       }
     }
 
-    public T this[string key ]
+    public T this[string key]
     {
-      get 
+      get
       {
-        for(int i=0; i< Count; i++)
+        for (int i = 0; i < Count; i++)
           if (this[i].ToString() == key)
             return this[i];
 
@@ -135,30 +194,30 @@ namespace nandish_ICA01
 
     }
 
-    public static T Rando<T>(this IEnumerable<T> source)
+    public static T Rando<T>(this IEnumerable<T> sourceCollection)
     {
-      if (source.Count() == 0)
-        throw new ArgumentException($"{nameof(source)} is empty");
-      return source.ElementAt(rand.Next(0, source.Count()));
+      if (sourceCollection.Count() == 0)
+        throw new ArgumentException($"Source: {nameof(sourceCollection)} is empty");
+      return sourceCollection.ElementAt(rand.Next(0, sourceCollection.Count()));
     }
 
-    public static (key, val) Rando<key, val>(this Dictionary<key, val> source)
+    public static (key, val) Rando<key, val>(this Dictionary<key, val> sourceCollection)
     {
-      if (source.Count() == 0)
-        throw new ArgumentException($"{nameof(source)} is empty");
-      KeyValuePair<key, val> kvp = source.ElementAt(rand.Next(0, source.Count()));
+      if (sourceCollection.Count() == 0)
+        throw new ArgumentException($"Source: {nameof(sourceCollection)} is empty");
+      KeyValuePair<key, val> kvp = sourceCollection.ElementAt(rand.Next(0, sourceCollection.Count()));
       return (kvp.Key, kvp.Value);
     }
 
-    public static T AdjacentDuplicate<T>(this IEnumerable<T> source)
+    public static T AdjacentDuplicate<T>(this IEnumerable<T> sourceCollection)
     {
-      if (source.Count() == 0)
-        throw new ArgumentException($"{nameof(source)} is empty");
-      for (int i = 0; i < source.Count() - 1; i++)
+      if (sourceCollection.Count() == 0)
+        throw new ArgumentException($"Source: {nameof(sourceCollection)} is empty");
+      for (int i = 0; i < sourceCollection.Count() - 1; i++)
       {
-        if (source.ElementAt(i).Equals(source.ElementAt(i+1)))
+        if (sourceCollection.ElementAt(i).Equals(sourceCollection.ElementAt(i + 1)))
         {
-          return source.ElementAt(i);
+          return sourceCollection.ElementAt(i);
         }
       }
       return default(T);
@@ -183,12 +242,12 @@ namespace nandish_ICA01
               list.AddBefore(current, item); break;
             }
             else if (current.Next != null)
-            { 
-              current = current.Next; 
+            {
+              current = current.Next;
             }
             else
             {
-              list.AddLast(item);
+              list.AddLast(item); break;
             }
           }
         }

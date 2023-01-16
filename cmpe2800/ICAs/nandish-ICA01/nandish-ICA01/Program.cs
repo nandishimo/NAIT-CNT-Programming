@@ -72,6 +72,7 @@ namespace nandish_ICA01
       foreach (float f in testdataC.ToOrderedLinkedList())
         Console.WriteLine($"OrderedLL from List : {f}");
 
+      Console.WriteLine("Test Code for CatStack");
       CatStack<string> myStack = new CatStack<string>();
       myStack.Push("this");
       myStack.Push("is");
@@ -177,13 +178,18 @@ namespace nandish_ICA01
           LinkedListNode<T> current = list.First;
           while (current != null)
           {
-            if (current.Value.CompareTo(item) < 0)
+            if (item.CompareTo(current.Value) <= 0)
             {
               list.AddBefore(current, item); break;
             }
+            else if (current.Next != null)
+            { 
+              current = current.Next; 
+            }
             else
-            { current = current.Next; }
-            current = current.Next;
+            {
+              list.AddLast(item);
+            }
           }
         }
       }

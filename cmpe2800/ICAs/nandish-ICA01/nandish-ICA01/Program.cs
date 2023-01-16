@@ -155,7 +155,7 @@ namespace nandish_ICA01
         throw new ArgumentException($"{nameof(source)} is empty");
       for (int i = 0; i < source.Count() - 1; i++)
       {
-        if (source.ElementAt(i).Equals(source.ElementAt(i++)))
+        if (source.ElementAt(i).Equals(source.ElementAt(i+1)))
         {
           return source.ElementAt(i);
         }

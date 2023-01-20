@@ -7,21 +7,23 @@ using System.Threading.Tasks;
 
 namespace nandish_ICA02
 {
-  internal class CGrid:IEnumerable, IEnumerator
+  internal class CGrid : IEnumerable, IEnumerator
   {
     public (int X, int Y) _gridSize;
     public (int X, int Y) _Pos;
     private int eNum = -1;
-    public CGrid((int X, int Y)GridSize)
+    public CGrid(int GridXSize, int GridYSize)
     {
-      _gridSize = GridSize;
-      _Pos = (0,0);
+      _gridSize.X = GridXSize;
+      _gridSize.Y = GridYSize;
+      _Pos = (0, 0);
     }
-    public void SetCursorPos((int X, int Y) position)
+    public void SetCursorPos(int PosX, int PosY)
     {
-      if (position.X < 0 || position.Y < 0 || position.X > _gridSize.X || position.Y > _gridSize.Y)
+      if (PosX < 0 || PosY < 0 || PosX > _gridSize.X || PosY > _gridSize.Y)
         throw new ArgumentOutOfRangeException("Supplied position is out of grid range!");
-      _Pos = position;
+      _Pos.X = PosX;
+      _Pos.Y = PosY;
     }
     public IEnumerator GetEnumerator()
     {
@@ -31,6 +33,7 @@ namespace nandish_ICA02
     public bool MoveNext()
     {
       eNum++;
+      return eNum < 9;
     }
 
     public void Reset()
@@ -42,66 +45,55 @@ namespace nandish_ICA02
     {
       get
       {
-        //   4 3 2
-        //   5 c 1
-        //   6 7 0
+        //   6 7 8
+        //   3 4 5
+        //   0 1 2
         (int X, int Y) value;
-        (int X, int Y)[] values = { (-1, -1), (-1, -1), (-1, -1), (-1, -1), (-1, -1), (-1, -1), (-1, -1), (-1, -1) };
-        values[2].X = values[1].X = values[0].X = _Pos.X + 1;
-        values[3].X = values[7].X = _Pos.X;
-        values[4].X = values[5].X = values[6].X = _Pos.X - 1;
-        values[2].Y = values[1].Y = values[0].Y = _Pos.Y + 1;
-        values[3].Y = values[7].Y = _Pos.Y;
-        values[4].Y = values[5].Y = values[6].Y = _Pos.Y - 1;
-        switch(eNum)
+        //(int X, int Y)[] values = { (-1, -1), (-1, -1), (-1, -1), (-1, -1), (-1, -1), (-1, -1), (-1, -1), (-1, -1) };
+        //values[2].X = values[1].X = values[0].X = _Pos.X + 1;
+        //values[3].X = values[7].X = _Pos.X;
+        //values[4].X = values[5].X = values[6].X = _Pos.X - 1;
+        //values[2].Y = values[1].Y = values[0].Y = _Pos.Y + 1;
+        //values[3].Y = values[7].Y = _Pos.Y;
+        //values[4].Y = values[5].Y = values[6].Y = _Pos.Y - 1;
+        switch (eNum)
         {
-          case 0:
-            break;
-          case 1:
-
-            break;
           case 2:
-
-            break;
-          case 3:
-
-            break;
-          case 4:
-
+            value = (_Pos.X + 1, _Pos.Y - 1);
             break;
           case 5:
-
-            break;
-          case 6:
-
-            break;
-          case 7:
-
+            value = (_Pos.X + 1, _Pos.Y);
             break;
           case 8:
-
+            value = (_Pos.X + 1, _Pos.Y + 1);
             break;
-          case 9:
-
+          case 7:
+            value = (_Pos.X, _Pos.Y + 1);
+            break;
+          case 6:
+            value = (_Pos.X - 1, _Pos.Y + 1);
+            break;
+          case 3:
+            value = (_Pos.X - 1, _Pos.Y);
+            break;
+          case 0:
+            value = (_Pos.X - 1, _Pos.Y - 1);
+            break;
+          case 1:
+            value = (_Pos.X, _Pos.Y - 1);
+            break;
+          case 4:
+            value = (_Pos.X, _Pos.Y);
+            break;
+          default:
+            value = (-1, -1);
             break;
         }
-        if (_Pos.X == 0)
+        if (value.X < 0 || value.Y < 0 || value.X > _gridSize.X || value.Y > _gridSize.Y)
         {
-          values[4] = values[5] = values[6] = (-1, -1);
+          value = (-1, -1);
         }
-        else if (_Pos.X == _gridSize.X)
-        {
-          values[0] = values[1] = values[2] = (-1, -1);
-        }
-        if (_Pos.Y == 0)
-        {
-          values[4] = values[3] = values[2] = (-1, -1);
-        }
-        else if (_Pos.Y == _gridSize.Y)
-        {
-          values[6] = values[7] = values[0] = (-1, -1);
-        }
-
+        return value;
       }
     }
 

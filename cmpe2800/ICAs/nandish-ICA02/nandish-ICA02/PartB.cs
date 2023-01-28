@@ -10,18 +10,21 @@ namespace nandish_ICA02
   internal static  class PartB
   {
     static Random rand = new Random();
-    public static IEnumerable<T> Shuffle<T>(this IEnumerable<T> sourceCollection)where T : IEnumerator
+    public static IEnumerable<T> Shuffle<T>(this IEnumerable<T> sourceCollection)
     {
-      void Swap(T valA, T valB)
+      List<T> listCollection = new List<T>(sourceCollection);
+      void Swap(List<T> list, int i, int j)
       {
-        (valB, valA) = (valA, valB);
+        T temp = list[i];
+        list[i] = list[j];
+        list[j] = temp;
       }
-      int n = sourceCollection.Count();
+      int n = listCollection.Count();
       for (int i = 0; i < n; i++)
       {
-        Swap(sourceCollection.ElementAt(i), sourceCollection.ElementAt(rand.Next(i, n)));
+        Swap(listCollection, i, rand.Next(i, n));
+        yield return listCollection[i];
       }
-      return sourceCollection;
     }
   }
 }

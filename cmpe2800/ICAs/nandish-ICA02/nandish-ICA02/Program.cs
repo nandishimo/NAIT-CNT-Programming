@@ -10,6 +10,7 @@ namespace nandish_ICA02
   {
     static void Main(string[] args)
     {
+      /*
       {
         Console.WriteLine("Corner test : \r\n");
         CGrid myTestGrid = new CGrid(10, 8);
@@ -36,6 +37,32 @@ namespace nandish_ICA02
             Console.WriteLine($"Adjacent : {q.x}, {q.y}");
         Console.WriteLine("\r\nOpen test done\r\n\r\n");
       }
+      */
+
+      List<string> testCollection = new List<string>( new string[] { "Alice", "Bob", "Nando", "Stanley", "Yelnats" }) ;
+
+
+      foreach (var item in testCollection) 
+      { Console.Write(item.ToString() + ",");  }
+      Console.WriteLine("\n");
+
+
+      PartB.Shuffle(testCollection);
+      //Swap(testCollection, 0, 3);
+
+
+      foreach (var item in testCollection)
+      { Console.Write(item.ToString() + ",");  }
+      Console.WriteLine("\n");
+
+
+
+    }
+    static void Swap<T>(List<T> list, int i, int j)
+    {
+      T temp = list[i];
+      list[i] = list[j];
+      list[j] = temp;
     }
   }
 }

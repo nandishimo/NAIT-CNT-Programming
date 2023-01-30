@@ -105,7 +105,6 @@ namespace nandish_ICA01
         Console.WriteLine($"{stuff.Key} x {stuff.Value:d5}");
       Console.WriteLine();
 
-
       //test code for Rando on Dic
       Console.WriteLine("Test code for Rando on Dictionary<string,int>");
       Dictionary<string, int> testdataB = new Dictionary<string, int>();

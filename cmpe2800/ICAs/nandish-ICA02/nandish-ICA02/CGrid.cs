@@ -1,4 +1,10 @@
-﻿using System;
+﻿/*************************************
+ * Submission Code: 1222_2800_A02_A02
+ * Nandish Patel
+ * 2023/01/19
+ * Part A - IEnumberable/IEnumerator class
+ *************************************/
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;

@@ -53,5 +53,16 @@ namespace nandish_ICA02
       }
     }
 
+    public static IEnumerable<ulong> Factors(this ulong number)
+    {
+      yield return 1;
+      for (ulong i = 2; i <= number / 2; i++)
+      {
+        if(number % i == 0)
+          yield return i;
+      }
+      yield return number;
+    }
+
   }
 }

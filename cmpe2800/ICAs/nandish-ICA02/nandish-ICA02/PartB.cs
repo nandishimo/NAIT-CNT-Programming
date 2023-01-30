@@ -42,11 +42,11 @@ namespace nandish_ICA02
       }
     }
 
-    public static IEnumerable<T> InRange<T>(this IEnumerable<T> sourceCollection, (T, T) range) where T: IComparable
+    public static IEnumerable<T> InRange<T>(this IEnumerable<T> sourceCollection, (T, T) range) where T : IComparable
     {
-      for(int i=0; i<sourceCollection.Count(); i++)
+      for (int i = 0; i < sourceCollection.Count(); i++)
       {
-        if (sourceCollection.ElementAt(i).CompareTo(range.Item1) >=0 && sourceCollection.ElementAt(i).CompareTo(range.Item2) <= 0)
+        if (sourceCollection.ElementAt(i).CompareTo(range.Item1) >= 0 && sourceCollection.ElementAt(i).CompareTo(range.Item2) <= 0)
         {
           yield return sourceCollection.ElementAt(i);
         }
@@ -58,10 +58,50 @@ namespace nandish_ICA02
       yield return 1;
       for (ulong i = 2; i <= number / 2; i++)
       {
-        if(number % i == 0)
+        if (number % i == 0)
           yield return i;
       }
       yield return number;
+    }
+
+    public static IEnumerable<string> Password()
+    {
+      int length;
+      string newPassword;
+      List<char> specialChars = new List<char>();
+      for(char i='!'; i<='/'; i++)
+      {
+        specialChars.Add(i);
+      }
+      for (char i = ':'; i <= '@'; i++)
+      {
+        specialChars.Add(i);
+      }
+      for (char i = '['; i <= '`'; i++)
+      {
+        specialChars.Add(i);
+      }
+      for (char i = '{'; i <= '~'; i++)
+      {
+        specialChars.Add(i);
+      }
+      while (true)
+      {
+        length = rand.Next(8, 11);
+        newPassword = "";
+        newPassword += rand.Next(0, 10); //digit
+        newPassword += specialChars[rand.Next(0, specialChars.Count)]; //special
+        newPassword += (char)rand.Next('A', '['); //uppercase
+        newPassword += (char)rand.Next('a', '{'); //lowercase
+        while (newPassword.Length < length)
+        {
+          newPassword += (char)rand.Next(33, 127);
+        }
+        yield return newPassword;
+      }
+
+
+
     }
 
   }

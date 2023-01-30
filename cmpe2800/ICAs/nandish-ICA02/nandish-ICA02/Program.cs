@@ -41,28 +41,21 @@ namespace nandish_ICA02
 
       List<string> testCollection = new List<string>(new string[] { "Alice", "Bob", "Nando", "Stanley", "Yelnats" });
 
-
       foreach (var item in testCollection)
       { Console.Write(item.ToString() + ","); }
       Console.WriteLine("\n");
 
-
       List<string> shuffledCollection = testCollection.Shuffle().ToList();
-      //Swap(testCollection, 0, 3);
-
 
       foreach (var item in shuffledCollection)
       { Console.Write(item.ToString() + ","); }
       Console.WriteLine("\n");
 
+      List<string> minCollection = shuffledCollection.PullMin().ToList();
+      foreach (var item in minCollection)
+      { Console.Write(item.ToString() + ","); }
+      Console.WriteLine("\n");
 
-
-    }
-    static void Swap<T>(List<T> list, int i, int j)
-    {
-      T temp = list[i];
-      list[i] = list[j];
-      list[j] = temp;
     }
   }
 }

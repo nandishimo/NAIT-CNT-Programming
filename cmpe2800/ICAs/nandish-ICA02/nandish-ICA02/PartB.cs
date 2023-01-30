@@ -42,5 +42,16 @@ namespace nandish_ICA02
       }
     }
 
+    public static IEnumerable<T> InRange<T>(this IEnumerable<T> sourceCollection, (T, T) range) where T: IComparable
+    {
+      for(int i=0; i<sourceCollection.Count(); i++)
+      {
+        if (sourceCollection.ElementAt(i).CompareTo(range.Item1) >=0 && sourceCollection.ElementAt(i).CompareTo(range.Item2) <= 0)
+        {
+          yield return sourceCollection.ElementAt(i);
+        }
+      }
+    }
+
   }
 }

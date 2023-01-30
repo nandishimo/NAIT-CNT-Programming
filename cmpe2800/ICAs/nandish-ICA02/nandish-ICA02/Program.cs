@@ -39,7 +39,7 @@ namespace nandish_ICA02
       }
       */
 
-      List<string> testCollection = new List<string>(new string[] { "Alice", "Bob", "Nando", "Stanley", "Yelnats" });
+      List<string> testCollection = new List<string>{ "Alice", "Bob", "Nando", "Stanley", "Yelnats" };
 
       foreach (var item in testCollection)
       { Console.Write(item.ToString() + ","); }
@@ -55,6 +55,13 @@ namespace nandish_ICA02
       foreach (var item in minCollection)
       { Console.Write(item.ToString() + ","); }
       Console.WriteLine("\n");
+
+      List<int> intCollection = new List<int> { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+      foreach (int item in intCollection.InRange((3, 7)))
+      {
+        Console.Write(item.ToString() + ",");
+      }
+      Console.WriteLine();
 
     }
   }

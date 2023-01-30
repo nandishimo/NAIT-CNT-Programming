@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace nandish_ICA02
 {
-  internal static  class PartB
+  internal static class PartB
   {
     static Random rand = new Random();
     public static IEnumerable<T> Shuffle<T>(this IEnumerable<T> sourceCollection)
@@ -29,11 +29,11 @@ namespace nandish_ICA02
       }
     }
 
-    public static IEnumerable<T> PullMin<T>(this IEnumerable<T> sourceCollection) where T: IComparable
+    public static IEnumerable<T> PullMin<T>(this IEnumerable<T> sourceCollection) where T : IComparable
     {
       List<T> listCollection = new List<T>(sourceCollection);
       HashSet<T> set = new HashSet<T>();
-      for (int i =0; i < listCollection.Count; i++)
+      for (int i = listCollection.Count; i > 0; i--)
       {
         var min = listCollection.Min();
         yield return min;

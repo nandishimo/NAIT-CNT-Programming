@@ -37,6 +37,7 @@ namespace nandish_ICA01
       foreach (KeyValuePair<int, int> scan in iNums.Categorize())
         Console.WriteLine($"{scan.Key:d3} x {scan.Value:d5}");
       Console.WriteLine();
+
       //test on list with one element
       Console.WriteLine("One Element List: \n4\n");
       iNums = new List<int>(new int[] { 4 });
@@ -44,6 +45,7 @@ namespace nandish_ICA01
       foreach (KeyValuePair<int, int> scan in iNums.Categorize())
         Console.WriteLine($"{scan.Key:d3} x {scan.Value:d5}");
       Console.WriteLine();
+
       //test code for Categorize on List<string>
       Console.WriteLine("Test code for Categorize on strings");
       Console.WriteLine("Original List: \nRick, Glenn, Rick, Carl, Michonne, Rick, Glenn\n");
@@ -53,6 +55,7 @@ namespace nandish_ICA01
       foreach (KeyValuePair<string, int> scan in names.Categorize())
         Console.WriteLine($"{scan.Key} x {scan.Value:d5}");
       Console.WriteLine();
+
       //test code for Categorize on LinkedList<char>
       Console.WriteLine("Test code for Categorize on LinkedList<char>");
       Console.WriteLine("Original List: \nRick, Glenn, Rick, Carl, Michonne, Rick, Glenn\n");
@@ -61,6 +64,7 @@ namespace nandish_ICA01
         llfloats.AddLast((char)_rnd.Next('A', 'Z' + 1));
       foreach (KeyValuePair<char, int> scan in llfloats.Categorize())
         Console.WriteLine($"{scan.Key} x {scan.Value:d5}");
+
       //test code for categorize on string
       Console.WriteLine("Test code for Categorize on string");
       string TestString = "This is the test string, do not panic!";

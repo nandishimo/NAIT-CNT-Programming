@@ -61,7 +61,13 @@ namespace nandish_ICA02
       {
         Console.Write(item.ToString() + ",");
       }
-      Console.WriteLine();
+      Console.WriteLine("\n");
+
+      ulong num = 4826882648264;
+      foreach ( ulong factor in num.Factors())
+      {
+        Console.Write(factor.ToString() + ", ");
+      }
 
     }
   }

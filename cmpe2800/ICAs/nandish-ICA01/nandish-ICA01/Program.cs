@@ -29,6 +29,7 @@ namespace nandish_ICA01
       foreach (KeyValuePair<int, int> scan in iNums.Categorize())
         Console.WriteLine($"{scan.Key:d3} x {scan.Value:d5}");
       Console.WriteLine();
+
       //test on empty list
       Console.WriteLine("Empty List:\n");
       iNums = new List<int>();
@@ -43,7 +44,6 @@ namespace nandish_ICA01
       foreach (KeyValuePair<int, int> scan in iNums.Categorize())
         Console.WriteLine($"{scan.Key:d3} x {scan.Value:d5}");
       Console.WriteLine();
-
       //test code for Categorize on List<string>
       Console.WriteLine("Test code for Categorize on strings");
       Console.WriteLine("Original List: \nRick, Glenn, Rick, Carl, Michonne, Rick, Glenn\n");
@@ -53,7 +53,6 @@ namespace nandish_ICA01
       foreach (KeyValuePair<string, int> scan in names.Categorize())
         Console.WriteLine($"{scan.Key} x {scan.Value:d5}");
       Console.WriteLine();
-
       //test code for Categorize on LinkedList<char>
       Console.WriteLine("Test code for Categorize on LinkedList<char>");
       Console.WriteLine("Original List: \nRick, Glenn, Rick, Carl, Michonne, Rick, Glenn\n");
@@ -62,7 +61,10 @@ namespace nandish_ICA01
         llfloats.AddLast((char)_rnd.Next('A', 'Z' + 1));
       foreach (KeyValuePair<char, int> scan in llfloats.Categorize())
         Console.WriteLine($"{scan.Key} x {scan.Value:d5}");
+      //test code for categorize on string
+      Console.WriteLine("Test code for Categorize on string");
       string TestString = "This is the test string, do not panic!";
+      Console.WriteLine(TestString);
       foreach (KeyValuePair<char, int> scan in TestString.Categorize())
         Console.WriteLine($"{scan.Key} x {scan.Value:d5}");
 
@@ -82,6 +84,24 @@ namespace nandish_ICA01
       testdataA = new List<int>(new int[] { 1 });
       Console.WriteLine($"Rando from list : {testdataA.Rando()}");
 
+      //test code for Rando H/T distribution
+      testdataA = new List<int>(new int[] { 0, 1, 2, 3, 4, 5 });
+      Dictionary<int, int> distribution = new Dictionary<int, int>();
+      foreach (int item in testdataA)
+      {
+        distribution[item] = 0;
+      }
+
+      for (int i = 0; i < 1000; i++)
+      {
+        distribution[testdataA.Rando()]++;
+      }
+      Console.WriteLine("Distribution of Rando over 1000 runs");
+      foreach (KeyValuePair<int, int> stuff in distribution)
+        Console.WriteLine($"{stuff.Key} x {stuff.Value:d5}");
+      Console.WriteLine();
+
+
       //test code for Rando on Dic
       Console.WriteLine("Test code for Rando on Dictionary<string,int>");
       Dictionary<string, int> testdataB = new Dictionary<string, int>();
@@ -90,8 +110,21 @@ namespace nandish_ICA01
       testdataB.Add("Third", 3);
       testdataB.Add("Forth", 4);
       testdataB.Add("Fifth", 5);
-      for (int i = 0; i < 10; ++i)
-        Console.WriteLine($"Rando from dictionary : {testdataB.Rando()}");
+
+      Dictionary<string, int> newDistribution = new Dictionary<string, int>();
+      foreach (KeyValuePair<string, int> item in testdataB)
+      {
+        newDistribution[item.Key] = 0;
+      }
+
+      for (int i = 0; i < 1000; i++)
+      {
+        newDistribution[testdataB.Rando().Item1]++;
+        
+      }
+      foreach (KeyValuePair<string, int> stuff in newDistribution)
+        Console.WriteLine($"{stuff.Key} x {stuff.Value:d5}");
+      Console.WriteLine();
 
       //test code for Rando on empty dic
       //Console.WriteLine("Test code for Rando on empty Dictionary");

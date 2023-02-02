@@ -14,20 +14,22 @@ namespace nandish_LAB01
     private List<Grid> _grid = new List<Grid>();
     private int _XSize;
     private int _YSize;
+    private int _BSize;
 
 
-    public GridManager(int Width, int Height)
+    public GridManager(int Width, int Height, int BlockSize)
     {
-      _XSize = Width;
-      _YSize = Height;
+      _XSize = Width / BlockSize;
+      _YSize = Height / BlockSize;
+      _BSize = BlockSize;
     }
 
 
-    public void Render()
+    public void Render(CDrawer drawer)
     {
       foreach (Block block in _grid)
       {
-        
+        drawer.AddRectangle(block.Location.X, block.Location.Y, _BSize, _BSize);
       }
     }
 

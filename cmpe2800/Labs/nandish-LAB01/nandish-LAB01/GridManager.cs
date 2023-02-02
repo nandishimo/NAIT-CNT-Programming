@@ -16,7 +16,6 @@ namespace nandish_LAB01
     private int _YSize;
     private int _BSize;
 
-
     public GridManager(int Width, int Height, int BlockSize)
     {
       _XSize = Width / BlockSize;
@@ -44,7 +43,7 @@ namespace nandish_LAB01
       drawer.Clear();
       foreach (Block block in _grid)
       {
-        drawer.AddRectangle(block.Location.X*_BSize, block.Location.Y*_BSize+block.RelativeY, _BSize, _BSize, block.Color);
+        drawer.AddRectangle(block.Location.X*_BSize, block.Location.Y*_BSize+block.RelativeY, _BSize, _BSize, block.Color,1,Color.Black);
       }
       drawer.Render();
     }
@@ -54,14 +53,28 @@ namespace nandish_LAB01
       Point gridLocation = new Point(drawerCoordinate.X/_BSize, drawerCoordinate.Y/_BSize);
       if (_grid.Count == 0)
       {
-        _grid.Add(new Block(gridLocation.X, gridLocation.Y, Color.Red, _BSize));
+        _grid.Add(new Block(gridLocation.X, gridLocation.Y, _BSize, Block.BlockType.Free));
         return;
       }
       else if (!_grid.Any(block => { return block.Location == gridLocation; }))
       {
-        _grid.Add(new Block(gridLocation.X, gridLocation.Y, Color.Red, _BSize));
+        _grid.Add(new Block(gridLocation.X, gridLocation.Y, _BSize, Block.BlockType.Free));
       }
 
+    }
+
+    public void AddSolidBlock(Point drawerCoordinate)
+    {
+      Point gridLocation = new Point(drawerCoordinate.X / _BSize, drawerCoordinate.Y / _BSize);
+      if (_grid.Count == 0)
+      {
+        _grid.Add(new Block(gridLocation.X, gridLocation.Y,  _BSize, Block.BlockType.Free));
+        return;
+      }
+      else if (!_grid.Any(block => { return block.Location == gridLocation; }))
+      {
+        _grid.Add(new Block(gridLocation.X, gridLocation.Y,  _BSize, Block.BlockType.Solid));
+      }
     }
 
   }

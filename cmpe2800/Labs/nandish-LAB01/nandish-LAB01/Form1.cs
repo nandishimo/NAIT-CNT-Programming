@@ -27,7 +27,10 @@ namespace nandish_LAB01
     public Form1()
     {
       InitializeComponent();
+      StartPosition = FormStartPosition.Manual;
+      Location = new Point(0, 0);
       _drawer = new CDrawer(_ciWindowXSize, _ciWindowYSize, false);
+      _drawer.Position = new Point(Location.X + Width, Location.Y);
       _gridManager = new GridManager(_ciWindowXSize, _ciWindowYSize, _ciBlockSize);
       KeyPreview = true;
       _ticker.Tick += _ticker_Tick;
@@ -40,11 +43,17 @@ namespace nandish_LAB01
     private void _drawer_MouseRightClick(Point pos, CDrawer dr)
     {
       //check if shift is pressed
+      if (Control.ModifierKeys == Keys.Shift)
+      {
+        _gridManager.AddSolidBlock(pos); //if so, try to add a solid block(non-falling)
+      }
 
-      //if so, try to add a solid block(non-falling)
+      else
+      {
+        _gridManager.KillBlock(pos); //if not, try to kill a block in the clicked cell
+      }
 
-      //if not, try to kill a block in the clicked cell
-      _gridManager.KillBlock(pos);
+
     }
 
     private void _drawer_MouseLeftClick(Point pos, CDrawer dr)

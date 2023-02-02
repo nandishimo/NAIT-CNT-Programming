@@ -28,7 +28,8 @@ namespace nandish_LAB01
     {
       foreach(Block block in _grid)
       {
-        block.Fall();
+        if(block.Location.Y<_YSize-1)
+          block.Fall();
       }
       KillBlock();
     }

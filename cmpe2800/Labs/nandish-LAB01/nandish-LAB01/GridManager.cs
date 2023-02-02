@@ -31,11 +31,6 @@ namespace nandish_LAB01
         if(block.Location.Y<_YSize-1)
           block.Fall();
       }
-      KillBlock();
-    }
-    public void KillBlock()
-    {
-      _grid.RemoveAll(block => block.Location.Y >= _YSize);
     }
     public void KillBlock(Point drawerCoordinate)
     {

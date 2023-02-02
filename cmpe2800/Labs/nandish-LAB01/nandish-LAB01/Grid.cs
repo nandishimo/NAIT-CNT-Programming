@@ -35,6 +35,7 @@ namespace nandish_LAB01
     public Color Color { get { return _color; } }
     private int _size;
     public int Size { get { return _size; } }
+    public int RelativeY { get { return _relativeY; } }
     public Block(int XPos, int YPos, Color Color, int Size) : base(new Point(XPos, YPos))
     {
       _color = Color;
@@ -42,11 +43,11 @@ namespace nandish_LAB01
     }
     public void Fall()
     {
-      _relativeY--;
-      if(_relativeY <= _size)
+      _relativeY++;
+      if(_relativeY >= _size)
       {
         _relativeY = 0;
-        _gridLocation.Y--;
+        _gridLocation.Y++;
       }
     }
 

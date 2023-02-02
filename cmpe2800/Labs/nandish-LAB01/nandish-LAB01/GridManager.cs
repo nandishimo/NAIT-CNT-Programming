@@ -24,13 +24,31 @@ namespace nandish_LAB01
       _BSize = BlockSize;
     }
 
+    public void Tick()
+    {
+      foreach(Block block in _grid)
+      {
+        block.Fall();
+      }
+      KillBlock();
+    }
+    public void KillBlock()
+    {
+      _grid.RemoveAll(block => block.Location.Y >= _YSize);
+    }
+    public void KillBlock(Point drawerCoordinate)
+    {
+      Point gridLocation = new Point(drawerCoordinate.X / _BSize, drawerCoordinate.Y / _BSize);
+      _grid.RemoveAll(block => block.Location == gridLocation);
+    }
+
 
     public void Render(CDrawer drawer)
     {
       drawer.Clear();
       foreach (Block block in _grid)
       {
-        drawer.AddRectangle(block.Location.X*_BSize, block.Location.Y*_BSize, _BSize, _BSize, block.Color);
+        drawer.AddRectangle(block.Location.X*_BSize, block.Location.Y*_BSize+block.RelativeY, _BSize, _BSize, block.Color);
       }
       drawer.Render();
     }

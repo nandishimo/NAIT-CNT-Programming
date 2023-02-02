@@ -44,6 +44,7 @@ namespace nandish_LAB01
       //if so, try to add a solid block(non-falling)
 
       //if not, try to kill a block in the clicked cell
+      _gridManager.KillBlock(pos);
     }
 
     private void _drawer_MouseLeftClick(Point pos, CDrawer dr)
@@ -55,7 +56,7 @@ namespace nandish_LAB01
     private void _ticker_Tick(object sender, EventArgs e)
     {
       //tick the gridmanager's logic
-
+      _gridManager.Tick();
       //render blocks where the grtidmanager says they are and based on each block's properties/state
       Render();
 

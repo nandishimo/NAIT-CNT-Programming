@@ -27,20 +27,26 @@ namespace nandish_LAB01
 
     public void Render(CDrawer drawer)
     {
+      drawer.Clear();
       foreach (Block block in _grid)
       {
-        drawer.AddRectangle(block.Location.X, block.Location.Y, _BSize, _BSize);
+        drawer.AddRectangle(block.Location.X*_BSize, block.Location.Y*_BSize, _BSize, _BSize, block.Color);
       }
+      drawer.Render();
     }
 
-    public bool AddFreeBlock(Point location)
+    public void AddFreeBlock(Point drawerCoordinate)
     {
-      if (_grid.Any(block => { return block.Location == location; }))
+      Point gridLocation = new Point(drawerCoordinate.X/_BSize, drawerCoordinate.Y/_BSize);
+      if (_grid.Count == 0)
       {
-        _grid.Add(new Block(location.X, location.Y, Color.Red));
-        return true;
+        _grid.Add(new Block(gridLocation.X, gridLocation.Y, Color.Red, _BSize));
+        return;
       }
-      else return false;
+      else if (!_grid.Any(block => { return block.Location == gridLocation; }))
+      {
+        _grid.Add(new Block(gridLocation.X, gridLocation.Y, Color.Red, _BSize));
+      }
 
     }
 

@@ -9,7 +9,6 @@ namespace nandish_LAB01
 {
   internal abstract class Grid
   {
-    static protected int _size;
     protected Point _gridLocation;
     protected int _relativeY = 0;
 
@@ -36,10 +35,21 @@ namespace nandish_LAB01
     private int _size;
     public int Size { get { return _size; } }
     public int RelativeY { get { return _relativeY; } }
-    public Block(int XPos, int YPos, Color Color, int Size) : base(new Point(XPos, YPos))
+    public enum BlockType
     {
-      _color = Color;
+      Free,
+      Solid
+    }
+
+    public BlockType blockType { get; private set; }
+    public Block(int XPos, int YPos, int Size, BlockType type) : base(new Point(XPos, YPos))
+    {
       _size = Size;
+      blockType = type;
+      if(blockType == BlockType.Free)
+        _color = Color.Red;
+      else 
+        _color = Color.Orange;
     }
     public void Fall()
     {

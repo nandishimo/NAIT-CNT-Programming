@@ -15,8 +15,8 @@ namespace nandish_LAB01
   public partial class Form1 : Form
   {
     const int _ciBlockSize = 50;
-    const int _ciBlocksX = 10;
-    const int _ciBlocksY = 10;
+    //const int _ciBlocksX = 10;
+    //const int _ciBlocksY = 10;
     const int _ciWindowXSize = 500;
     const int _ciWindowYSize = 500;
     CDrawer _drawer = null;
@@ -47,7 +47,7 @@ namespace nandish_LAB01
     private void _drawer_MouseLeftClick(Point pos, CDrawer dr)
     {
       //try to add a falling block in the clicked cell
-      throw new NotImplementedException();
+      _gridManager.AddFreeBlock(pos);
     }
 
     private void _ticker_Tick(object sender, EventArgs e)
@@ -60,6 +60,7 @@ namespace nandish_LAB01
     }
     private void Render()
     {
+      //render blocks where the grtidmanager says they are and based on each block's properties/state
       //_drawer.AddRectangle(block.Location.X, block.Location.Y, 50, 50);
 
     }

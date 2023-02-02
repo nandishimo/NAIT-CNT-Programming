@@ -9,36 +9,45 @@ namespace nandish_LAB01
 {
   internal abstract class Grid
   {
-    protected Point _iiLocation;
-    protected Color _color;
-    protected int _size;
-    public Point Location { get { return _iiLocation; } }
-    public int Size { get { return _size; } }
-    public Color Color { get { return _color; } }
+    static protected int _size;
+    protected Point _gridLocation;
+    protected int _relativeY = 0;
 
-    public Grid(Point iiLocation, Color color, int size)
+    public Point Location { get { return _gridLocation; } }
+
+
+    public Grid(Point iiLocation)
     {
-      _iiLocation = iiLocation;
-      _color = color;
-      _size = size;
+      _gridLocation = iiLocation;
+      
     }
   }
   internal class GridRetainer : Grid
   {
-    public GridRetainer(int XPos, int YPos, int Size) : base(new Point(XPos, YPos), Color.FromArgb(0,0,0,0), Size)
+    public GridRetainer(int XPos, int YPos) : base(new Point(XPos, YPos))
     {
 
     }
   }
   internal class Block : Grid
   {
-    public Block(int XPos, int YPos, Color Color, int Size) : base(new Point(XPos, YPos), Color, Size)
+    private Color _color;
+    public Color Color { get { return _color; } }
+    private int _size;
+    public int Size { get { return _size; } }
+    public Block(int XPos, int YPos, Color Color, int Size) : base(new Point(XPos, YPos))
     {
-
+      _color = Color;
+      _size = Size;
     }
     public void Fall()
     {
-      _iiLocation.Y--;
+      _relativeY--;
+      if(_relativeY <= _size)
+      {
+        _relativeY = 0;
+        _gridLocation.Y--;
+      }
     }
 
   }

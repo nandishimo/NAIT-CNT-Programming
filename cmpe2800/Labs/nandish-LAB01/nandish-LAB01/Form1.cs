@@ -31,6 +31,8 @@ namespace nandish_LAB01
       _gridManager = new GridManager(_ciWindowXSize, _ciWindowYSize, _ciBlockSize);
       KeyPreview = true;
       _ticker.Tick += _ticker_Tick;
+      _ticker.Interval = 10;
+      _ticker.Start();
       _drawer.MouseLeftClick += _drawer_MouseLeftClick;
       _drawer.MouseRightClick += _drawer_MouseRightClick;
     }
@@ -55,14 +57,14 @@ namespace nandish_LAB01
       //tick the gridmanager's logic
 
       //render blocks where the grtidmanager says they are and based on each block's properties/state
-
+      Render();
 
     }
     private void Render()
     {
       //render blocks where the grtidmanager says they are and based on each block's properties/state
       //_drawer.AddRectangle(block.Location.X, block.Location.Y, 50, 50);
-
+      _gridManager.Render(_drawer);
     }
   }
 }

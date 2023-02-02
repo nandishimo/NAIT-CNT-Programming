@@ -28,7 +28,7 @@ namespace nandish_LAB01
     {
       InitializeComponent();
       _drawer = new CDrawer(_ciWindowXSize, _ciWindowYSize, false);
-      _gridManager = new GridManager(_ciWindowXSize, _ciWindowYSize);
+      _gridManager = new GridManager(_ciWindowXSize, _ciWindowYSize, _ciBlockSize);
       KeyPreview = true;
       _ticker.Tick += _ticker_Tick;
       _drawer.MouseLeftClick += _drawer_MouseLeftClick;

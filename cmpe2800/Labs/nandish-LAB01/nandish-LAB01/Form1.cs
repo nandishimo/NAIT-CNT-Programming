@@ -14,11 +14,11 @@ namespace nandish_LAB01
 {
   public partial class Form1 : Form
   {
-    const int _ciBlockSize = 50;
+    const int _ciBlockSize = 200;
     //const int _ciBlocksX = 10;
     //const int _ciBlocksY = 10;
-    const int _ciWindowXSize = 500;
-    const int _ciWindowYSize = 500;
+    const int _ciWindowXSize = 1000;
+    const int _ciWindowYSize = 1000;
     CDrawer _drawer = null;
     GridManager _gridManager = null;
 

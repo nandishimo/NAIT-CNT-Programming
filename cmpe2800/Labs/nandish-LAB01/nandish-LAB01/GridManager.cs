@@ -25,16 +25,29 @@ namespace nandish_LAB01
 
     public void Tick()
     {
-      foreach(Block block in _grid)
+      foreach(Block block in _grid.Where(b => b is Block))
       {
         if(CanBlockFall(block,_grid)&& block.Location.Y < _YSize - 1)
           block.Fall();
+      }
+      List<Grid> fallingBlocks = new List<Grid>();
+      foreach (Block block in _grid.Where(b => b is Block))
+      {
+        if(block.RelativeY!=0)
+        {
+          fallingBlocks.Add(block);
+        }
+      }
+      _grid.RemoveAll(x => x is GridRetainer);
+      foreach (Grid block in fallingBlocks)
+      {
+        AddGridRetainer(new Point(block.Location.X,block.Location.Y+1));
       }
     }
 
     private bool CanBlockFall(Block currentBlock, List<Grid> blocks) 
     { 
-      return !blocks.Any(b=>b!=currentBlock&&b.Location.X==currentBlock.Location.X&&b.Location.Y==currentBlock.Location.Y+1);
+      return !blocks.Where(block=>block is Block).Any(b=>b!=currentBlock&&b.Location.X==currentBlock.Location.X&&b.Location.Y==currentBlock.Location.Y+1);
     }
 
     public void KillBlock(Point drawerCoordinate)
@@ -47,8 +60,10 @@ namespace nandish_LAB01
     public void Render(CDrawer drawer)
     {
       drawer.Clear();
-      foreach (Block block in _grid)
+      
+      foreach (Block block in _grid.Where(b=>b is Block))
       {
+
         drawer.AddRectangle(block.Location.X*_BSize, block.Location.Y*_BSize+block.RelativeY, _BSize, _BSize, block.Color,1,Color.Black);
       }
       drawer.Render();
@@ -71,6 +86,14 @@ namespace nandish_LAB01
       if (!_grid.Any(block => { return block.Location == gridLocation; }))
       {
         _grid.Add(new Block(gridLocation.X, gridLocation.Y,  _BSize, Block.BlockType.Solid));
+      }
+    }
+
+    private void AddGridRetainer(Point gridLocation)
+    {
+      if (!_grid.Any(block => { return block.Location == gridLocation; }))
+      {
+        _grid.Add(new GridRetainer(gridLocation.X, gridLocation.Y));
       }
     }
 

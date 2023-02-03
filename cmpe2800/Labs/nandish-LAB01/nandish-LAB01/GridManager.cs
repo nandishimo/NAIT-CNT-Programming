@@ -27,10 +27,16 @@ namespace nandish_LAB01
     {
       foreach(Block block in _grid)
       {
-        if(block.Location.Y<_YSize-1)
+        if(CanBlockFall(block,_grid)&& block.Location.Y < _YSize - 1)
           block.Fall();
       }
     }
+
+    private bool CanBlockFall(Block currentBlock, List<Grid> blocks) 
+    { 
+      return !blocks.Any(b=>b!=currentBlock&&b.Location.X==currentBlock.Location.X&&b.Location.Y==currentBlock.Location.Y+1);
+    }
+
     public void KillBlock(Point drawerCoordinate)
     {
       Point gridLocation = new Point(drawerCoordinate.X / _BSize, drawerCoordinate.Y / _BSize);
@@ -51,12 +57,8 @@ namespace nandish_LAB01
     public void AddFreeBlock(Point drawerCoordinate)
     {
       Point gridLocation = new Point(drawerCoordinate.X/_BSize, drawerCoordinate.Y/_BSize);
-      if (_grid.Count == 0)
-      {
-        _grid.Add(new Block(gridLocation.X, gridLocation.Y, _BSize, Block.BlockType.Free));
-        return;
-      }
-      else if (!_grid.Any(block => { return block.Location == gridLocation; }))
+
+      if (!_grid.Any(block => { return block.Location == gridLocation; }))
       {
         _grid.Add(new Block(gridLocation.X, gridLocation.Y, _BSize, Block.BlockType.Free));
       }
@@ -66,12 +68,7 @@ namespace nandish_LAB01
     public void AddSolidBlock(Point drawerCoordinate)
     {
       Point gridLocation = new Point(drawerCoordinate.X / _BSize, drawerCoordinate.Y / _BSize);
-      if (_grid.Count == 0)
-      {
-        _grid.Add(new Block(gridLocation.X, gridLocation.Y,  _BSize, Block.BlockType.Free));
-        return;
-      }
-      else if (!_grid.Any(block => { return block.Location == gridLocation; }))
+      if (!_grid.Any(block => { return block.Location == gridLocation; }))
       {
         _grid.Add(new Block(gridLocation.X, gridLocation.Y,  _BSize, Block.BlockType.Solid));
       }

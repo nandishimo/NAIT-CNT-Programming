@@ -18,7 +18,7 @@ namespace nandish_LAB01
     public Grid(Point iiLocation)
     {
       _gridLocation = iiLocation;
-      
+
     }
   }
   internal class GridRetainer : Grid
@@ -35,6 +35,7 @@ namespace nandish_LAB01
     private int _size;
     public int Size { get { return _size; } }
     public int RelativeY { get { return _relativeY; } }
+    public bool Falling { get { return _relativeY == 0; } }
     public enum BlockType
     {
       Free,
@@ -46,15 +47,16 @@ namespace nandish_LAB01
     {
       _size = Size;
       blockType = type;
-      if(blockType == BlockType.Free)
+      if (blockType == BlockType.Free)
         _color = Color.Red;
-      else 
+      else
         _color = Color.Orange;
     }
     public void Fall()
     {
+      if (blockType == BlockType.Solid) { return; }
       _relativeY++;
-      if(_relativeY >= _size)
+      if (_relativeY >= _size)
       {
         _relativeY = 0;
         _gridLocation.Y++;

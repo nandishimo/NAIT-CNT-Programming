@@ -43,6 +43,7 @@ namespace nandish_LAB01
       {
         AddGridRetainer(new Point(block.Location.X,block.Location.Y+1));
       }
+      _grid.RemoveAll(block => block is Block b && b.Dead);
     }
 
     private bool CanBlockFall(Block currentBlock, List<Grid> blocks) 
@@ -53,7 +54,8 @@ namespace nandish_LAB01
     public void KillBlock(Point drawerCoordinate)
     {
       Point gridLocation = new Point(drawerCoordinate.X / _BSize, drawerCoordinate.Y / _BSize);
-      _grid.RemoveAll(block => block.Location == gridLocation);
+      Grid toDie = _grid.Find(block => block.Location == gridLocation);
+      toDie.Die();
     }
 
 

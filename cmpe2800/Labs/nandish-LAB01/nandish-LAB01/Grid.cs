@@ -20,6 +20,8 @@ namespace nandish_LAB01
       _gridLocation = iiLocation;
 
     }
+
+    public abstract void Die();
   }
   internal class GridRetainer : Grid
   {
@@ -27,19 +29,35 @@ namespace nandish_LAB01
     {
 
     }
+    public override void Die() { return; }
   }
   internal class Block : Grid
   {
     private Color _color;
     public Color Color { get { return _color; } }
+    private int _opacity = 255;
     private int _size;
     public int Size { get { return _size; } }
     public int RelativeY { get { return _relativeY; } }
     public bool Falling { get { return _relativeY == 0; } }
+    public bool Dead { 
+      get 
+      { 
+        if(blockType==BlockType.Dying)
+        {
+          _opacity -= 20;
+          if(_opacity< 0) { _opacity= 0; }  
+          _color = Color.FromArgb(_opacity, _color);
+        }
+        return _opacity == 0;
+      } 
+    }
+
     public enum BlockType
     {
       Free,
-      Solid
+      Solid,
+      Dying
     }
 
     public BlockType blockType { get; private set; }
@@ -49,12 +67,12 @@ namespace nandish_LAB01
       blockType = type;
       if (blockType == BlockType.Free)
         _color = Color.Red;
-      else
+      else if(blockType == BlockType.Solid)
         _color = Color.Orange;
     }
     public void Fall()
     {
-      if (blockType == BlockType.Solid) { return; }
+      if (blockType != BlockType.Free) { return; }
       _relativeY++;
       if (_relativeY >= _size)
       {
@@ -63,5 +81,9 @@ namespace nandish_LAB01
       }
     }
 
+    public override void Die()
+    {
+      blockType = BlockType.Dying;
+    }
   }
 }

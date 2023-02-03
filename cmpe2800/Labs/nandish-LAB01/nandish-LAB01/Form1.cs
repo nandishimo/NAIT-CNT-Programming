@@ -14,7 +14,7 @@ namespace nandish_LAB01
 {
   public partial class Form1 : Form
   {
-    const int _ciBlockSize = 200;
+    const int _ciBlockSize = 20;
     //const int _ciBlocksX = 10;
     //const int _ciBlocksY = 10;
     const int _ciWindowXSize = 1000;
@@ -34,7 +34,7 @@ namespace nandish_LAB01
       _gridManager = new GridManager(_ciWindowXSize, _ciWindowYSize, _ciBlockSize);
       KeyPreview = true;
       _ticker.Tick += _ticker_Tick;
-      _ticker.Interval = 10;
+      _ticker.Interval = 5;
       _ticker.Start();
       _drawer.MouseLeftClick += _drawer_MouseLeftClick;
       _drawer.MouseRightClick += _drawer_MouseRightClick;

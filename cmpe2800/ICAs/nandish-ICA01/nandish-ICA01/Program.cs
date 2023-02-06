@@ -198,6 +198,7 @@ namespace nandish_ICA01
         key does not exist in the Categorize return collection) 
    */
   internal class CatStack<T> : Stack<T>
+    //where T:IComparable<T>
   {
     public T this[int iIndex]
     {
@@ -227,7 +228,7 @@ namespace nandish_ICA01
   internal static class ExtentionMethods
   {
     static Random rand = new Random(); //create random member
-    public static Dictionary<T, int> Categorize<T>(this IEnumerable<T> sourcelist)
+    public static Dictionary<T, int> Categorize<T>(this IEnumerable<T> sourcelist) //where T is IComparable
     {
       Dictionary<T, int> result = new Dictionary<T, int>(); //create dictionary
       foreach (T i in sourcelist)
@@ -278,7 +279,7 @@ namespace nandish_ICA01
         }
       }
       //return default of generic type if no adjacent pairs found
-      return default;
+      return default; //return new T() instead. compiler can give warning for ctor
     }
 
     public static LinkedList<T> ToOrderedLinkedList<T>(this IEnumerable<T> source) where T : IComparable<T>

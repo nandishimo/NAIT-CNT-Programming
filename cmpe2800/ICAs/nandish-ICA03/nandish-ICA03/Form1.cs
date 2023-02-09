@@ -44,21 +44,32 @@ namespace nandish_ICA03
           sw.WriteLine($"Duplicate found : {kvp.Key}");
       }
       
-      var newDict = new Dictionary<char,int>();
-      foreach(var kvp in dict)
+      var newDict = new Dictionary<char,LinkedList<string>>();
+      foreach (var kvp in dict)
       {
         var letter = kvp.Key.ToLower().First();
-        if(!newDict.ContainsKey(letter))
-          newDict.Add(letter, kvp.Value);
+        LinkedList<string> newList = null;
+        if (!newDict.ContainsKey(letter))
+        {
+          newList = new LinkedList<string>();
+          newList.AddLast(kvp.Key);
+          newDict.Add(letter, newList);
+        }
         else
-          newDict[letter] += kvp.Value;
+          newDict[letter].AddLast(kvp.Key);   
       }
-      newDict = newDict.OrderBy(kvp => kvp.Value).ToDictionary(kvp=>kvp.Key,kvp=>kvp.Value);
+      newDict = newDict.OrderByDescending(kvp => kvp.Value.Count).ToDictionary(kvp=>kvp.Key,kvp=>kvp.Value);
       
       foreach (var kvp in newDict)
       {
-          sw.WriteLine($"Words starting with {kvp.Key} : {kvp.Value}");
+          sw.WriteLine($"Words starting with {kvp.Key} : {kvp.Value.Count}");
       }
+      sw.WriteLine($"There are a total of {newDict.Sum(kvp=>kvp.Value.Count)} words and {newDict.Count} categories.");
+      int max = newDict.Max(kvp => kvp.Value.Max(x => x.Length));
+      sw.WriteLine($"The longest word is {max} characters");
+      /*
+      foreach (var word in newDict.Values.Where(l=>l.max)
+        sw.WriteLine($"Longest Words (tie for length): {word}");*/
       
       
       sw.Close();

@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using System.Diagnostics;
 
 namespace nandish_ICA03
 {
@@ -42,22 +43,26 @@ namespace nandish_ICA03
         if(kvp.Value>1)
           sw.WriteLine($"Duplicate found : {kvp.Key}");
       }
-      /*
+      
       var newDict = new Dictionary<char,int>();
-      foreach(var str in strings)
+      foreach(var kvp in dict)
       {
-        newDict[str.First()]++;
+        var letter = kvp.Key.ToLower().First();
+        if(!newDict.ContainsKey(letter))
+          newDict.Add(letter, kvp.Value);
+        else
+          newDict[letter] += kvp.Value;
       }
       newDict = newDict.OrderBy(kvp => kvp.Value).ToDictionary(kvp=>kvp.Key,kvp=>kvp.Value);
       
       foreach (var kvp in newDict)
       {
-          //sw.WriteLine($"Words starting with {kvp.Key} : {kvp.Value}");
+          sw.WriteLine($"Words starting with {kvp.Key} : {kvp.Value}");
       }
-
-      */
+      
+      
       sw.Close();
-
+      Process.Start("notepad.exe", "output.txt");
     }
 
     //change cursor when hovering over form while draggina an item

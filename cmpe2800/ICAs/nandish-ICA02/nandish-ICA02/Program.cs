@@ -57,18 +57,24 @@ namespace nandish_ICA02
       { Console.Write(item.ToString() + ","); }
       Console.WriteLine("\n");
 
+      Console.WriteLine("Test for pullMin:");
       List<string> minCollection = shuffledCollection.PullMin().ToList();
       foreach (var item in minCollection)
       { Console.Write(item.ToString() + ","); }
       Console.WriteLine("\n");
 
+      Console.WriteLine("Test for InRange (3 - 7) :");
       List<int> intCollection = new List<int> { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+      foreach (var item in intCollection)
+      { Console.Write(item.ToString() + ","); }
+      Console.WriteLine("\n");
       foreach (int item in intCollection.InRange((3, 7)))
       {
         Console.Write(item.ToString() + ",");
       }
       Console.WriteLine("\n");
 
+      Console.WriteLine("Test for Factors (482648264 :");
       ulong num = 482648264;
       foreach ( ulong factor in num.Factors())
       {
@@ -76,7 +82,9 @@ namespace nandish_ICA02
       }
       Console.WriteLine("\n");
 
-      foreach(string pw in PartB.Password().Take(10))
+
+      Console.WriteLine("Test for PasswordGenerator (30 passwords) :");
+      foreach (string pw in PartB.Password().Take(30))
       {
         Console.Write(pw + " | ");
       }

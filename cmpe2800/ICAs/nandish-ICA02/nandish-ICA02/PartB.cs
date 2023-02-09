@@ -121,7 +121,7 @@ namespace nandish_ICA02
         {
           newPassword[j] = (char)rand.Next(33, 127);
         }
-        newPassword.Shuffle();
+        newPassword = newPassword.Shuffle().ToArray();
         yield return new string(newPassword);
       }
 

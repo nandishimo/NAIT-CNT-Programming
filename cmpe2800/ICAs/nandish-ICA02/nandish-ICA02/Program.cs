@@ -45,14 +45,14 @@ namespace nandish_ICA02
       }
       */
 
+      Console.WriteLine("Test for shuffle.\nOriginal collection:");
       List<string> testCollection = new List<string>{ "Alice", "Bob", "Nando", "Stanley", "Yelnats" };
-
       foreach (var item in testCollection)
       { Console.Write(item.ToString() + ","); }
       Console.WriteLine("\n");
 
       List<string> shuffledCollection = testCollection.Shuffle().ToList();
-
+      Console.WriteLine("Test for shuffle.\nShuffled collection:");
       foreach (var item in shuffledCollection)
       { Console.Write(item.ToString() + ","); }
       Console.WriteLine("\n");

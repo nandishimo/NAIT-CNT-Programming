@@ -18,6 +18,10 @@ namespace nandish_ICA02
   internal static class PartB
   {
     static Random rand = new Random();
+
+    //Shuffle extension method for collections of generic type.
+    //Uses Fischer-yates method
+    //Returns an IEnumerable<T>
     public static IEnumerable<T> Shuffle<T>(this IEnumerable<T> sourceCollection)
     {
       List<T> listCollection = new List<T>(sourceCollection);
@@ -35,6 +39,8 @@ namespace nandish_ICA02
       }
     }
 
+    //PullMin extension method for IEnumerable collection of generic type
+    //Copies the original collection and returns and removes the minimum value 
     public static IEnumerable<T> PullMin<T>(this IEnumerable<T> sourceCollection) where T : IComparable
     {
       List<T> listCollection = new List<T>(sourceCollection);
@@ -47,7 +53,8 @@ namespace nandish_ICA02
         listCollection.Remove(listCollection.Min());
       }
     }
-
+    //InRange extension method for IEnumerable of generic type
+    //iterates through collection and returns elements within a given range
     public static IEnumerable<T> InRange<T>(this IEnumerable<T> sourceCollection, (T, T) range) where T : IComparable
     {
       for (int i = 0; i < sourceCollection.Count(); i++)
@@ -59,6 +66,9 @@ namespace nandish_ICA02
       }
     }
 
+    //Factors extension method for IEnumberable collection of type long
+    //checks each number from 2 to number/2 for factors (mod = 0)
+    //returns valid factors
     public static IEnumerable<ulong> Factors(this ulong number)
     {
       yield return 1;
@@ -70,11 +80,17 @@ namespace nandish_ICA02
       yield return number;
     }
 
+    //password generator method
+    //ensures password meets minimum requirements for special characters and numbers
+    //adds random valid characters until string minimum random length is met
+    //shuffles and returns password as string
+    //infinitely generates passwords
     public static IEnumerable<string> Password()
     {
       int length;
-      string newPassword;
+      char[] newPassword;
       List<char> specialChars = new List<char>();
+      //create a list of valid special characters from ascii table
       for(char i='!'; i<='/'; i++)
       {
         specialChars.Add(i);
@@ -91,19 +107,22 @@ namespace nandish_ICA02
       {
         specialChars.Add(i);
       }
+      //construct password starting with the 4 character requirements
       while (true)
       {
         length = rand.Next(8, 11);
-        newPassword = "";
-        newPassword += rand.Next(0, 10); //digit
-        newPassword += specialChars[rand.Next(0, specialChars.Count)]; //special
-        newPassword += (char)rand.Next('A', '['); //uppercase
-        newPassword += (char)rand.Next('a', '{'); //lowercase
-        while (newPassword.Length < length)
+        newPassword = new char[length];
+        newPassword[0] = (char)rand.Next('0', '9'+1); //digit
+        newPassword[1] = (char)specialChars[rand.Next(0, specialChars.Count)]; //special
+        newPassword[2] = (char)rand.Next('A', '['); //uppercase
+        newPassword[3] = (char)rand.Next('a', '{'); //lowercase
+        //add more characters until min length is satisfied
+        for(int j =4; j<length;j++)
         {
-          newPassword += (char)rand.Next(33, 127);
+          newPassword[j] = (char)rand.Next(33, 127);
         }
-        yield return newPassword;
+        newPassword.Shuffle();
+        yield return new string(newPassword);
       }
 
 

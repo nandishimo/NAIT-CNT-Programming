@@ -1,4 +1,11 @@
-﻿using System;
+﻿/* ICA04 - LINQ
+ * Nandish Patel
+ * 2023/02/13
+ * 
+ * 
+ */
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;

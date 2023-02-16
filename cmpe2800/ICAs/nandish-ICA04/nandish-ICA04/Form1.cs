@@ -14,6 +14,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Diagnostics.Trace;
 
 namespace nandish_ICA04
 {
@@ -24,6 +25,16 @@ namespace nandish_ICA04
 		public Form1()
 		{
 			InitializeComponent();
+			Load += Form1_Load;
+		}
+
+		private void Form1_Load(object sender, EventArgs e)
+		{
+			foreach (string s in from n in sourcestrings where n.Sum(c=>c) < 600 select n)
+			{
+				WriteLine(s);
+			}
+
 		}
 	}
 }

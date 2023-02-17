@@ -43,7 +43,6 @@ namespace nandish_ICA04
 				WriteLine("Str = " + s.ToString() + ", Sum = " + s.Sum(c => c).ToString());
 			}
 
-
 		}
 	}
 }

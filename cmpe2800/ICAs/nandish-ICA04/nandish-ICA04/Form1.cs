@@ -27,6 +27,28 @@ namespace nandish_ICA04
 			InitializeComponent();
 			Load += Form1_Load;
 		}
+<<<<<<< .mine
+<<<<<<< .mine
+
+		private void Form1_Load(object sender, EventArgs e)
+		{
+			foreach (string s in from n in sourcestrings where n.Sum(c=>c) < 600 select n)
+			{
+				WriteLine(s);
+			}
+			foreach(var s in from n in sourcestrings where n.Sum(c=>c) < 600 select n)
+			{
+				WriteLine("Str = " + s.ToString() + ", Sum = " + s.Sum(c => c).ToString());
+			}
+			foreach (var s in from n in sourcestrings where n.Sum(c => c) < 600 select n)
+			{
+				WriteLine("Str = " + s.ToString() + ", Sum = " + s.Sum(c => c).ToString());
+			}
+
+
+		}
+||||||| .r485
+=======
 
 		private void Form1_Load(object sender, EventArgs e)
 		{
@@ -36,5 +58,18 @@ namespace nandish_ICA04
 			}
 
 		}
+>>>>>>> .r486
+||||||| .r485
+=======
+
+		private void Form1_Load(object sender, EventArgs e)
+		{
+			foreach (string s in from n in sourcestrings where n.Sum(c=>c) < 600 select n)
+			{
+				WriteLine(s);
+			}
+
+		}
+>>>>>>> .r486
 	}
 }

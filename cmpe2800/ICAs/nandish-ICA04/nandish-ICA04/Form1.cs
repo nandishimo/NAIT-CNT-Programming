@@ -30,16 +30,22 @@ namespace nandish_ICA04
 
 		private void Form1_Load(object sender, EventArgs e)
 		{
+			WriteLine("Part A - Q1");
 			foreach (string s in from n in sourcestrings where n.Sum(c=>c) < 600 select n)
 			{
+				
 				WriteLine(s);
 			}
-			foreach(var s in from n in sourcestrings where n.Sum(c=>c) < 600 select n)
+			WriteLine("\nPart A - Q2");
+			foreach (var s in from n in sourcestrings where n.Sum(c=>c) < 600 select n)
 			{
+				
 				WriteLine("Str = " + s.ToString() + ", Sum = " + s.Sum(c => c).ToString());
 			}
-			foreach (var s in from n in sourcestrings where n.Sum(c => c) < 600 select n)
+			WriteLine("\nPart A - Q3");
+			foreach (var s in from n in sourcestrings where n.Sum(c => c) < 600 orderby n descending select n)
 			{
+				
 				WriteLine("Str = " + s.ToString() + ", Sum = " + s.Sum(c => c).ToString());
 			}
 

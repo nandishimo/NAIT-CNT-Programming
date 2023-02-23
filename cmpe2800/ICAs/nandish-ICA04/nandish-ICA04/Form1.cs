@@ -1,15 +1,16 @@
-﻿/* ICA04 - LINQ
+﻿/*************************************
+ * Submission Code: 1222_2800_A02_A04
+ * ICA04 - LINQ
  * Nandish Patel
  * 2023/02/13
- * 
- * 
- */
+ ************************************/
 
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,6 +27,34 @@ namespace nandish_ICA04
 		{
 			InitializeComponent();
 			Load += Form1_Load;
+			Text = "ICA04";
+			AllowDrop= true;
+			DragEnter += Form1_DragEnter;
+			DragDrop += Form1_DragDrop;
+
+		}
+
+		private void Form1_DragDrop(object sender, DragEventArgs e)
+		{
+			var fname = ((string[])e.Data.GetData(DataFormats.FileDrop)).First(); //get the first file incase multiple files are dropped at once 
+																				  //read the contents of the file and create a list of words. filter out spaces and empty strings
+			var sr = new StreamReader(fname);
+			var contents = sr.ReadToEnd();
+			sr.Close();
+			var sw = new StreamWriter("output.txt", false);
+			var strings;
+			foreach (var str in from s in contents.Split('\r') where s.Trim().Length!=0 select s.Trim())
+			{
+
+			}
+		}
+
+		private void Form1_DragEnter(object sender, DragEventArgs e)
+		{
+			if (e.Data.GetDataPresent(DataFormats.FileDrop))
+				e.Effect = DragDropEffects.Copy;
+			else
+				e.Effect = DragDropEffects.None;
 		}
 
 		private void Form1_Load(object sender, EventArgs e)

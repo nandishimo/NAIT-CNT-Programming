@@ -5,10 +5,12 @@
  * 2023/02/13
  ************************************/
 
+using nandish_ICA03;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -42,11 +44,45 @@ namespace nandish_ICA04
 			var contents = sr.ReadToEnd();
 			sr.Close();
 			var sw = new StreamWriter("output.txt", false);
-			var strings;
-			foreach (var str in from s in contents.Split('\r') where s.Trim().Length!=0 select s.Trim())
+			var strings = contents.Split('\r').Select(s => s.Trim()).Where(s=> s.Length!=0).ToList();
+			var dict = strings.Categorize();
+			foreach (var kvp in from kv in dict where kv.Value>1 select kv)
 			{
-
+				sw.WriteLine($"Duplicate found : {kvp.Key}");
 			}
+
+			var newDict = new Dictionary<char, LinkedList<string>>();
+			foreach(var key in from kvp in dict select kvp.Key)
+			{
+				var letter = key.ToLower().First();
+				
+				if(!newDict.ContainsKey(letter))
+				{
+					var newList = new LinkedList<string>();
+					newList.AddLast(key);
+					newDict.Add(letter, newList);
+				}
+				else
+				{
+					newDict[letter].AddLast(key);
+				}
+			}
+
+			newDict = newDict.OrderByDescending(kvp => kvp.Value.Count).ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
+
+			foreach(var kvp in newDict)
+			{
+				sw.WriteLine($"Words starting with {kvp.Key} : {kvp.Value.Count}");
+			}
+
+
+
+
+
+			//close streamreader and open output file
+			sw.Close();
+			Process.Start("notepad.exe", "output.txt");
+
 		}
 
 		private void Form1_DragEnter(object sender, DragEventArgs e)

@@ -74,10 +74,21 @@ namespace nandish_ICA04
 			{
 				sw.WriteLine($"Words starting with {kvp.Key} : {kvp.Value.Count}");
 			}
+			//count number of words and categories and output to file
+			sw.WriteLine($"There are a total of {newDict.Sum(kvp => kvp.Value.Count)} words and {newDict.Count} categories.");
+
+			//find length of longest word(s) and output to file
+			//int max = newDict.Max(kvp => kvp.Value.Max(x => x.Length));
+			sw.WriteLine($"The longest word is {newDict.Max(kvp => kvp.Value.Max(x => x.Length))} characters");
+
+			//foreach (var word in from longest in newDict.Values.SelectMany(l => l.Where(w => w.Length == newDict.Max(kvp => kvp.Value.Max(x => x.Length)))) select longest)
+			//{
+			//	sw.WriteLine($"Longest Words (tie for length): {word}");
+			//}
 
 
-
-
+			//display biggest of the longest words
+			//sw.WriteLine($"The 'biggest', longest word is {newDict.Values.SelectMany(l=>l.Where(w=>w.Length== newDict.Max(kvp => kvp.Value.Max(x => x.Length)))).Max()}");
 
 			//close streamreader and open output file
 			sw.Close();

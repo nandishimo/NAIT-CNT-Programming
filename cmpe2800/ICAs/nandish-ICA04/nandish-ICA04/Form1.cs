@@ -44,7 +44,7 @@ namespace nandish_ICA04
 			var contents = sr.ReadToEnd();
 			sr.Close();
 			var sw = new StreamWriter("output.txt", false);
-			var strings = contents.Split('\r').Select(s => s.Trim()).Where(s=> s.Length!=0).ToList();
+			var strings = from str in contents.Split('\r','\n') where str.Length > 0 select str.Trim();
 			var dict = strings.Categorize();
 			foreach (var kvp in from kv in dict where kv.Value>1 select kv)
 			{
@@ -52,7 +52,7 @@ namespace nandish_ICA04
 			}
 
 			var newDict = new Dictionary<char, LinkedList<string>>();
-			foreach(var key in from kvp in dict select kvp.Key)
+			foreach(var key in from kvp in dict orderby kvp.Value descending select kvp.Key)
 			{
 				var letter = key.ToLower().First();
 				
@@ -68,7 +68,7 @@ namespace nandish_ICA04
 				}
 			}
 
-			newDict = newDict.OrderByDescending(kvp => kvp.Value.Count).ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
+			//newDict = newDict.OrderByDescending(kvp => kvp.Value.Count).ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
 
 			foreach(var kvp in newDict)
 			{

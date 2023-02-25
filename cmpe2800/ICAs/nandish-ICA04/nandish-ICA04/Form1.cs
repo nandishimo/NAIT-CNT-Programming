@@ -45,50 +45,84 @@ namespace nandish_ICA04
 			sr.Close();
 			var sw = new StreamWriter("output.txt", false);
 			var strings = from str in contents.Split('\r','\n') where str.Length > 0 select str.Trim();
-			var dict = strings.Categorize();
-			foreach (var kvp in from kv in dict where kv.Value>1 select kv)
+			//var dict = strings.Categorize();
+			//var dict = from s in strings 
+			//		   group s by s into g 
+			//		   orderby g.Key 
+			//		   select new { Key = g.Key, Value = g.Count() };
+			//foreach (var kvp in from kv in dict where kv.Value>1 select kv)
+			//{
+			//	sw.WriteLine($"Duplicate found : {kvp.Key}");
+			//}
+			foreach (var dup in 
+				from s in strings 
+				group s by s into g 
+				where g.Count() > 1
+				select new {Key = g.Key, Value = g.Count()})
 			{
-				sw.WriteLine($"Duplicate found : {kvp.Key}");
+				sw.WriteLine($"Duplicate found : {dup.Key}");
 			}
 
-			var newDict = new Dictionary<char, LinkedList<string>>();
-			foreach(var key in from kvp in dict orderby kvp.Value descending select kvp.Key)
+			var distinct = from s in strings
+						   group s by s.ToLower().First() into g
+						   select new { Key = g.Key , Values = g.Distinct() };
+
+			foreach (var kvp in distinct)
 			{
-				var letter = key.ToLower().First();
-				
-				if(!newDict.ContainsKey(letter))
-				{
-					var newList = new LinkedList<string>();
-					newList.AddLast(key);
-					newDict.Add(letter, newList);
-				}
-				else
-				{
-					newDict[letter].AddLast(key);
-				}
+				sw.WriteLine($"Distinct words starting with {kvp.Key} : {kvp.Values.Count()}");
+				//foreach (var value in kvp.Values)
+				//{
+				//	sw.WriteLine($"\t{value}");
+				//}
 			}
+
+			//var newDict = new Dictionary<char, LinkedList<string>>();
+			//var newDict = from kvp in dict
+			//			  orderby kvp.Value descending
+			//			  select new { };
+			//foreach(var kvp in newDict)
+			//{
+			//	if(!newDict.ContainsKey(letter))
+			//	{
+			//		var newList = new LinkedList<string>();
+			//		newList.AddLast(key);
+			//		newDict.Add(letter, newList);
+			//	}
+			//	else
+			//	{
+			//		newDict[letter].AddLast(key);
+			//	}
+			//}
 
 			//newDict = newDict.OrderByDescending(kvp => kvp.Value.Count).ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
 
-			foreach(var kvp in newDict)
-			{
-				sw.WriteLine($"Words starting with {kvp.Key} : {kvp.Value.Count}");
-			}
+			//foreach(var kvp in newDict)
+			//{
+			//	sw.WriteLine($"Words starting with {kvp.Key} : {kvp.Value.Count}");
+			//}
 			//count number of words and categories and output to file
-			sw.WriteLine($"There are a total of {newDict.Sum(kvp => kvp.Value.Count)} words and {newDict.Count} categories.");
+			//sw.WriteLine($"There are a total of {newDict.Sum(kvp => kvp.Value.Count)} words and {newDict.Count} categories.");
 
 			//find length of longest word(s) and output to file
 			//int max = newDict.Max(kvp => kvp.Value.Max(x => x.Length));
-			sw.WriteLine($"The longest word is {newDict.Max(kvp => kvp.Value.Max(x => x.Length))} characters");
+			//sw.WriteLine($"The longest word is {newDict.Max(kvp => kvp.Value.Max(x => x.Length))} characters");
+			int max = distinct.Max(s=> s.Values.Max().Count());
+			sw.WriteLine($"The longst word is {max} character long");
 
 			//foreach (var word in from longest in newDict.Values.SelectMany(l => l.Where(w => w.Length == newDict.Max(kvp => kvp.Value.Max(x => x.Length)))) select longest)
 			//{
 			//	sw.WriteLine($"Longest Words (tie for length): {word}");
 			//}
+			foreach (var longword in from str in strings where str.Length == max orderby str select str)
+			{
+				sw.WriteLine($"Longest Words (tie for length): {longword}");
+			}
 
 
 			//display biggest of the longest words
 			//sw.WriteLine($"The 'biggest', longest word is {newDict.Values.SelectMany(l=>l.Where(w=>w.Length== newDict.Max(kvp => kvp.Value.Max(x => x.Length)))).Max()}");
+			sw.WriteLine($"The 'biggest', longest word is {(from str in strings where str.Length == max orderby str select str).Last()}");
+
 
 			//close streamreader and open output file
 			sw.Close();

@@ -27,7 +27,7 @@ namespace SelectClient
 		{
 			try
 			{
-				sok.BeginConnect("www.microsoft.com", 80, Callback_ConnectDone, 42);
+				sok.BeginConnect("www.microsoft.com", 1666, Callback_ConnectDone, 42);
 			}
 			catch (Exception ex)
 			{
@@ -44,11 +44,14 @@ namespace SelectClient
 			{
 				sok.EndConnect(ar);
 				System.Diagnostics.Trace.WriteLine("It worked!");
+				// t/c
+				Invoke(new Action(() => Text = "Connected!"));
 			}
 			catch (Exception ex)
 			{
 
 				System.Diagnostics.Trace.WriteLine($"Callback_ConnectDone - {ex.Message}");
+				Invoke(new Action<string>((a) => Text = $"Not Connected! - {a}"),ex.Message);
 			}
 			
 		}

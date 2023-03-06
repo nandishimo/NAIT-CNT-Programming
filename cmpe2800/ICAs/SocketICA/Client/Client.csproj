@@ -79,5 +79,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SocketICA\SocketICA.csproj">
+      <Project>{8f14bfed-ea2e-422e-bcb0-d8b248a1faf9}</Project>
+      <Name>SocketICA</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

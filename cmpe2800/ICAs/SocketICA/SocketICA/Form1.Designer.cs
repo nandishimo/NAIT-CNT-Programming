@@ -30,10 +30,10 @@
 		{
 			this.label1 = new System.Windows.Forms.Label();
 			this.label2 = new System.Windows.Forms.Label();
-			this.textBox1 = new System.Windows.Forms.TextBox();
-			this.textBox2 = new System.Windows.Forms.TextBox();
-			this.button1 = new System.Windows.Forms.Button();
-			this.button2 = new System.Windows.Forms.Button();
+			this.UI_tb_Address = new System.Windows.Forms.TextBox();
+			this.UI_tb_Port = new System.Windows.Forms.TextBox();
+			this.UI_btn_Connect = new System.Windows.Forms.Button();
+			this.UI_btn_Cancel = new System.Windows.Forms.Button();
 			this.SuspendLayout();
 			// 
 			// label1
@@ -56,51 +56,51 @@
 			this.label2.TabIndex = 1;
 			this.label2.Text = "Port:";
 			// 
-			// textBox1
+			// UI_tb_Address
 			// 
-			this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.textBox1.Location = new System.Drawing.Point(140, 39);
-			this.textBox1.Name = "textBox1";
-			this.textBox1.Size = new System.Drawing.Size(226, 31);
-			this.textBox1.TabIndex = 2;
+			this.UI_tb_Address.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.UI_tb_Address.Location = new System.Drawing.Point(140, 39);
+			this.UI_tb_Address.Name = "UI_tb_Address";
+			this.UI_tb_Address.Size = new System.Drawing.Size(226, 31);
+			this.UI_tb_Address.TabIndex = 2;
 			// 
-			// textBox2
+			// UI_tb_Port
 			// 
-			this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.textBox2.Location = new System.Drawing.Point(140, 76);
-			this.textBox2.Name = "textBox2";
-			this.textBox2.Size = new System.Drawing.Size(79, 31);
-			this.textBox2.TabIndex = 3;
+			this.UI_tb_Port.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.UI_tb_Port.Location = new System.Drawing.Point(140, 76);
+			this.UI_tb_Port.Name = "UI_tb_Port";
+			this.UI_tb_Port.Size = new System.Drawing.Size(79, 31);
+			this.UI_tb_Port.TabIndex = 3;
 			// 
-			// button1
+			// UI_btn_Connect
 			// 
-			this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.button1.Location = new System.Drawing.Point(140, 113);
-			this.button1.Name = "button1";
-			this.button1.Size = new System.Drawing.Size(79, 32);
-			this.button1.TabIndex = 4;
-			this.button1.Text = "Connect";
-			this.button1.UseVisualStyleBackColor = true;
+			this.UI_btn_Connect.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.UI_btn_Connect.Location = new System.Drawing.Point(140, 113);
+			this.UI_btn_Connect.Name = "UI_btn_Connect";
+			this.UI_btn_Connect.Size = new System.Drawing.Size(79, 32);
+			this.UI_btn_Connect.TabIndex = 4;
+			this.UI_btn_Connect.Text = "Connect";
+			this.UI_btn_Connect.UseVisualStyleBackColor = true;
 			// 
-			// button2
+			// UI_btn_Cancel
 			// 
-			this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.button2.Location = new System.Drawing.Point(242, 113);
-			this.button2.Name = "button2";
-			this.button2.Size = new System.Drawing.Size(70, 32);
-			this.button2.TabIndex = 5;
-			this.button2.Text = "Cancel";
-			this.button2.UseVisualStyleBackColor = true;
+			this.UI_btn_Cancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.UI_btn_Cancel.Location = new System.Drawing.Point(242, 113);
+			this.UI_btn_Cancel.Name = "UI_btn_Cancel";
+			this.UI_btn_Cancel.Size = new System.Drawing.Size(70, 32);
+			this.UI_btn_Cancel.TabIndex = 5;
+			this.UI_btn_Cancel.Text = "Cancel";
+			this.UI_btn_Cancel.UseVisualStyleBackColor = true;
 			// 
 			// ConnectDialog
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(443, 155);
-			this.Controls.Add(this.button2);
-			this.Controls.Add(this.button1);
-			this.Controls.Add(this.textBox2);
-			this.Controls.Add(this.textBox1);
+			this.Controls.Add(this.UI_btn_Cancel);
+			this.Controls.Add(this.UI_btn_Connect);
+			this.Controls.Add(this.UI_tb_Port);
+			this.Controls.Add(this.UI_tb_Address);
 			this.Controls.Add(this.label2);
 			this.Controls.Add(this.label1);
 			this.Name = "ConnectDialog";
@@ -114,10 +114,10 @@
 
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.Label label2;
-		private System.Windows.Forms.TextBox textBox1;
-		private System.Windows.Forms.TextBox textBox2;
-		private System.Windows.Forms.Button button1;
-		private System.Windows.Forms.Button button2;
+		private System.Windows.Forms.TextBox UI_tb_Address;
+		private System.Windows.Forms.TextBox UI_tb_Port;
+		private System.Windows.Forms.Button UI_btn_Connect;
+		private System.Windows.Forms.Button UI_btn_Cancel;
 	}
 }
 

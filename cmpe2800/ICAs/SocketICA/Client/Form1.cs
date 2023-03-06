@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Net.Sockets;
 using static System.Diagnostics.Trace;
+using SocketICA;
 
 namespace Client
 {
@@ -18,6 +19,7 @@ namespace Client
 			AddressFamily.InterNetwork, //ipv4 scheme
 			SocketType.Stream, //streaming socket
 			ProtocolType.Tcp); //use tcp protocol
+		private ConnectDialog _connectDialog;
 		public ClientForm()
 		{
 			InitializeComponent();
@@ -25,9 +27,16 @@ namespace Client
 
 		private void UI_btn_Connect_Click(object sender, EventArgs e)
 		{
+			string address = "localhost";
+			int port = 1666;
+			if(_connectDialog.DialogResult==DialogResult.OK)
+			{
+				address = _connectDialog.Address;
+				int.TryParse(_connectDialog.Port, out port);
+			}
 			try
 			{
-				_sok.BeginConnect("localhost", 1666, Callback_ConnectDone, 42);
+				_sok.BeginConnect(address, port, Callback_ConnectDone, 42);
 			}
 			catch (Exception ex)
 			{

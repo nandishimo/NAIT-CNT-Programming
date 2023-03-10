@@ -81,6 +81,7 @@
 			this.UI_btn_Connect.TabIndex = 4;
 			this.UI_btn_Connect.Text = "Connect";
 			this.UI_btn_Connect.UseVisualStyleBackColor = true;
+			this.UI_btn_Connect.Click += new System.EventHandler(this.UI_btn_Connect_Click);
 			// 
 			// UI_btn_Cancel
 			// 
@@ -91,6 +92,7 @@
 			this.UI_btn_Cancel.TabIndex = 5;
 			this.UI_btn_Cancel.Text = "Cancel";
 			this.UI_btn_Cancel.UseVisualStyleBackColor = true;
+			this.UI_btn_Cancel.Click += new System.EventHandler(this.UI_btn_Cancel_Click);
 			// 
 			// ConnectDialog
 			// 
@@ -105,6 +107,7 @@
 			this.Controls.Add(this.label1);
 			this.Name = "ConnectDialog";
 			this.Text = "Connection Dialog";
+			this.Load += new System.EventHandler(this.ConnectDialog_Load);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 

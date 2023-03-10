@@ -15,11 +15,8 @@ namespace Client
 {
 	public partial class ClientForm : Form
 	{
-		private Socket _sok = new Socket(
-			AddressFamily.InterNetwork, //ipv4 scheme
-			SocketType.Stream, //streaming socket
-			ProtocolType.Tcp); //use tcp protocol
-		private ConnectDialog _connectDialog;
+		private Socket _sok = null;
+		private ConnectDialog _connectDialog = null;
 		public ClientForm()
 		{
 			InitializeComponent();
@@ -27,12 +24,20 @@ namespace Client
 
 		private void UI_btn_Connect_Click(object sender, EventArgs e)
 		{
+			_connectDialog = new ConnectDialog();
+			if(_connectDialog.ShowDialog() == DialogResult.OK)
+			{
+				_sok = _connectDialog.Socket;
+				if (_sok != null)
+					WriteLine("got a socket back!");
+			}
+			/*
 			string address = "localhost";
 			int port = 1666;
 			if(_connectDialog.DialogResult==DialogResult.OK)
 			{
 				address = _connectDialog.Address;
-				int.TryParse(_connectDialog.Port, out port);
+				port = _connectDialog.Port;
 			}
 			try
 			{
@@ -43,22 +48,9 @@ namespace Client
 
 				WriteLine($"UI_btn_Connect_Click {ex.Message}");
 			}
+			*/
 		}
 
-		private void Callback_ConnectDone(IAsyncResult ar)
-		{
-			WriteLine($"The thing I gave me : {(int)ar.AsyncState}");
-			try
-			{
-				_sok.EndConnect(ar);
-				WriteLine($"Connected!");
-			}
-			catch (Exception ex)
-			{
-				WriteLine($"Callback_ConnectDone {ex.Message}");
-				Invoke(new Action<string>((q) => Text = $"Not Connected! {q}"), ex.Message);
-			}
-		}
 
 		private void UI_btn_Send_Click(object sender, EventArgs e)
 		{

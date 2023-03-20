@@ -63,6 +63,7 @@
 			this.UI_tb_Address.Name = "UI_tb_Address";
 			this.UI_tb_Address.Size = new System.Drawing.Size(226, 31);
 			this.UI_tb_Address.TabIndex = 2;
+			this.UI_tb_Address.TextChanged += new System.EventHandler(this.UI_tb_Address_TextChanged);
 			// 
 			// UI_tb_Port
 			// 
@@ -71,6 +72,7 @@
 			this.UI_tb_Port.Name = "UI_tb_Port";
 			this.UI_tb_Port.Size = new System.Drawing.Size(79, 31);
 			this.UI_tb_Port.TabIndex = 3;
+			this.UI_tb_Port.TextChanged += new System.EventHandler(this.UI_tb_Port_TextChanged);
 			// 
 			// UI_btn_Connect
 			// 

@@ -16,20 +16,20 @@ namespace SocketICA
 {
 	public partial class ConnectDialog : Form
 	{
-		public Socket Socket { get; set; } = new Socket(
+		public Socket Socket { get; private set; } = new Socket(
 			AddressFamily.InterNetwork, 
 			SocketType.Stream, 
 			ProtocolType.Tcp);
-		private string _address = "localhost";
-		public string Address { get { return UI_tb_Address.Text; } }
-		private int _port = 1666;
-		public int Port { get { return int.Parse(UI_tb_Port.Text); } }
-		public ConnectDialog(string Address = "localhost", int Port = 1666)
+		public string Address { get; private set; }
+		public int Port { get; private set; }
+		public ConnectDialog(string Address = "localhost", int Port = 1666, bool EnableIPAddressTextBox = true, bool EnablePortTextBox = true)
 		{
 			InitializeComponent();
-			UI_tb_Address.Text = _address = Address;
-			_port = Port;
-			UI_tb_Port.Text = _port.ToString();
+			UI_tb_Address.Text = this.Address = Address;
+			UI_tb_Address.Enabled = EnableIPAddressTextBox;
+			this.Port = Port;
+			UI_tb_Port.Text = this.Port.ToString();
+			UI_tb_Port.Enabled= EnablePortTextBox;
 		}
 
 		private void UI_btn_Connect_Click(object sender, EventArgs e)
@@ -38,10 +38,9 @@ namespace SocketICA
 			{
 				Socket.BeginConnect(Address, Port, Callback_ConnectDone, 42);
 			}
-			catch (Exception)
+			catch (Exception ex)
 			{
-
-				throw;
+				WriteLine($"Error starting socket connection - {ex.Message}");
 			}
 			DialogResult = DialogResult.OK;
 		}
@@ -53,23 +52,50 @@ namespace SocketICA
 
 		private void Callback_ConnectDone(IAsyncResult ar)
 		{
-			WriteLine($"The thing I gave me : {(int)ar.AsyncState}");
 			try
 			{
 				Socket.EndConnect(ar);
-				Invoke(new Action<string>((q) => Text = $"Connected! {q}"), ar.AsyncState);
-				WriteLine($"Connected!");
+				try
+				{
+					Invoke(new Action<string>((q) => Text = $"Connected! {q}"), ar.AsyncState);
+				}
+				catch (Exception ex)
+				{
+
+					WriteLine($"Error updating text - {ex.Message}");
+				}
+				
 			}
 			catch (Exception ex)
 			{
-				WriteLine($"Callback_ConnectDone {ex.Message}");
-				Invoke(new Action<string>((q) => Text = $"Not Connected! {q}"), ex.Message);
+				WriteLine($"Callback_ConnectDone - {ex.Message}");
+				try
+				{
+					Invoke(new Action<string>((q) => Text = $"Not Connected! {q}"), ex.Message);
+				}
+				catch (Exception)
+				{
+
+					WriteLine($"Error updating text - {ex.Message}");
+				}
+				
 			}
 		}
 
 		private void ConnectDialog_Load(object sender, EventArgs e)
 		{
 
+		}
+
+		private void UI_tb_Address_TextChanged(object sender, EventArgs e)
+		{
+			Address = UI_tb_Address.Text;
+		}
+
+		private void UI_tb_Port_TextChanged(object sender, EventArgs e)
+		{
+			int.TryParse(UI_tb_Port.Text, out int port);
+			Port = port;
 		}
 	}
 }

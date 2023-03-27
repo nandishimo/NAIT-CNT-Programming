@@ -10,7 +10,7 @@ using static System.Diagnostics.Trace;
 
 namespace JSONSuperSockect
 {
-	internal class SuperSocket
+	public class SuperSocket
 	{
 		/* Things needed:
 		 * 
@@ -87,7 +87,7 @@ namespace JSONSuperSockect
 			}
 		}
 
-		private void SendData(string json)
+		public void SendData(string json)
 		{
 			if (_socket != null && _socket.Connected)
 			{
@@ -104,7 +104,7 @@ namespace JSONSuperSockect
 				return;
 			}
 		}
-		private void SocketDisconnect()
+		public void SocketDisconnect()
 		{
 			if (_socket != null)
 			{

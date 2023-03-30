@@ -48,7 +48,7 @@ namespace JSONSuperSockect
 
 		void Rx()
 		{
-			while (true)
+			while (_socket!=null)
 			{
 				byte[] buffer = new byte[2048]; //create new buffer to receive response from server
 				try
@@ -144,7 +144,7 @@ namespace JSONSuperSockect
 			byte[] data = null;
 			try
 			{
-				Encoding.UTF8.GetBytes(json);
+				data = Encoding.UTF8.GetBytes(json);
 			}
 			catch(Exception ex)
 			{

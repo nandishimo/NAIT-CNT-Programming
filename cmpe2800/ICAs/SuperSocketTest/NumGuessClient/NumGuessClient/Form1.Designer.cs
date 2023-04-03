@@ -145,7 +145,6 @@
 			this.UI_Btn_SendEmpty.TabIndex = 8;
 			this.UI_Btn_SendEmpty.Text = "Empty Data";
 			this.UI_Btn_SendEmpty.UseVisualStyleBackColor = true;
-			this.UI_Btn_SendEmpty.Click += new System.EventHandler(this.UI_Btn_SendEmpty_Click);
 			// 
 			// UI_Btn_WrongJSON
 			// 
@@ -158,7 +157,6 @@
 			this.UI_Btn_WrongJSON.TabIndex = 9;
 			this.UI_Btn_WrongJSON.Text = "Wrong JSON";
 			this.UI_Btn_WrongJSON.UseVisualStyleBackColor = true;
-			this.UI_Btn_WrongJSON.Click += new System.EventHandler(this.UI_Btn_WrongJSON_Click);
 			// 
 			// UI_Btn_BadFrame
 			// 

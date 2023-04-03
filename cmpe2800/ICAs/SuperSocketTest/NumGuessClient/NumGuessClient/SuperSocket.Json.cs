@@ -20,12 +20,30 @@ namespace NumGuessClient
 		 * rxthread
 		 */
 		public Socket _socket { get; private set; }
-		public delegate void delvoidstring(string s);
-		public delvoidstring CallbackStatus { get; set; }
-		public delvoidstring CallbackReceive { get; set; }
+		//public delegate void delvoidstring(string s);
+		public Action<string> CallbackStatus { get; set; }
+		public Action<string> CallbackReceive { get; set; }
 		private Thread RxThread = null;
+		public bool Connected
+		{
+			get
+			{
+				if(_socket != null)
+				{
+					try
+					{
+						return _socket.Connected;
+					}
+					catch (Exception ex)
+					{
+						WriteLine(ex.Message);
+					}
+				}
+				return false;
+			} 
+		}
 
-		public SuperSocket(Socket socket, delvoidstring StatusMethod, delvoidstring ReceiveMethod)
+		public SuperSocket(Socket socket, Action<string> StatusMethod, Action<string> ReceiveMethod)
 		{
 			_socket = socket;
 			CallbackStatus = StatusMethod;
@@ -37,6 +55,15 @@ namespace NumGuessClient
 					RxThread = new Thread(Rx);
 					RxThread.IsBackground = true;
 					RxThread.Start();
+					try
+					{
+						CallbackStatus.Invoke("Connection established!");
+					}
+					catch (Exception ex)
+					{
+						WriteLine($"Erro invoking CallbackStatus - {ex.Message}");
+					}
+					
 				}
 			}
 			catch (Exception)
@@ -48,9 +75,12 @@ namespace NumGuessClient
 
 		void Rx()
 		{
+			string json = "";
+			int braces = 0;
 			while (_socket != null)
 			{
-				byte[] buffer = new byte[2048]; //create new buffer to receive response from server
+				byte[] buffer = new byte[15]; //create new buffer to receive response from server
+				string frame = "";
 				try
 				{
 					int numBytesRx = _socket.Receive(buffer); //receive response and count bytes received
@@ -60,22 +90,41 @@ namespace NumGuessClient
 						SocketDisconnect();
 						return;
 					}
-					try
+					json += UnWrapData(buffer);
+					for(int i = 0; i < json.Length; i++)
 					{
-						CallbackReceive.Invoke(UnWrapData(buffer));//unpack response
+						if (json[i]=='{')
+						{
+							braces++;
+						}
+						else if (json[i]=='}')
+						{
+							braces--;
+						}
+						if (braces == 0)
+						{
+							frame = json.Substring(0, i);
+							try
+							{
+
+								CallbackReceive.Invoke(frame);//unpack response
+							}
+							catch (Exception er)
+							{
+								WriteLine($"Error invoking callback method - {er.Message}");
+								return;
+							}
+							json = json.Substring(i + 1);
+						}
 					}
-					catch (Exception er)
-					{
-						WriteLine($"Error invoking callback method - {er.Message}");
-						return;
-					}
+
 				}
 				catch (Exception ex)
 				{
 					WriteLine($"Error receiving guess from server! - {ex.Message}"); //catch error
 					try
 					{
-						CallbackStatus.Invoke($"Error receiving data - {ex.Message}");//unpack response
+						CallbackStatus.Invoke($"Error receiving data RX- {ex.Message}");//unpack response
 					}
 					catch (Exception er)
 					{
@@ -119,6 +168,20 @@ namespace NumGuessClient
 					WriteLine($"Error disconnecting from server - {ex.Message}");
 				}
 			}
+			if(RxThread.IsAlive)
+			{
+				RxThread.Abort();
+			}
+			try
+			{
+				CallbackStatus.Invoke("Disconnected from server...");
+			}
+			catch (Exception ex)
+			{
+
+				WriteLine($"Error invoking CallbackStatus - {ex.Message}");
+			}
+			
 
 		}
 		private string UnWrapData(byte[] buffer)

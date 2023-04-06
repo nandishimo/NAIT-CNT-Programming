@@ -79,7 +79,7 @@ namespace NumGuessClient
 			int braces = 0;
 			while (_socket != null)
 			{
-				byte[] buffer = new byte[15]; //create new buffer to receive response from server
+				byte[] buffer = new byte[4096]; //create new buffer to receive response from server
 				string frame = "";
 				try
 				{
@@ -93,6 +93,10 @@ namespace NumGuessClient
 					json += UnWrapData(buffer);
 					for(int i = 0; i < json.Length; i++)
 					{
+						if (braces == 0)
+							i = json.IndexOf('{',i);
+						if (i == -1)
+							break;
 						if (json[i]=='{')
 						{
 							braces++;
@@ -103,10 +107,11 @@ namespace NumGuessClient
 						}
 						if (braces == 0)
 						{
-							frame = json.Substring(0, i);
+							frame = json.Substring(0, i+1);
+							json=json.Remove(0, i+1);
+							i = 0;
 							try
 							{
-
 								CallbackReceive.Invoke(frame);//unpack response
 							}
 							catch (Exception er)
@@ -114,7 +119,6 @@ namespace NumGuessClient
 								WriteLine($"Error invoking callback method - {er.Message}");
 								return;
 							}
-							json = json.Substring(i + 1);
 						}
 					}
 

@@ -12,15 +12,7 @@ namespace JSONSuperSockect
 {
 	public class SuperSocket
 	{
-		/* Things needed:
-		 * 
-		 * takes a connected socket
-		 * status callback
-		 * data callback
-		 * rxthread
-		 */
 		public Socket _socket { get; private set; }
-		//public delegate void delvoidstring(string s);
 		public Action<string> CallbackStatus { get; set; }
 		public Action<string> CallbackReceive { get; set; }
 		private Thread RxThread = null;

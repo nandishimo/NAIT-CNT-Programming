@@ -29,11 +29,11 @@
 		private void InitializeComponent()
 		{
 			this.UI_btn_Connect = new System.Windows.Forms.Button();
-			this.label1 = new System.Windows.Forms.Label();
-			this.label2 = new System.Windows.Forms.Label();
-			this.label3 = new System.Windows.Forms.Label();
-			this.label4 = new System.Windows.Forms.Label();
-			this.label5 = new System.Windows.Forms.Label();
+			this.UI_lbl_Thickness = new System.Windows.Forms.Label();
+			this.UI_lbl_Frames = new System.Windows.Forms.Label();
+			this.UI_lbl_Fragments = new System.Windows.Forms.Label();
+			this.UI_lbl_Destack = new System.Windows.Forms.Label();
+			this.UI_lbl_Bytes = new System.Windows.Forms.Label();
 			this.SuspendLayout();
 			// 
 			// UI_btn_Connect
@@ -47,66 +47,66 @@
 			this.UI_btn_Connect.UseVisualStyleBackColor = true;
 			this.UI_btn_Connect.Click += new System.EventHandler(this.UI_btn_Connect_Click);
 			// 
-			// label1
+			// UI_lbl_Thickness
 			// 
-			this.label1.AutoSize = true;
-			this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label1.Location = new System.Drawing.Point(114, 421);
-			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(106, 20);
-			this.label1.TabIndex = 2;
-			this.label1.Text = "Thickness: 10";
+			this.UI_lbl_Thickness.AutoSize = true;
+			this.UI_lbl_Thickness.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.UI_lbl_Thickness.Location = new System.Drawing.Point(114, 421);
+			this.UI_lbl_Thickness.Name = "UI_lbl_Thickness";
+			this.UI_lbl_Thickness.Size = new System.Drawing.Size(106, 20);
+			this.UI_lbl_Thickness.TabIndex = 2;
+			this.UI_lbl_Thickness.Text = "Thickness: 10";
 			// 
-			// label2
+			// UI_lbl_Frames
 			// 
-			this.label2.AutoSize = true;
-			this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label2.Location = new System.Drawing.Point(226, 421);
-			this.label2.Name = "label2";
-			this.label2.Size = new System.Drawing.Size(152, 20);
-			this.label2.TabIndex = 3;
-			this.label2.Text = "Frames RXed: 0000";
+			this.UI_lbl_Frames.AutoSize = true;
+			this.UI_lbl_Frames.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.UI_lbl_Frames.Location = new System.Drawing.Point(226, 421);
+			this.UI_lbl_Frames.Name = "UI_lbl_Frames";
+			this.UI_lbl_Frames.Size = new System.Drawing.Size(152, 20);
+			this.UI_lbl_Frames.TabIndex = 3;
+			this.UI_lbl_Frames.Text = "Frames RXed: 0000";
 			// 
-			// label3
+			// UI_lbl_Fragments
 			// 
-			this.label3.AutoSize = true;
-			this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label3.Location = new System.Drawing.Point(384, 421);
-			this.label3.Name = "label3";
-			this.label3.Size = new System.Drawing.Size(121, 20);
-			this.label3.TabIndex = 4;
-			this.label3.Text = "Fragments: 000";
+			this.UI_lbl_Fragments.AutoSize = true;
+			this.UI_lbl_Fragments.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.UI_lbl_Fragments.Location = new System.Drawing.Point(384, 421);
+			this.UI_lbl_Fragments.Name = "UI_lbl_Fragments";
+			this.UI_lbl_Fragments.Size = new System.Drawing.Size(121, 20);
+			this.UI_lbl_Fragments.TabIndex = 4;
+			this.UI_lbl_Fragments.Text = "Fragments: 000";
 			// 
-			// label4
+			// UI_lbl_Destack
 			// 
-			this.label4.AutoSize = true;
-			this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label4.Location = new System.Drawing.Point(511, 421);
-			this.label4.Name = "label4";
-			this.label4.Size = new System.Drawing.Size(138, 20);
-			this.label4.TabIndex = 5;
-			this.label4.Text = "Destack Avg: 0.00";
+			this.UI_lbl_Destack.AutoSize = true;
+			this.UI_lbl_Destack.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.UI_lbl_Destack.Location = new System.Drawing.Point(511, 421);
+			this.UI_lbl_Destack.Name = "UI_lbl_Destack";
+			this.UI_lbl_Destack.Size = new System.Drawing.Size(138, 20);
+			this.UI_lbl_Destack.TabIndex = 5;
+			this.UI_lbl_Destack.Text = "Destack Avg: 0.00";
 			// 
-			// label5
+			// UI_lbl_Bytes
 			// 
-			this.label5.AutoSize = true;
-			this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label5.Location = new System.Drawing.Point(655, 421);
-			this.label5.Name = "label5";
-			this.label5.Size = new System.Drawing.Size(133, 20);
-			this.label5.TabIndex = 6;
-			this.label5.Text = "Bytes RXed: 0.00";
+			this.UI_lbl_Bytes.AutoSize = true;
+			this.UI_lbl_Bytes.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.UI_lbl_Bytes.Location = new System.Drawing.Point(655, 421);
+			this.UI_lbl_Bytes.Name = "UI_lbl_Bytes";
+			this.UI_lbl_Bytes.Size = new System.Drawing.Size(133, 20);
+			this.UI_lbl_Bytes.TabIndex = 6;
+			this.UI_lbl_Bytes.Text = "Bytes RXed: 0.00";
 			// 
 			// Form1
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(800, 450);
-			this.Controls.Add(this.label5);
-			this.Controls.Add(this.label4);
-			this.Controls.Add(this.label3);
-			this.Controls.Add(this.label2);
-			this.Controls.Add(this.label1);
+			this.Controls.Add(this.UI_lbl_Bytes);
+			this.Controls.Add(this.UI_lbl_Destack);
+			this.Controls.Add(this.UI_lbl_Fragments);
+			this.Controls.Add(this.UI_lbl_Frames);
+			this.Controls.Add(this.UI_lbl_Thickness);
 			this.Controls.Add(this.UI_btn_Connect);
 			this.Name = "Form1";
 			this.Text = "Form1";
@@ -119,11 +119,11 @@
 		#endregion
 
 		private System.Windows.Forms.Button UI_btn_Connect;
-		private System.Windows.Forms.Label label1;
-		private System.Windows.Forms.Label label2;
-		private System.Windows.Forms.Label label3;
-		private System.Windows.Forms.Label label4;
-		private System.Windows.Forms.Label label5;
+		private System.Windows.Forms.Label UI_lbl_Thickness;
+		private System.Windows.Forms.Label UI_lbl_Frames;
+		private System.Windows.Forms.Label UI_lbl_Fragments;
+		private System.Windows.Forms.Label UI_lbl_Destack;
+		private System.Windows.Forms.Label UI_lbl_Bytes;
 	}
 }
 

@@ -19,6 +19,7 @@ namespace MultiDraw
 	{
 		Point lastPosition = new Point(0, 0);
 		SuperSocket _sock = null;
+		byte _thick = 10;
 		
 		public Form1()
 		{
@@ -29,15 +30,29 @@ namespace MultiDraw
 		}
 		private void Form1_Load(object sender, EventArgs e)
 		{
+			UI_lbl_Thickness.MouseWheel += UI_lbl_Thickness_MouseWheel;
+		}
 
+		private void UI_lbl_Thickness_MouseWheel(object sender, MouseEventArgs e)
+		{
+			if (e.Delta > 0)
+				_thick++;
+			if(e.Delta < 0)
+				_thick--;
+			UI_lbl_Thickness.Text = $"Thickness: {_thick}";
 		}
 
 		private void Form1_MouseDown(object sender, MouseEventArgs e)
 		{
-			using (Graphics gr = CreateGraphics())
+			//using (Graphics gr = CreateGraphics())
+			//{
+			//	Brush pBrush = Brushes.Red;
+			//	gr.FillRectangle(pBrush, e.X, e.Y, 1, 1);
+			//}
+			if (e.Button == MouseButtons.Right)
 			{
-				Brush pBrush = Brushes.Red;
-				gr.FillRectangle(pBrush, e.X, e.Y, 1, 1);
+				using (Graphics gr = CreateGraphics())
+					gr.Clear(Color.White);
 			}
 		}
 
@@ -52,7 +67,7 @@ namespace MultiDraw
 				seg.EX = (Int16)mPosition.X;
 				seg.EY = (Int16)mPosition.Y;
 				seg.C = Color.Red;
-				seg.T = 10;
+				seg.T = _thick;
 				_sock.SendData(JsonConvert.SerializeObject(seg));
 
 				using(Graphics gr = CreateGraphics())
@@ -102,6 +117,7 @@ namespace MultiDraw
 
 		private void DrawSegment(string json)
 		{
+			WriteLine(json);	
 			LineSegment seg = LineSegment.JSONToLineSegment(json);
 			if(LineSegment.IsSane(seg))
 			{
@@ -115,7 +131,7 @@ namespace MultiDraw
 
 		private void UI_btn_Connect_Click(object sender, EventArgs e)
 		{
-			ConnectDialog connectDialog = new ConnectDialog();
+			ConnectDialog connectDialog = new ConnectDialog("bits.cnt.sast.ca");
 			if (connectDialog.ShowDialog() == DialogResult.OK)
 			{
 				_sock = new SuperSocket(connectDialog.Socket, StatusUpdate, DrawSegment);

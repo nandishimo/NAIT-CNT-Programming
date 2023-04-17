@@ -52,7 +52,7 @@ namespace MultiDraw
 					}
 					catch (Exception ex)
 					{
-						WriteLine($"Erro invoking CallbackStatus - {ex.Message}");
+						WriteLine($"Error invoking CallbackStatus - {ex.Message}");
 					}
 
 				}
@@ -61,7 +61,6 @@ namespace MultiDraw
 			{
 				WriteLine("Given a bad socket");
 			}
-
 		}
 
 		void Rx()
@@ -82,6 +81,7 @@ namespace MultiDraw
 						return;
 					}
 					json += UnWrapData(buffer);
+					
 					for (int i = 0; i < json.Length; i++)
 					{
 						if (braces == 0)
@@ -176,8 +176,6 @@ namespace MultiDraw
 
 				WriteLine($"Error invoking CallbackStatus - {ex.Message}");
 			}
-
-
 		}
 		private string UnWrapData(byte[] buffer)
 		{
@@ -209,9 +207,6 @@ namespace MultiDraw
 				WriteLine($"Error encountered while encoding data - {ex.Message}");
 			}
 			return data;
-
 		}
-
-
 	}
 }

@@ -29,11 +29,7 @@ namespace MultiDraw
 		}
 		private void Form1_Load(object sender, EventArgs e)
 		{
-			ConnectDialog connectDialog = new ConnectDialog();
-			if (connectDialog.ShowDialog() == DialogResult.OK)
-			{
-				_sock = new SuperSocket(connectDialog.Socket, StatusUpdate, DrawSegment);
-			}
+
 		}
 
 		private void Form1_MouseDown(object sender, MouseEventArgs e)
@@ -117,5 +113,13 @@ namespace MultiDraw
 
 		}
 
+		private void UI_btn_Connect_Click(object sender, EventArgs e)
+		{
+			ConnectDialog connectDialog = new ConnectDialog();
+			if (connectDialog.ShowDialog() == DialogResult.OK)
+			{
+				_sock = new SuperSocket(connectDialog.Socket, StatusUpdate, DrawSegment);
+			}
+		}
 	}
 }

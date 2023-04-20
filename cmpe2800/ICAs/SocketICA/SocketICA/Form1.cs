@@ -42,17 +42,6 @@ namespace SocketICA
 			{
 				WriteLine($"Error starting socket connection - {ex.Message}");
 			}
-			try
-			{
-				if(Socket.Connected)
-					DialogResult = DialogResult.OK;
-			}
-			catch (Exception)
-			{
-				WriteLine($"Error checking socket connection status");
-			}
-			Invoke(new Action(() => Text = $"Could not establish a connection"));
-			
 		}
 
 		private void UI_btn_Cancel_Click(object sender, EventArgs e)
@@ -74,7 +63,6 @@ namespace SocketICA
 
 					WriteLine($"Error updating text - {ex.Message}");
 				}
-				
 			}
 			catch (Exception ex)
 			{
@@ -88,7 +76,10 @@ namespace SocketICA
 
 					WriteLine($"Error updating text - {ex.Message}");
 				}
-				
+			}
+			finally
+			{
+				DialogResult = DialogResult.OK;
 			}
 		}
 

@@ -90,13 +90,12 @@ namespace MultiDraw
 					jsonRX = UnWrapData(buffer);
 
 					json += jsonRX;
-					int j = 0;
 					for (int i = 0; i < json.Length; i++)
 					{
 						if (braces == 0)
 						{
 							i = json.IndexOf('{', 0);
-							if (j == -1)
+							if (i == -1)
 								break;
 						}
 						if (json[i] == '{')
@@ -108,9 +107,9 @@ namespace MultiDraw
 							braces--;
 							if (braces == 0)
 							{
-								frame = json.Substring(j, i - j + 1);
+								frame = json.Substring(0, i + 1);
 								framesRX++;
-								json = json.Remove(0, j + 1);
+								json = json.Remove(0, i + 1);
 								i = 0;
 								try
 								{

@@ -33,6 +33,11 @@ namespace MultiDraw
 				return false;
 			}
 		}
+		public int framesRX = 0;
+		public int fragments = 0;
+		public double destackAVG { get { try { return framesRX / receiveEvents; } catch { return 1; } } }
+		public long bytesRX = 0;
+		public int receiveEvents = 0;
 
 		public SuperSocket(Socket socket, Action<string> StatusMethod, Action<string> ReceiveMethod)
 		{
@@ -66,6 +71,7 @@ namespace MultiDraw
 		void Rx()
 		{
 			string json = "";
+			string jsonRX;
 			int braces = 0;
 			while (_socket != null)
 			{
@@ -74,20 +80,25 @@ namespace MultiDraw
 				try
 				{
 					int numBytesRx = _socket.Receive(buffer); //receive response and count bytes received
+					bytesRX += numBytesRx;
 					if (numBytesRx == 0) //if 0 bytes received disconnect
 					{
 						//issue soft disconnect
 						SocketDisconnect();
 						return;
 					}
-					json += UnWrapData(buffer);
-					
+					jsonRX = UnWrapData(buffer);
+
+					json += jsonRX;
+					int j = 0;
 					for (int i = 0; i < json.Length; i++)
 					{
 						if (braces == 0)
-							i = json.IndexOf('{', i);
-						if (i == -1)
-							break;
+						{
+							i = json.IndexOf('{', 0);
+							if (j == -1)
+								break;
+						}
 						if (json[i] == '{')
 						{
 							braces++;
@@ -95,20 +106,21 @@ namespace MultiDraw
 						else if (json[i] == '}')
 						{
 							braces--;
-						}
-						if (braces == 0)
-						{
-							frame = json.Substring(0, i + 1);
-							json = json.Remove(0, i + 1);
-							i = 0;
-							try
+							if (braces == 0)
 							{
-								CallbackReceive.Invoke(frame);//unpack response
-							}
-							catch (Exception er)
-							{
-								WriteLine($"Error invoking callback method - {er.Message}");
-								return;
+								frame = json.Substring(j, i - j + 1);
+								framesRX++;
+								json = json.Remove(0, j + 1);
+								i = 0;
+								try
+								{
+									CallbackReceive.Invoke(frame);//unpack response
+								}
+								catch (Exception er)
+								{
+									WriteLine($"Error invoking callback method - {er.Message}");
+									return;
+								}
 							}
 						}
 					}

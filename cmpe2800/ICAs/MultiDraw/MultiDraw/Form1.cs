@@ -20,6 +20,9 @@ namespace MultiDraw
 		Point lastPosition = new Point(0, 0);
 		SuperSocket _sock = null;
 		byte _thick = 10;
+		string address = "bits.cnt.sast.ca";
+		int port = 1666;
+		Color penColor;
 		
 		public Form1()
 		{
@@ -27,6 +30,7 @@ namespace MultiDraw
 			Shown += Form1_Shown;
 			MouseMove += Form1_MouseMove;
 			MouseDown += Form1_MouseDown;
+			penColor = UI_lbl_Color.ForeColor;
 		}
 		private void Form1_Load(object sender, EventArgs e)
 		{
@@ -52,7 +56,7 @@ namespace MultiDraw
 			if (e.Button == MouseButtons.Right)
 			{
 				using (Graphics gr = CreateGraphics())
-					gr.Clear(Color.White);
+					gr.Clear(BackColor);
 			}
 		}
 
@@ -66,7 +70,7 @@ namespace MultiDraw
 				seg.SY = (Int16)lastPosition.Y;
 				seg.EX = (Int16)mPosition.X;
 				seg.EY = (Int16)mPosition.Y;
-				seg.C = Color.Red;
+				seg.C = penColor;
 				seg.T = _thick;
 				_sock.SendData(JsonConvert.SerializeObject(seg));
 
@@ -126,16 +130,56 @@ namespace MultiDraw
 					seg.Render(gr);
 				}
 			}
+			try
+			{
+				Invoke(new Action(() => { UI_lbl_Frames.Text = $"Frames RXed:{_sock.framesRX}"; }));
+				Invoke(new Action(() => { UI_lbl_Fragments.Text = $"Fragments{_sock.fragments}"; }));
+				Invoke(new Action(() => { UI_lbl_Destack.Text = $"Destack Avg.:{_sock.destackAVG}"; }));
+				Invoke(new Action(() => { UI_lbl_Bytes.Text = "Bytes RXed:" + string.Format("{0:#.##E+00}", _sock.bytesRX); }));
+			}
+			catch (Exception ex)
+			{
+				WriteLine(ex);
+			}
+
+			
 
 		}
 
 		private void UI_btn_Connect_Click(object sender, EventArgs e)
 		{
-			ConnectDialog connectDialog = new ConnectDialog("bits.cnt.sast.ca");
-			if (connectDialog.ShowDialog() == DialogResult.OK)
+			if(_sock == null || !_sock.Connected)
 			{
-				_sock = new SuperSocket(connectDialog.Socket, StatusUpdate, DrawSegment);
+				ConnectDialog connectDialog = new ConnectDialog(address,port);
+				if (connectDialog.ShowDialog() == DialogResult.OK)
+				{
+					_sock = new SuperSocket(connectDialog.Socket, StatusUpdate, DrawSegment);
+					address = connectDialog.Address;
+					port = connectDialog.Port;
+				}
 			}
+			else
+			{
+				_sock.SocketDisconnect();
+			}
+
+		}
+
+		private void UI_lbl_Color_Click(object sender, EventArgs e)
+		{
+			ColorDialog colorDialog = new ColorDialog();
+			colorDialog.Color = UI_lbl_Color.ForeColor;
+			if(colorDialog.ShowDialog() == DialogResult.OK)
+			{
+				UI_lbl_Color.ForeColor = colorDialog.Color;
+				UI_lbl_Color.Text = $"Color: {colorDialog.Color.Name}";
+				penColor = UI_lbl_Color.ForeColor;
+			}
+		}
+
+		private void UI_lbl_Bytes_Click(object sender, EventArgs e)
+		{
+
 		}
 	}
 }

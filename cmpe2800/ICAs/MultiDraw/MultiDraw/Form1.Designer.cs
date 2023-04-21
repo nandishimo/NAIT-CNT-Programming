@@ -97,7 +97,6 @@
 			this.UI_lbl_Bytes.Size = new System.Drawing.Size(107, 15);
 			this.UI_lbl_Bytes.TabIndex = 6;
 			this.UI_lbl_Bytes.Text = "Bytes RXed: 0.000";
-			this.UI_lbl_Bytes.Click += new System.EventHandler(this.UI_lbl_Bytes_Click);
 			// 
 			// UI_lbl_Color
 			// 

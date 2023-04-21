@@ -195,9 +195,5 @@ namespace MultiDraw
 			}
 		}
 
-		private void UI_lbl_Bytes_Click(object sender, EventArgs e)
-		{
-
-		}
 	}
 }

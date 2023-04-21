@@ -34,6 +34,11 @@ namespace JSONSuperSockect
 				return false;
 			}
 		}
+		public int framesRX = 0;
+		public int fragments = 0;
+		public double destackAVG { get { try { return (double)(framesRX / receiveEvents); } catch { return 1; } } }
+		public long bytesRX = 0;
+		public int receiveEvents = 0;
 
 		public SuperSocket(Socket socket, Action<string> StatusMethod, Action<string> ReceiveMethod)
 		{
@@ -42,7 +47,7 @@ namespace JSONSuperSockect
 			CallbackReceive = ReceiveMethod;
 			try
 			{
-				if (_socket.Connected)
+				if (Connected)
 				{
 					RxThread = new Thread(Rx);
 					RxThread.IsBackground = true;
@@ -53,7 +58,7 @@ namespace JSONSuperSockect
 					}
 					catch (Exception ex)
 					{
-						WriteLine($"Erro invoking CallbackStatus - {ex.Message}");
+						WriteLine($"Error invoking CallbackStatus - {ex.Message}");
 					}
 
 				}
@@ -62,33 +67,40 @@ namespace JSONSuperSockect
 			{
 				WriteLine("Given a bad socket");
 			}
-
 		}
 
 		void Rx()
 		{
 			string json = "";
-			int braces = 0;
+			string jsonRX;
+
 			while (_socket != null)
 			{
-				byte[] buffer = new byte[4096]; //create new buffer to receive response from server
+				byte[] buffer = new byte[1024]; //create new buffer to receive response from server
 				string frame = "";
 				try
 				{
 					int numBytesRx = _socket.Receive(buffer); //receive response and count bytes received
+					receiveEvents++;
+					bytesRX += numBytesRx;
 					if (numBytesRx == 0) //if 0 bytes received disconnect
 					{
 						//issue soft disconnect
 						SocketDisconnect();
 						return;
 					}
-					json += UnWrapData(buffer);
+					jsonRX = UnWrapData(buffer);
+
+					json += jsonRX;
+					int braces = 0;
 					for (int i = 0; i < json.Length; i++)
 					{
 						if (braces == 0)
-							i = json.IndexOf('{', i);
-						if (i == -1)
-							break;
+						{
+							i = json.IndexOf('{', 0);
+							if (i == -1)
+								break;
+						}
 						if (json[i] == '{')
 						{
 							braces++;
@@ -96,24 +108,26 @@ namespace JSONSuperSockect
 						else if (json[i] == '}')
 						{
 							braces--;
-						}
-						if (braces == 0)
-						{
-							frame = json.Substring(0, i + 1);
-							json = json.Remove(0, i + 1);
-							i = 0;
-							try
+							if (braces == 0)
 							{
-								CallbackReceive.Invoke(frame);//unpack response
-							}
-							catch (Exception er)
-							{
-								WriteLine($"Error invoking callback method - {er.Message}");
-								return;
+								frame = json.Substring(0, i + 1);
+								framesRX++;
+								json = json.Remove(0, i + 1);
+								i = 0;
+								try
+								{
+									CallbackReceive.Invoke(frame);//unpack response
+								}
+								catch (Exception er)
+								{
+									WriteLine($"Error invoking callback method - {er.Message}");
+									return;
+								}
 							}
 						}
 					}
-
+					if (braces != 0)
+						fragments++;
 				}
 				catch (Exception ex)
 				{
@@ -134,9 +148,9 @@ namespace JSONSuperSockect
 
 		public void SendData(string json)
 		{
-			if (_socket != null && _socket.Connected)
+			if (_socket != null && Connected)
 			{
-				byte[] data = WrapData(json); //convert guess to GGdata class -> json string and then to byte array
+				byte[] data = WrapData(json);
 
 				try
 				{
@@ -177,8 +191,6 @@ namespace JSONSuperSockect
 
 				WriteLine($"Error invoking CallbackStatus - {ex.Message}");
 			}
-
-
 		}
 		private string UnWrapData(byte[] buffer)
 		{
@@ -210,9 +222,7 @@ namespace JSONSuperSockect
 				WriteLine($"Error encountered while encoding data - {ex.Message}");
 			}
 			return data;
-
 		}
-
-
 	}
 }
+

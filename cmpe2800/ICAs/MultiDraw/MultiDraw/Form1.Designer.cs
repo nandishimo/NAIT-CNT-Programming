@@ -51,61 +51,61 @@
 			// UI_lbl_Thickness
 			// 
 			this.UI_lbl_Thickness.AutoSize = true;
-			this.UI_lbl_Thickness.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.UI_lbl_Thickness.Location = new System.Drawing.Point(201, 425);
+			this.UI_lbl_Thickness.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.UI_lbl_Thickness.Location = new System.Drawing.Point(257, 425);
 			this.UI_lbl_Thickness.Name = "UI_lbl_Thickness";
-			this.UI_lbl_Thickness.Size = new System.Drawing.Size(89, 16);
+			this.UI_lbl_Thickness.Size = new System.Drawing.Size(82, 15);
 			this.UI_lbl_Thickness.TabIndex = 2;
 			this.UI_lbl_Thickness.Text = "Thickness: 10";
 			// 
 			// UI_lbl_Frames
 			// 
 			this.UI_lbl_Frames.AutoSize = true;
-			this.UI_lbl_Frames.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.UI_lbl_Frames.Location = new System.Drawing.Point(296, 425);
+			this.UI_lbl_Frames.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.UI_lbl_Frames.Location = new System.Drawing.Point(352, 425);
 			this.UI_lbl_Frames.Name = "UI_lbl_Frames";
-			this.UI_lbl_Frames.Size = new System.Drawing.Size(124, 16);
+			this.UI_lbl_Frames.Size = new System.Drawing.Size(117, 15);
 			this.UI_lbl_Frames.TabIndex = 3;
 			this.UI_lbl_Frames.Text = "Frames RXed: 0000";
 			// 
 			// UI_lbl_Fragments
 			// 
 			this.UI_lbl_Fragments.AutoSize = true;
-			this.UI_lbl_Fragments.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.UI_lbl_Fragments.Location = new System.Drawing.Point(426, 425);
+			this.UI_lbl_Fragments.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.UI_lbl_Fragments.Location = new System.Drawing.Point(482, 425);
 			this.UI_lbl_Fragments.Name = "UI_lbl_Fragments";
-			this.UI_lbl_Fragments.Size = new System.Drawing.Size(98, 16);
+			this.UI_lbl_Fragments.Size = new System.Drawing.Size(93, 15);
 			this.UI_lbl_Fragments.TabIndex = 4;
 			this.UI_lbl_Fragments.Text = "Fragments: 000";
 			// 
 			// UI_lbl_Destack
 			// 
 			this.UI_lbl_Destack.AutoSize = true;
-			this.UI_lbl_Destack.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.UI_lbl_Destack.Location = new System.Drawing.Point(530, 425);
+			this.UI_lbl_Destack.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.UI_lbl_Destack.Location = new System.Drawing.Point(586, 425);
 			this.UI_lbl_Destack.Name = "UI_lbl_Destack";
-			this.UI_lbl_Destack.Size = new System.Drawing.Size(114, 16);
+			this.UI_lbl_Destack.Size = new System.Drawing.Size(103, 15);
 			this.UI_lbl_Destack.TabIndex = 5;
 			this.UI_lbl_Destack.Text = "Destack Avg: 0.00";
 			// 
 			// UI_lbl_Bytes
 			// 
 			this.UI_lbl_Bytes.AutoSize = true;
-			this.UI_lbl_Bytes.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.UI_lbl_Bytes.Location = new System.Drawing.Point(650, 425);
+			this.UI_lbl_Bytes.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.UI_lbl_Bytes.Location = new System.Drawing.Point(706, 425);
 			this.UI_lbl_Bytes.Name = "UI_lbl_Bytes";
-			this.UI_lbl_Bytes.Size = new System.Drawing.Size(138, 16);
+			this.UI_lbl_Bytes.Size = new System.Drawing.Size(107, 15);
 			this.UI_lbl_Bytes.TabIndex = 6;
-			this.UI_lbl_Bytes.Text = "Bytes RXed: 0.00E+00";
+			this.UI_lbl_Bytes.Text = "Bytes RXed: 0.000";
 			this.UI_lbl_Bytes.Click += new System.EventHandler(this.UI_lbl_Bytes_Click);
 			// 
 			// UI_lbl_Color
 			// 
 			this.UI_lbl_Color.AutoSize = true;
-			this.UI_lbl_Color.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.UI_lbl_Color.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.UI_lbl_Color.Location = new System.Drawing.Point(125, 425);
 			this.UI_lbl_Color.Name = "UI_lbl_Color";
-			this.UI_lbl_Color.Size = new System.Drawing.Size(42, 16);
+			this.UI_lbl_Color.Size = new System.Drawing.Size(39, 15);
 			this.UI_lbl_Color.TabIndex = 7;
 			this.UI_lbl_Color.Text = "Color:";
 			this.UI_lbl_Color.Click += new System.EventHandler(this.UI_lbl_Color_Click);
@@ -114,7 +114,7 @@
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(800, 450);
+			this.ClientSize = new System.Drawing.Size(825, 450);
 			this.Controls.Add(this.UI_lbl_Color);
 			this.Controls.Add(this.UI_lbl_Bytes);
 			this.Controls.Add(this.UI_lbl_Destack);

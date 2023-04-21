@@ -132,29 +132,29 @@ namespace MultiDraw
 
 		private string SINotation(double number)
 		{
-			if (number < 0.000000001)
+			if (number < 0.000001)
 			{
-				return string.Format("{0:#.###n}", number * 1000000000);
-			}
-			else if (number < 0.000001)
-			{
-				return string.Format("{0:#.###u}", number * 1000000);
+				return string.Format("{0:#.###n}", number * 1000000000); //if less than 10^-6 its in the nano domain (10^-9)
 			}
 			else if (number < 0.001)
 			{
-				return string.Format("{0:#.###m}", number * 1000);
+				return string.Format("{0:#.###u}", number * 1000000); //if less than 10^-3 its in the micro domain (10^-6)
+			}
+			else if (number < 1)
+			{
+				return string.Format("{0:#.###m}", number * 1000); //if less than 1 its in the milli domain (10^-3)
 			}
 			else if (number >= 1000000000)
 			{
-				return string.Format("{0:#.###G}", number / 1000000000);
+				return string.Format("{0:#.###G}", number / 1000000000); //if greater than 1000000000 its in the Giga domain (10^9)
 			}
 			else if (number >=1000000)
 			{
-				return string.Format("{0:#.###M}", number / 1000000);
+				return string.Format("{0:#.###M}", number / 1000000); //if greater than 1000000 its in the Mega domain (10^6)
 			}
 			else if (number >= 1000)
 			{
-				return string.Format("{0:#.###k}", number / 1000);
+				return string.Format("{0:#.###k}", number / 1000); //if greater than 1000 its in the kilo domain (10^3)
 			}
 			else
 			{

@@ -13,9 +13,10 @@ namespace JSONSuperSockect
 	public class SuperSocket
 	{
 		public Socket _socket { get; private set; }
-		public Action<string> CallbackStatus { get; set; }
-		public Action<string> CallbackReceive { get; set; }
+		public Action<string> CallbackStatus { get; set; } //invoke this when user needs a status update
+		public Action<string> CallbackReceive { get; set; } //invoke this when data has been received
 		private Thread RxThread = null;
+		int bufferSize;
 		public bool Connected
 		{
 			get
@@ -36,13 +37,14 @@ namespace JSONSuperSockect
 		}
 		public int framesRX = 0;
 		public int fragments = 0;
-		public double destackAVG { get { try { return (double)(framesRX / receiveEvents); } catch { return 1; } } }
+		public double destackAVG { get { try { return (double)framesRX / (double)receiveEvents; } catch { return 1; } } }
 		public long bytesRX = 0;
 		public int receiveEvents = 0;
 
-		public SuperSocket(Socket socket, Action<string> StatusMethod, Action<string> ReceiveMethod)
+		public SuperSocket(Socket socket, int BufferSize, Action<string> StatusMethod, Action<string> ReceiveMethod)
 		{
 			_socket = socket;
+			bufferSize = BufferSize;
 			CallbackStatus = StatusMethod;
 			CallbackReceive = ReceiveMethod;
 			try
@@ -76,7 +78,7 @@ namespace JSONSuperSockect
 
 			while (_socket != null)
 			{
-				byte[] buffer = new byte[1024]; //create new buffer to receive response from server
+				byte[] buffer = new byte[bufferSize]; //create new buffer to receive response from server
 				string frame = "";
 				try
 				{

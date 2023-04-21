@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing.Drawing2D;
-//using JSONSuperSockect;
+using JSONSuperSockect;
 using SocketICA;
 using Newtonsoft.Json;
 using static System.Diagnostics.Trace;
@@ -19,110 +19,96 @@ namespace MultiDraw
 	{
 		Point lastPosition = new Point(0, 0);
 		SuperSocket _sock = null;
-		byte _thick = 10;
-		string address = "bits.cnt.sast.ca";
-		int port = 1666;
+		byte _thick = 5; //pen thickness
+		string address = "bits.cnt.sast.ca"; //defaukt address
+		int port = 1666; //default port
 		Color penColor;
 		
 		public Form1()
 		{
 			InitializeComponent();
 			Shown += Form1_Shown;
-			MouseMove += Form1_MouseMove;
-			MouseDown += Form1_MouseDown;
-			penColor = UI_lbl_Color.ForeColor;
+			MouseMove += Form1_MouseMove; //click events
+			MouseDown += Form1_MouseDown; //mouse move events
+			penColor = UI_lbl_Color.ForeColor; //set pen 
+			Text = "Multi Draw";
 		}
 		private void Form1_Load(object sender, EventArgs e)
 		{
-			UI_lbl_Thickness.MouseWheel += UI_lbl_Thickness_MouseWheel;
+			UI_lbl_Thickness.MouseWheel += UI_lbl_Thickness_MouseWheel; //scroll event
 		}
 
 		private void UI_lbl_Thickness_MouseWheel(object sender, MouseEventArgs e)
 		{
+			//if scroll up, increase thickness. if scroll down, decrease thickness
 			if (e.Delta > 0)
 				_thick++;
-			if(e.Delta < 0)
+			else if(e.Delta < 0)
 				_thick--;
 			UI_lbl_Thickness.Text = $"Thickness: {_thick}";
 		}
 
 		private void Form1_MouseDown(object sender, MouseEventArgs e)
 		{
-			//using (Graphics gr = CreateGraphics())
-			//{
-			//	Brush pBrush = Brushes.Red;
-			//	gr.FillRectangle(pBrush, e.X, e.Y, 1, 1);
-			//}
 			if (e.Button == MouseButtons.Right)
 			{
 				using (Graphics gr = CreateGraphics())
-					gr.Clear(BackColor);
+					gr.Clear(BackColor); //clear form to default backcolor
 			}
 		}
 
 		private void Form1_MouseMove(object sender, MouseEventArgs e)
 		{
-			Point mPosition = new Point(e.X, e.Y);
+			if(_sock == null) return; //check if we have a socket
+			Point mPosition = new Point(e.X, e.Y); //grab mouse coordinates
+			//if left mouse button is clicked, create line segment and have socket send it out
 			if (e.Button == MouseButtons.Left)
 			{
 				LineSegment seg = new LineSegment();
-				seg.SX = (Int16)lastPosition.X;
-				seg.SY = (Int16)lastPosition.Y;
-				seg.EX = (Int16)mPosition.X;
-				seg.EY = (Int16)mPosition.Y;
-				seg.C = penColor;
-				seg.T = _thick;
+				seg.SX = (Int16)lastPosition.X; //set starting x
+				seg.SY = (Int16)lastPosition.Y; //set starting y
+				seg.EX = (Int16)mPosition.X; //set ending x
+				seg.EY = (Int16)mPosition.Y; //set ending y
+				seg.C = penColor; //set pen color
+				seg.T = _thick; //set pen thickness
 				_sock.SendData(JsonConvert.SerializeObject(seg));
 
-				using(Graphics gr = CreateGraphics())
-				{
-					//	Pen RedPen = new Pen(Color.Red, 10);
-					//	RedPen.SetLineCap(LineCap.Round, LineCap.Round, DashCap.Round);
-					//	gr.DrawLine(RedPen, lastPosition, mPosition);
-					//seg.Render(gr);
-				}
+				//local rendering
+				//using(Graphics gr = CreateGraphics())
+				//{
+				//	Pen RedPen = new Pen(Color.Red, 10);
+				//	RedPen.SetLineCap(LineCap.Round, LineCap.Round, DashCap.Round);
+				//	gr.DrawLine(RedPen, lastPosition, mPosition);
+				//	seg.Render(gr);
+				//}
 					
 
 			}
-			lastPosition = mPosition;
+			lastPosition = mPosition; //save mouse position 
 		}
 
 		private void Form1_Shown(object sender, EventArgs e)
 		{
-			/*
-			using (Graphics gr = CreateGraphics())
-			{
-				Pen BluePen = new Pen(Color.Blue);
-				for (int y = 0; y < ClientRectangle.Height; y += 10)
-				{
-					gr.DrawLine(BluePen, new Point(0, y), new Point(y, ClientRectangle.Height));
-				}
-				for (int y = 0; y < ClientRectangle.Height; y += 10)
-				{
-					gr.DrawLine(BluePen, new Point(y, 0), new Point(ClientRectangle.Height, y));
-				}
-			}
-			*/
+			UI_lbl_Color.Text = $"Color: {UI_lbl_Color.ForeColor.Name}"; //display starting color (color label text color)
 		}
 		private void StatusUpdate(string str)
 		{
+			//shove string into form text
 			try
 			{
-				Invoke(new Action(() =>
-				{
-					Text = str;
-				}));
+				Invoke(new Action(() =>{ Text = str; }));
 			}
-			catch
+			catch (Exception ex)
 			{
-				WriteLine("Error updating status text");
+				WriteLine("StatusUpdate method - "+ex);
 			}
 		}
 
 		private void DrawSegment(string json)
 		{
-			WriteLine(json);	
+			//try to create line segment from json
 			LineSegment seg = LineSegment.JSONToLineSegment(json);
+			//if the linesegment is valid, render it
 			if(LineSegment.IsSane(seg))
 			{
 				using (Graphics gr = CreateGraphics())
@@ -132,33 +118,63 @@ namespace MultiDraw
 			}
 			try
 			{
+				//update the stats in the UI
 				Invoke(new Action(() => { UI_lbl_Frames.Text = $"Frames RXed:{_sock.framesRX}"; }));
-				Invoke(new Action(() => { UI_lbl_Fragments.Text = $"Fragments{_sock.fragments}"; }));
-				Invoke(new Action(() => { UI_lbl_Destack.Text = $"Destack Avg.:{_sock.destackAVG}"; }));
-				Invoke(new Action(() => { UI_lbl_Bytes.Text = "Bytes RXed:" + string.Format("{0:#.##E+00}", _sock.bytesRX); }));
+				Invoke(new Action(() => { UI_lbl_Fragments.Text = $"Fragments:{_sock.fragments}"; }));
+				Invoke(new Action(() => { UI_lbl_Destack.Text = $"Destack Avg.:"+ string.Format("{0:##.##}",_sock.destackAVG); }));
+				Invoke(new Action(() => { UI_lbl_Bytes.Text = "Bytes RXed:" + SINotation(_sock.bytesRX); }));
 			}
 			catch (Exception ex)
 			{
-				WriteLine(ex);
+				WriteLine("DrawSegment - Updating UI - "+ex);
 			}
+		}
 
-			
-
+		private string SINotation(double number)
+		{
+			if (number < 0.000000001)
+			{
+				return string.Format("{0:#.###n}", number * 1000000000);
+			}
+			else if (number < 0.000001)
+			{
+				return string.Format("{0:#.###u}", number * 1000000);
+			}
+			else if (number < 0.001)
+			{
+				return string.Format("{0:#.###m}", number * 1000);
+			}
+			else if (number >= 1000000000)
+			{
+				return string.Format("{0:#.###G}", number / 1000000000);
+			}
+			else if (number >=1000000)
+			{
+				return string.Format("{0:#.###M}", number / 1000000);
+			}
+			else if (number >= 1000)
+			{
+				return string.Format("{0:#.###k}", number / 1000);
+			}
+			else
+			{
+				return string.Format("{0:#.###}", number);
+			}
 		}
 
 		private void UI_btn_Connect_Click(object sender, EventArgs e)
 		{
-			if(_sock == null || !_sock.Connected)
+			if(_sock == null || !_sock.Connected) //if we dont have a connected socket, open the connection dialog and create a socket
 			{
-				ConnectDialog connectDialog = new ConnectDialog(address,port);
+				ConnectDialog connectDialog = new ConnectDialog(address,port); //create dialog with specified default address and port
 				if (connectDialog.ShowDialog() == DialogResult.OK)
 				{
-					_sock = new SuperSocket(connectDialog.Socket, StatusUpdate, DrawSegment);
+					_sock = new SuperSocket(connectDialog.Socket, 1024, StatusUpdate, DrawSegment);
 					address = connectDialog.Address;
 					port = connectDialog.Port;
 				}
 			}
-			else
+			else //if we are already connected, disconnect
 			{
 				_sock.SocketDisconnect();
 			}
@@ -167,10 +183,12 @@ namespace MultiDraw
 
 		private void UI_lbl_Color_Click(object sender, EventArgs e)
 		{
+			//open the color dialog with current color already selected
 			ColorDialog colorDialog = new ColorDialog();
 			colorDialog.Color = UI_lbl_Color.ForeColor;
 			if(colorDialog.ShowDialog() == DialogResult.OK)
 			{
+				// set the color label forcolor and disaply the color name.
 				UI_lbl_Color.ForeColor = colorDialog.Color;
 				UI_lbl_Color.Text = $"Color: {colorDialog.Color.Name}";
 				penColor = UI_lbl_Color.ForeColor;

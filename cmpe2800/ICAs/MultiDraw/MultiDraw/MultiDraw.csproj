@@ -67,7 +67,6 @@
     <Compile Include="LineSegment.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SuperSocket.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -96,7 +95,6 @@
   <ItemGroup>
     <Content Include="JSONSuperSockect.dll" />
     <Content Include="Newtonsoft.Json.dll" />
-    <Content Include="SocketConnectionDialog.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

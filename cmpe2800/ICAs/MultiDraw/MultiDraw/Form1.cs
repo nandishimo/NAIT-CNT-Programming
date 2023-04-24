@@ -42,9 +42,9 @@ namespace MultiDraw
 		{
 			//if scroll up, increase thickness. if scroll down, decrease thickness
 			if (e.Delta > 0)
-				_thick++;
+				_thick = (byte)Math.Min(_thick + 1, 100); //limit to 100
 			else if(e.Delta < 0)
-				_thick--;
+				_thick=(byte)Math.Max(_thick-1, 1); //limit to 1
 			UI_lbl_Thickness.Text = $"Thickness: {_thick}";
 		}
 
@@ -167,12 +167,21 @@ namespace MultiDraw
 			if(_sock == null || !_sock.Connected) //if we dont have a connected socket, open the connection dialog and create a socket
 			{
 				ConnectDialog connectDialog = new ConnectDialog(address,port); //create dialog with specified default address and port
-				if (connectDialog.ShowDialog() == DialogResult.OK)
+				try
 				{
-					_sock = new SuperSocket(connectDialog.Socket, 1024, StatusUpdate, DrawSegment);
-					address = connectDialog.Address;
-					port = connectDialog.Port;
+					if (connectDialog.ShowDialog() == DialogResult.OK)
+					{
+						_sock = new SuperSocket(connectDialog.Socket, 1024, StatusUpdate, DrawSegment);
+						address = connectDialog.Address;
+						port = connectDialog.Port;
+					}
 				}
+				catch (Exception ex)
+				{
+
+					WriteLine($"Connection dialog - {ex}");
+				}
+
 			}
 			else //if we are already connected, disconnect
 			{

@@ -12,9 +12,9 @@ namespace JSONSuperSockect
 {
 	public class SuperSocket
 	{
-		public Socket _socket { get; private set; }
-		public Action<string> CallbackStatus { get; set; } //invoke this when user needs a status update
-		public Action<string> CallbackReceive { get; set; } //invoke this when data has been received
+		private Socket _socket;
+		public Action<string> CallbackStatus { get; private set; } //invoke this when user needs a status update
+		public Action<string> CallbackReceive { get; private set; } //invoke this when data has been received
 		private Thread RxThread = null;
 		int bufferSize;
 		public bool Connected
@@ -35,14 +35,26 @@ namespace JSONSuperSockect
 				return false;
 			}
 		}
-		public int framesRX = 0;
-		public int fragments = 0;
-		public double destackAVG { get { try { return (double)framesRX / (double)receiveEvents; } catch { return 1; } } }
-		public long bytesRX = 0;
-		public int receiveEvents = 0;
+		public int framesRX { get; private set; } = 0;
+		public int fragments { get; private set; } = 0;
+		public double destackAVG { 
+			get { 
+				try { 
+					return (double)framesRX / (double)receiveEvents; } 
+				catch { return 0; 
+				} 
+			} 
+		}
+		public long bytesRX { get; private set; } = 0;
+		public int receiveEvents { get; private set; } = 0;
 
 		public SuperSocket(Socket socket, int BufferSize, Action<string> StatusMethod, Action<string> ReceiveMethod)
 		{
+			//check delegates
+			if (StatusMethod == null)
+				throw new ArgumentNullException("StatusMethod cannot be null");
+			if (ReceiveMethod == null)
+				throw new ArgumentNullException("ReceiveMethod cannot be null");
 			_socket = socket;
 			bufferSize = BufferSize;
 			CallbackStatus = StatusMethod;

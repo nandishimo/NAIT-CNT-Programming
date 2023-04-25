@@ -15,15 +15,25 @@ namespace PointyPixelPenetration
 		private float m_fXSpeed;
 		private float m_fYSpeed;
 		public static Random s_rnd = new Random();
-		public const int c_iSize = 5;
+		public const int c_iSize = 100;
 		public bool IsMarkedForDeath { get; private set; }
 		public PointF Pos { get; private set; }
 
-		private void GenModel()
+		protected List<PointF> GenModel(int iVertexCount, int fSizeVar)
 		{
-
+			// model generation
+			double dangle = 0;
+			List<PointF> pts = new List<PointF>();
+			int variedSize = s_rnd.Next(c_iSize - fSizeVar, c_iSize);
+			for (int i = 0; i < iVertexCount; ++i, dangle += (Math.PI * 2) / iVertexCount)
+				pts.Add(new PointF
+					(
+						(float)Math.Cos(dangle) * variedSize,
+						(float)Math.Sin(dangle) * variedSize
+					));
+			return pts;
 		}
-		public abstract void GetPath();
+		public abstract GraphicsPath GetPath();
 		public void Render()
 		{
 
@@ -52,9 +62,13 @@ namespace PointyPixelPenetration
 		{
 
 		}
-		public override void GetPath()
+		public override GraphicsPath GetPath()
 		{
-			
+			var pts = GenModel(3, 0);
+			GraphicsPath gp = new GraphicsPath();
+			gp.AddPolygon(pts.ToArray());
+			gp.CloseAllFigures();
+			return gp;
 		}
 
 	}
@@ -65,9 +79,14 @@ namespace PointyPixelPenetration
 		{
 
 		}
-		public override void GetPath()
+		public override GraphicsPath GetPath()
 		{
-
+			int iSides = s_rnd.Next(4, 12);
+			var pts = GenModel(iSides, 20);
+			GraphicsPath gp = new GraphicsPath();
+			gp.AddPolygon(pts.ToArray());
+			gp.CloseAllFigures();
+			return gp;
 		}
 	}
 }
